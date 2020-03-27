@@ -46,6 +46,12 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         controllerAs: 'facebook',
         authenticated: false
     })
+    .when('/facebook/inactive/error', {
+        templateUrl: 'app/views/pages/users/login.html',
+        controller: 'facebookController',
+        controllerAs: 'facebook',
+        authenticated: false
+    })
 
     .when('/google/:token', {
         templateUrl: 'app/views/pages/users/social/social.html',
@@ -60,7 +66,31 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         controllerAs: 'google',
         authenticated: false
     })
-    
+    .when('/google/inactive/error', {
+        templateUrl: 'app/views/pages/users/login.html',
+        controller: 'googleController',
+        controllerAs: 'google',
+        authenticated: false
+    })
+
+    .when('/activate/:token', {
+        templateUrl: 'app/views/pages/users/activation/activate.html',
+        controller: 'emailController',
+        controllerAs: 'email',
+      
+    })
+    .when('/resend', {
+        templateUrl: 'app/views/pages/users/activation/resend.html',
+        controller: 'resendController',
+        controllerAs: 'resend',
+      
+    })
+    .when('/resetpassword', {
+        templateUrl: 'app/views/pages/users/reset/username.html',
+        controller: 'usernameController',
+        controllerAs: 'username',
+        // authenticated: false
+    })
     
     .otherwise({ redirectTo: '/'} );
 

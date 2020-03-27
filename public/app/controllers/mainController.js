@@ -17,7 +17,7 @@ angular.module('mainController', ['authServices'])
                 app.useremail = data.data.email;
                 app.loadme = true;
 
-            })
+            });
         } else {
             console.log('Failure: User is NOT logged in');
             app.isLoggedIn = false;
@@ -28,10 +28,12 @@ angular.module('mainController', ['authServices'])
     });
 
         this.facebook = function() {
+            app.disable = true;
             $window.location = $window.location.protocol +'//' +$window.location.host + '/auth/facebook';
         };
 
         this.google = function() {
+            app.disable = true;
             $window.location = $window.location.protocol +'//' +$window.location.host + '/auth/google';
         };
   
@@ -39,6 +41,8 @@ angular.module('mainController', ['authServices'])
    this.doLogin = function(loginData) {
         app.loading = true;
         app.errorMsg =false;
+        app.expired = false;
+        app.disable = true;
         
         Auth.login(app.loginData).then(function(data) {
             
@@ -53,9 +57,17 @@ angular.module('mainController', ['authServices'])
                 }, 2000);
 
              } else {
-                 //creates an error message
-                app.loading = false;
-                app.errorMsg = data.data.message;
+                if (data.data.expired) {
+                     //creates an error message
+                    app.expired = true;
+                    app.loading = false;
+                    app.errorMsg = data.data.message;
+                } else {
+                     //creates an error message
+                    app.loading = false;
+                    app.disable = true;
+                    app.errorMsg = data.data.message;
+                }
              }
         });
     };

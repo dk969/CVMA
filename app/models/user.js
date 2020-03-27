@@ -8,7 +8,7 @@ var validate = require('mongoose-validator');
 var nameValidator = [
     validate({
         validator: 'matches',
-        arguments: /^(([a-zA-Z]{2,20})+[ ]+([a-zA-Z]{2,20})+)+ $/,
+        arguments: /^(([a-zA-Z]{2,20})+[ ]+([a-zA-Z]{2,20})+)+$/,
         message: "Must be at least 2 charaters, max 20, no special characters and must have space in between"
     }),
     validate({
@@ -59,11 +59,16 @@ var UserSchema = new Schema({
 
     name: {type: String, required: true, validate: nameValidator},
     username: {type: String, required: true, lowercase: true, unique: true, validate: usernameValidator},
-    password: {type: String, required: true, validate: passwordValidator},
-    email: {type: String, required: true, lowercase: true, unique: true, validate: emailValidator}
+    password: {type: String, required: true, validate: passwordValidator, select: false},
+    email: {type: String, required: true, lowercase: true, unique: true, validate: emailValidator},
+    active: { type: Boolean, required: true, default: false},
+    temporarytoken: { type: String, required: true}
 });
+
 UserSchema.pre('save', function(next){
     var user = this;
+
+    if (user.isModified('password')) return next();
     bcrypt.hash(user.password, null, null, function(err, hash){
         if (err) return next(err);
         user.password = hash;

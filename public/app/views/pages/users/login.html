@@ -5,16 +5,24 @@
 <form ng-submit="main.doLogin(loginData);">
 
     <label>Username</label>
-    <input class="form-control" type="text" name="username" placeholder="Please Enter a Username" ng-model="main.loginData.username">
+    <input ng-disabled="main.disabled || facebook.disabled || google.disabled" class="form-control" type="text" name="username" placeholder="Please Enter a Username" ng-model="main.loginData.username">
     <br>
     <label>Password</label>
-    <input class="form-control" type="password" name="password" placeholder="Please Enter a Password" ng-model="main.loginData.password">
+    <input ng-disabled="main.disabled || facebook.disabled || google.disabled"class="form-control" type="password" name="password" placeholder="Please Enter a Password" ng-model="main.loginData.password">
     <br>
-    <button class="btn btn-primary" type="submit">Login </button>
-    <button type="button" class="btn btn-success" ng-click="main.facebook();">Facebook</button>&nbsp;
-    <button type="button" class="btn btn-warning" ng-click="main.google();">Google</button>&nbsp;
+    <button ng-disabled="main.disabled || facebook.disabled || google.disabled" class="btn btn-primary" type="submit">Login </button>
+    <button ng-disabled="main.disabled || facebook.disabled || google.disabled" type="button" class="btn btn-success" ng-click="main.facebook();">Facebook</button>&nbsp;
+    <button ng-disabled="main.disabled || facebook.disabled || google.disabled" type="button" class="btn btn-warning" ng-click="main.google();">Google</button>&nbsp;
+
+    <div class="reset">
+        <a href="#!/resetpassword"> <button ng-disabled="main.disabled || facebook.disabled || google.disabled" type="button" class="btn btn-danger" >Forgot Password</button>&nbsp;</a>
+        <a href="#!/resetusername"> <button ng-disabled="main.disabled || facebook.disabled || google.disabled" type="button" class="btn btn-primary" >Forgot Username</button>&nbsp;</a>
+
+    </div>
 </form>
 <br>
+
+
 
 <div class="jumbotron text-center" ng-show="main.loading">
     <span class="glyphicon glyphicon-repeat spinner"></span>
@@ -29,13 +37,13 @@
 <br>
 
 <div class='row show-hide-message' ng-show="main.errorMsg">
-    <div class="alert alert-danger">{{main.errorMsg}}</div>
+    <div class="alert alert-danger">{{main.errorMsg}}&nbsp<a ng-show="main.expired" href="/resend"><button type="button" class="btn btn-success" >Resend Activation Email</button>&nbsp;</a></div>
 </div>
 
 <div class="row show-hide-message" ng-show="facebook.errorMsg">
-    <div class="alert alert-danger"> {{ facebook .errorMsg}}</div>
+    <div class="alert alert-danger"> {{ facebook .errorMsg}}&nbsp<a ng-show="facebook.expired" href="/resend"><button type="button" class="btn btn-success" >Resend Activation Email</button>&nbsp;</a></div>
 </div>
 
 <div class="row show-hide-message" ng-show="google.errorMsg">
-    <div class="alert alert-danger"> {{ google.errorMsg}}</div>
+    <div class="alert alert-danger"> {{ google.errorMsg}}&nbsp<a ng-show="google.expired" href="/resend"><button type="button" class="btn btn-success" >Resend Activation Email</button>&nbsp;</a></div>
 </div>
