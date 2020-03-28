@@ -126,7 +126,7 @@ module.exports = function(router) {
                 } else if (!user.active) {
                     res.json({ success: false, message: 'Account has not yet been Activated. Please check your emails.', expired: true })
                 } else {
-                    var token = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '24h' } );
+                    var token = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '30s' } );
                     res.json({ success: true, message: 'User authenticated ', token: token }); 
                 }
             }
@@ -325,7 +325,7 @@ module.exports = function(router) {
     });
 
     router.put('/savepassword', function(req, res) {
-        User.findOne({username: req.body.username }).select('username name password resettoken email').exec(function(err,user) {
+        User.findOne({username: req.body.username }).select('username name password resettoken email').exec(function(err, user) {
             if (err) throw err;
             if (req.body.password == null || req.body.password == '') {
                 res.json({ success: false, message: 'Password not provided'});
@@ -384,6 +384,19 @@ module.exports = function(router) {
 
     router.post('/currentUser', function (req, res) {
         res.send(req.decoded);
+    });
+
+    router.get('/renewToken/:username', function(req, res) {
+        User.findOne({ username: req.params.username }).select().exec(function(err, user) {
+            if (err) throw err;
+            if(!user) {
+                res.json({ success: false, message: 'No user found.'});
+
+            } else {
+                var newToken = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '24h' } );
+                res.json({ success: true, token: newToken }); 
+            }
+        });
     });
 
     return router;

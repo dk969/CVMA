@@ -111,7 +111,7 @@ angular.module('emailController', ['userServices'])
         };
     })
 
-    .controller('resetController', function(User, $routeParams, $scope) {
+    .controller('resetController', function(User, $routeParams, $scope, $timeout, $location) {
 
         app = this;
         app.hide = true;
