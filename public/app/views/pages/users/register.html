@@ -73,6 +73,7 @@
  
     <div ng-class="{ 'has-success':confirmed && !regForm.confirmPassword.$error.required, 'has-error':(!confirmed && !regForm.confirmPassword.$error.required) ||
     (regForm.confirmPassword.$error.required && !regForm.confirmPassword.$pristine) || (regForm.$submitted && regForm.confirmPassword.$error.required) }">
+       
         <label>ConfirmPassword</label>
         <input class="form-control" type="password" name="confirmPassword" placeholder="Please Enter a Password" match="{{[firstpassword]}}" ng-change="register.regData.password = confirm" ng-model="confirm" required>
         <p class="help-block" ng-show="(!regForm.confirmPassword.$pristine && regForm.confirmPassword.$error.required) || (regForm.$submitted && regForm.confirmPassword.$error.required)">This field is required</p>

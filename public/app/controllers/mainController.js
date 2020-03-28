@@ -74,7 +74,7 @@ angular.module('mainController', ['authServices'])
     // need to fix  vid 9/22 around 18 mins
     this.logout = function() {
         Auth.logout();
-        $location.path('/logout');
+        $location.path('#!/logout');
         $timeout(function() {
             $location.path('/');
         },2000);

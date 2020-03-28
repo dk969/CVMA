@@ -25,7 +25,7 @@ module.exports = function(router) {
         user.email    = req.body.email;
         user.name     = req.body.name;
         user.temporarytoken = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '24h' } );
-    if(req.body.username == null || req.body.username == ''||req.body.password == null || req.body.password == '' 
+    if(req.body.username == null || req.body.username == '' || req.body.password == null || req.body.password == '' 
     || req.body.name == null || req.body.name == '') {
             res.json({ success: false, message: "Ensure username, Email and Password were provided"});
     } else {
@@ -123,7 +123,7 @@ module.exports = function(router) {
                 }
                 if (!validPassword) {
                     res.json({ success: false, message: ' Could not authenticate password' });
-                } else if (!user.active){
+                } else if (!user.active) {
                     res.json({ success: false, message: 'Account has not yet been Activated. Please check your emails.', expired: true })
                 } else {
                     var token = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '24h' } );

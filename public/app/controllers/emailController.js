@@ -11,12 +11,12 @@ angular.module('emailController', ['userServices'])
             if (data.data.success) {
                 app.successMsg = data.data.message + '.... Redirecting';
                 $timeout(function() {
-                    $location.path('/login');
+                    $location.path('#!/login');
                 }, 2000);
             } else {
                 app.errorMsg = data.data.message + '.... Redirecting';
                 $timeout(function() {
-                    $location.path('/login');
+                    $location.path('#!/login');
                 }, 2000);
             }
         }); 
