@@ -104,6 +104,13 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         controllerAs: 'reset',
         authenticated: false
     })
+    .when('/management', {
+        templateUrl: 'app/views/pages/management/management.html',
+        controller: 'managementController',
+        controllerAs: 'management',
+        authenticated: true,
+        permission: ['admin', 'moderator']
+    })
     
     
     
@@ -118,23 +125,38 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
 
 });
 
-app.run(['$rootScope', 'Auth', '$location', function($rootScope, Auth, $location){
+app.run(['$rootScope', 'Auth', '$location', 'User', function($rootScope, Auth, $location, User){
 
     $rootScope.$on('$routeChangeStart', function(event, next, current){
-
-        if (next.$$route.authenticated == true) {
-           if (!Auth.isLoggedIn()) { 
-               event.preventDefault();
-               $location.path('/');
-           }
-
-        } else if (next.$$route.authenticated == false){
-            if (Auth.isLoggedIn()) { 
-                event.preventDefault();
-                $location.path('/profile');
-            }
-        
+        //checks if valid route
+        if (next.$$route !== undefined) {
+            //checkds if user authenticated
+            if (next.$$route.authenticated == true) {
+                if (!Auth.isLoggedIn()) { 
+                    event.preventDefault();
+                    $location.path('/');
+                }else if (next.$$route.permission) {
+                    //user prevented and redirected to home
+                    User.getPermission().then(function(data) {
+                        if (next.$$route.permission[0] !== data.data.permission) {
+                            if (next.$$route.permission[1] !== data.data.permission) {
+                                console.log(data);
+                                event.preventDefault();// If not logged in, prevent accessing route
+                                $location.path('/');//Redirect to home
+                            }
+                        }
+                    });  
+                }
+     
+             } else if (next.$$route.authenticated == false){
+                 if (Auth.isLoggedIn()) { 
+                     event.preventDefault();
+                     $location.path('/profile');
+                 }
+             
+             }
         }
+        
     });
 }]);
 

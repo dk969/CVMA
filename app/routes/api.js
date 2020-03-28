@@ -126,7 +126,7 @@ module.exports = function(router) {
                 } else if (!user.active) {
                     res.json({ success: false, message: 'Account has not yet been Activated. Please check your emails.', expired: true })
                 } else {
-                    var token = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '30s' } );
+                    var token = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '30m' } );
                     res.json({ success: true, message: 'User authenticated ', token: token }); 
                 }
             }
@@ -395,6 +395,17 @@ module.exports = function(router) {
             } else {
                 var newToken = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '24h' } );
                 res.json({ success: true, token: newToken }); 
+            }
+        });
+    });
+
+    router.get('/permission', function(req, res) {
+        User.findOne({ username: req.decoded.username}, function(err, user) {
+            if (err) throw err;
+            if(!user) {
+                res.json({ success: false, message: 'No users were found'});
+            } else {
+                res.json({ success: true, message: user.permission });
             }
         });
     });

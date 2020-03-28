@@ -21,6 +21,7 @@
         <script src="app/controllers/userController.js"></script>
         <script src="app/controllers/mainController.js"></script>
         <script src="app/controllers/emailController.js"></script>
+        <script src="app/controllers/managementController.js"></script>
 
         <script src="app/services/userServices.js"></script>
         <script src="app/services/authServices.js"></script>
@@ -54,6 +55,9 @@
           </li>
           <li class="nav-item">
             <a ng-show="main.isLoggedIn" class="nav-link" href="#" ng-click="main.logout();">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a ng-show="main.isLoggedIn " class="nav-link" href="#!/management" >Management</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
