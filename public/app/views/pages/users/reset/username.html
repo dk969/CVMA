@@ -2,10 +2,10 @@
     <h1>Forgot Username</h1>
 </div>
 
-<form ng-submit="username.doLogin(loginData);">
+<form name="userForm" ng-submit="username.sendUsername(userData,userForm.$valid);" novalidate>
 
-    <label>Username</label>
-    <input ng-disabled="username.disabled || facebook.disabled || google.disabled" class="form-control" type="text" name="username" placeholder="Please Enter a Username" ng-model="username.loginData.username">
+    <label>Email</label>
+    <input ng-disabled="username.disabled || facebook.disabled || google.disabled" class="form-control" type="text" name="email" placeholder="Please Enter a Username" ng-model="username.userData.email" required>
     <br>
     
     <button ng-disabled="username.disabled || facebook.disabled || google.disabled" class="btn btn-primary" type="submit">Submit </button>
@@ -28,6 +28,6 @@
 <br>
 
 <div class='row show-hide-message' ng-show="username.errorMsg">
-    <div class="alert alert-danger">{{mausernamein.errorMsg}}</div>
+    <div class="alert alert-danger">{{username.errorMsg}}</div>
 </div>
 

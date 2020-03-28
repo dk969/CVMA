@@ -77,20 +77,35 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         templateUrl: 'app/views/pages/users/activation/activate.html',
         controller: 'emailController',
         controllerAs: 'email',
+        authenticated: false
       
     })
     .when('/resend', {
         templateUrl: 'app/views/pages/users/activation/resend.html',
         controller: 'resendController',
         controllerAs: 'resend',
-      
+        authenticated: false
     })
-    .when('/resetpassword', {
+    .when('/resetusername', {
         templateUrl: 'app/views/pages/users/reset/username.html',
         controller: 'usernameController',
         controllerAs: 'username',
-        // authenticated: false
+        authenticated: false
     })
+    .when('/resetpassword', {
+        templateUrl: 'app/views/pages/users/reset/password.html',
+        controller: 'passwordController',
+        controllerAs: 'password',
+        authenticated: false
+    })
+    .when('/reset/:token', {
+        templateUrl: 'app/views/pages/users/reset/newpassword.html',
+        controller: 'resetController',
+        controllerAs: 'reset',
+        authenticated: false
+    })
+    
+    
     
     .otherwise({ redirectTo: '/'} );
 

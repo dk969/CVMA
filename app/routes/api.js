@@ -181,7 +181,7 @@ module.exports = function(router) {
             if (err) throw err;
 
             if (!user) {
-                res.json({ success: false, message: 'Could not authenticate user'});
+                res.json({ success: false, message: 'Could not authenticate user' });
             } else if (user) {
                 if (req.body.password) {
                     var validPassword = user.comparePassword(req.body.password);
@@ -199,7 +199,7 @@ module.exports = function(router) {
         });
     });
 
-    router.put(function(req, res) {
+    router.put('/resend', function(req, res) {
         User.findOne({ username: req.body.username }).select('username name email temporarytoken').exec( function(err,user) {
             if (err) throw err;
             user.temporarytoken = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '24h' } );
@@ -218,7 +218,7 @@ module.exports = function(router) {
                     
                         client.sendMail(email, function(err, info){
                             if (err ){
-                            console.log(error);
+                            console.log(error); // if error in sending email
                             }
                             else {
                             console.log('Message sent: ' + info.response);
@@ -226,12 +226,143 @@ module.exports = function(router) {
                         });
                         res.json({ success: true, message: ' Activation link has been sent to ' + user.email + '!'});
 
-                }
+                    }   
             });
 
         })
     });
 
+    router.get('/resetusername/:email', function(req, res) {
+        User.findOne({ email: req.params.email }).select(' email name username').exec(function(err, user) {
+            if (err) {
+                res.json({ success: false, message: err }); // cannot connect
+            } else {
+                if (!req.params.email) {
+                    res.json({ success: false, message: 'No email was provided'});
+                } else {
+                    if (!user) {
+                        res.json({ success: false, message: 'Email not found' });
+                    } else {
+                        var email = { 
+                            from: 'CVMA Staff, staff@CVMA.com',
+                            to: user.email,
+                            subject: 'CVMA Username Request',
+                            text: 'Hello ' + user.name + ', You recently requested your username.  Please save it in your files :' + user.username,
+                            html: 'Hello ' + user.name + ', <br><br>You recently requested your username.  Please save it in your files :' + user.username
+                            
+                            };
+                        
+                            client.sendMail(email, function(err, info){
+                                if (err )console.log(error); // if error in sending email
+                                
+                            });
+    
+                        res.json({ success: true, message: 'Username has been sent to email' });
+                    }
+
+                }
+
+               
+            }
+        });
+    });
+
+    router.put('/resetpassword', function(req, res) {
+        User.findOne({ username: req.body.username }).select('username email resettoken name active').exec(function(err, user) {
+            if (err) throw err;
+            if (!user) {
+                res.json({ success: false, message: 'Username was not found'});
+            } else if (!user.active) {
+                res.json({ success: false, message: ' Account has not yet been activated'});
+            } else {
+                user.resettoken = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '24h' } );
+                user.save(function(err) {
+                    if (err) {
+                        res.json({ success: false, message: err});
+                    } else {
+                        var email = { 
+                            from: 'CVMA Staff, staff@CVMA.com',
+                            to: user.email,
+                            subject: 'CVMA Password Reset Request',
+                            text: 'Hello ' + user.name + ', You recently requested a password reset link. Please click on the link below to reset you password: http://localhost:4200/reset/' + user.resettoken,
+                            html: 'Hello ' + user.name + ', <br><br>You recently requested a password reset link. Please click on the link below to reset you password:br><br> <a href="http://localhost:4200/#!/reset/' + user.resettoken + '">http://localhost:4200/reset</a>'
+                            
+                            };
+                        
+                            client.sendMail(email, function(err, info){
+                                if (err )console.log(error); // if error in sending email
+                                
+                            });
+
+                        res.json({ success: true, message: 'Please check your email for password reset link'});
+                    }
+                });
+            }
+        });
+
+    });
+
+    router.get('/resetpassword/:token', function(req, res) {
+        User.findOne({ resettoken: req.params.token }).select().exec(function(err, user) {
+            if (err) throw err;
+
+            var token = req.params.token;
+             //verify token
+             jwt.verify(token, secret, function(err, decoded) {
+                if(err) {
+                    res.json({ success: false, message: 'Password link has expired'});
+                } else {
+                    if (!user) {
+                        res.json({ success: false, message: 'Password link has expired'})
+                    } else {
+                        res.json({ success: true, user: user });
+                    }
+                }
+            });
+             
+        });
+
+    });
+
+    router.put('/savepassword', function(req, res) {
+        User.findOne({username: req.body.username }).select('username name password resettoken email').exec(function(err,user) {
+            if (err) throw err;
+            if (req.body.password == null || req.body.password == '') {
+                res.json({ success: false, message: 'Password not provided'});
+            } else {
+                user.password = req.body.password;
+                user.resettoken = false;
+                user.save(function(err) {
+                    if (err) {
+                        res.json({ success: false, message: err});
+                    } else {
+
+                        var email = { 
+                            from: 'CVMA Staff, staff@CVMA.com',
+                            to: user.email,
+                            subject: 'CVMA Password Reset',
+                            text: 'Hello ' + user.name + ', This email is to notify you that you password for CVMA has now been reset.',
+                            html: 'Hello ' + user.name + ', <br><br>This email is to notify you that you password for CVMA has now been reset.'
+                            
+                            };
+                        
+                            client.sendMail(email, function(err, info){
+                                if (err )console.log(error); // if error in sending email
+                                
+                            });
+                        res.json({ success: true, message: 'Password has been reset.'})
+                    }
+
+                });
+                
+            }
+            
+            
+        });
+    });
+
+
+    //Middleware for routes, checks for token
     router.use(function(req, res, next) {
 
         var token = req.body.token || req.body.query || req.headers['x-access-token'];

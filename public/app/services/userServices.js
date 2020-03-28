@@ -27,10 +27,24 @@ angular.module('userServices', [])
     }
     //User.resendLink(username);
     userFactory.resendLink = function(username) {
-        return $http.put('/api/resend', username)
+        return $http.put('/api/resend', username);
     }
-
-
+    //User.sendUsername(userData);
+    userFactory.sendUsername = function(userData) {
+        return $http.get('/api/resetusername/' + userData);
+    }
+    //User.sendPassword(resetData);
+    userFactory.sendPassword = function(resetData) {
+        return $http.put('/api/resetpassword', resetData)
+    }
+    //User.resetUser(token);
+    userFactory.resetUser = function(token) {
+        return $http.get('/api/resetpassword/' + token);
+    }
+    //User.savePassword(regData);
+    userFactory.savePassword = function(regData) {
+        return $http.put('/api/savapassword', regData)
+    }
 
     return userFactory;
 });
