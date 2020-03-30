@@ -1,5 +1,5 @@
 <div class= "page-header"> 
-    <h1>User Management</h1>
+    <h1>Dashboard</h1>
 </div>
 <br>
 <div class="jumbotron text-center" ng-show="management.loading">
@@ -8,20 +8,7 @@
 </div>
 
 <br>
-<button type="button" ng-click="management.showMore(number);" class="btn btn-success">Apply Filter</button> &nbsp
-<button type="button" ng-click="management.showAll();" class="btn btn-warning">Show All</button>
-<br>
-<br>
-<div class="showmore">
-    <div class= "col-lg-6">
-        <div class="input-group">      
-            <span class="input-group-addon">Results to display:  </span>
-            <input type="text" class="form-control" ng-model="number">
-        </div>
-        
-    </div>
 
-</div>
 <br>
 <br>
 
@@ -33,20 +20,20 @@
 
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <strong>User Management</strong>
+        <strong>Businesses</strong>
     </div>
     <table class="table">
         <tr>
             <th>Name</th>
-            <th>Username</th>
+            <th>Business Type</th>
             <th>Email</th>
-            <th>Permission</th>
+            <th>Specilization</th>
+            <th>Website</th>
         </tr>
         <tr ng-repeat="person in management.users | limitTo: management.limit">
             <td>{{ person.name}}</td>
             <td>{{ person.username}}</td>
             <td>{{ person.email}}</td>
-            <td>{{ person.permission }}</td>
             <td>
                 <a href="#!/edit/{{ person._id}}">
                     <button type="button" ng-show="management.editAccess" class="btn btn-primary">Edit</button>

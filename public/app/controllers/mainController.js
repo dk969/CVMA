@@ -109,8 +109,10 @@ angular.module('mainController', ['authServices', 'userServices'])
             app.isLoggedIn = true;
 
             Auth.getUser().then(function(data) { 
+                app.name = data.data.name;
                 app.username = data.data.username;
                 app.useremail = data.data.email;
+                app.userpermission = data.data.permission;
 
                 User.getPermission().then(function(data){
                     

@@ -479,7 +479,7 @@ module.exports = function(router) {
         if (req.body.username) var newUsername = req.body.username;
         if (req.body.email) var newEmail = req.body.email;
         if (req.body.permission) var newPermission = req.body.permission;
-        User.findOne({_id: req.decoded.username }, function(err, mainUser) {
+        User.findOne({username: req.decoded.username }, function(err, mainUser) {
             if (err) throw err;
             if(!mainUser) {
                 res.json({ success: false, message: " No user found"});

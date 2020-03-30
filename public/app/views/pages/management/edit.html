@@ -38,7 +38,7 @@
     edit.usernameForm.$submitted) }">
         <label><strong>Username:</strong></label>
         <input ng-disabled="edit.disabled" class="form-control" type="text" name="username" placeholder="Please Enter a Username" ng-model="newUsername" 
-        ng-pattern="/^(?!.*?[\W])(?=.*?[a-zA-Z]|=.*?[A-Z]).{3,16}$/" ng-blur="register.checkUsername(regData);" ng-minlength="3" ng-maxlength="25" required>
+        ng-pattern="/^(?!.*?[\W])(?=.*?[a-zA-Z]|=.*?[A-Z]).{3,16}$/" ng-minlength="3" ng-maxlength="25" required>
         <p class="help-block" ng-show="(!edit.usernameForm.username.$pristine && edit.usernameForm.username.$error.required) || (edit.usernameForm.$submitted && edit.usernameForm.username.$error.required)">This field is required</p>
 
         <p class="help-block" ng-show="register.usernameMsg && !edit.usernameForm.username.$error.required && edit.usernameForm.username.$valid">{{edit.usernameMsg}}</p>
@@ -56,7 +56,7 @@
 <!--Email-->
 <form name="edit.emailForm" ng-show= "edit.phase3" ng-submit="edit.updateEmail(newEmail, edit.emailForm.email.$valid)" novalidate>
 
-    <div ng-class="{ 'has-success':(edit.emailForm.email.$valid && !edit.emailForm.email.$pristine && !edit.emailInvalid  ), 'has-error':(!edit.emailForm.email.$valid && !edit.emailForm.email.$pristine) || (!edit.emailForm.email.$valid && 
+    <div ng-class="{ 'has-success':(edit.emailForm.email.$valid && !edit.emailForm.email.$pristine), 'has-error':(!edit.emailForm.email.$valid && !edit.emailForm.email.$pristine) || (!edit.emailForm.email.$valid && 
     edit.emailForm.$submitted) }">
         <label><strong>Email:</strong></label>
         <input ng-disabled="edit.disabled" class="form-control" type="text" name="email" placeholder="Please Enter Email" ng-model="newEmail" ng-pattern="/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/" 
