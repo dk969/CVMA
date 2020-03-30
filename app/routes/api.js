@@ -381,7 +381,7 @@ module.exports = function(router) {
             res.json({ success: false, message:'token not provided'});
         }
     });
-
+    //gets current user
     router.post('/currentUser', function (req, res) {
         res.send(req.decoded);
     });
@@ -405,11 +405,231 @@ module.exports = function(router) {
             if(!user) {
                 res.json({ success: false, message: 'No users were found'});
             } else {
-                res.json({ success: true, message: user.permission });
+                res.json({ success: true, permission: user.permission });
             }
         });
     });
 
+    router.get('/management', function(req,res) {
+        User.find({}, function(err, users) {
+            if (err) throw err;
+            User.findOne({ username: req.decoded.username }, function(err, mainUser) {
+                if (err) throw err;
+                if (!mainUser) {
+                    res.json({ success: false, message: ' No User found'});
+                } else {
+                    if (mainUser.permission ==='admin' || mainUser.permission === 'moderator') {
+                        if (!users) {
+                            res.json ({ success: false, message: 'Users not found'});
+                        } else { 
+                            res.json({ success: true, users: users, permission: mainUser.permission });
+                        }
+
+
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                }
+            })
+        });
+    });
+    router.delete('/management/:username', function(req, res) {
+        var deletedUser = req.params.username;
+        User.findOne({ username: req.decoded.username}, function (err, mainUser) {
+            if (err) throw err;
+            if (!mainUser) {
+                res.json({ success: false, message: 'No user found'});
+            } else {
+                if (mainUser.permission !== 'admin') {
+                    res.json({ success: false, message: 'Insufficant Permission'});
+                } else {
+                    User.findOneAndRemove({ username: deletedUser }, function(err, user) {
+                        if (err) throw err;
+                        res.json({success: true, });
+                    });
+                }
+            }
+        });
+    });
+    router.get('/edit/:id', function(req,res) {
+        var editUser = req.params.id;
+        User.findOne({username: req.decoded.username}, function (err, mainUser) {
+            if (err) throw err;
+            if (!mainUser) {
+                res.json({ success: false, message: 'No user found'});
+            } else {
+                if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                    User.findOne({ _id: editUser}, function(err,user) {
+                        if (err) throw err;
+                        if (!user) {
+                            res.json({ success: false, message: 'No user found'});
+                        } else {
+                            res.json({ success: true, user: user});
+                        }
+                    });
+                } else {
+                    res.json({ success: false, message: 'Insufficient Permission'});
+                }
+            }
+        });
+    });
+    router.put('/edit', function(req,res) {
+        var editUser = req.body._id;
+        if (req.body.name) var newName = req.body.name;
+        if (req.body.username) var newUsername = req.body.username;
+        if (req.body.email) var newEmail = req.body.email;
+        if (req.body.permission) var newPermission = req.body.permission;
+        User.findOne({_id: req.decoded.username }, function(err, mainUser) {
+            if (err) throw err;
+            if(!mainUser) {
+                res.json({ success: false, message: " No user found"});
+            } else { 
+                if (newName) {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                        User.findOne({ _id: editUser}, function(err, user) {
+                            if (err) throw err;
+                            if (!user) {
+                                res.json({ success: false, message: 'No user found'});
+                            } else {
+                                user.name = newName;
+                                user.save(function(err) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        res.json({ success: true, message: "Name has been updated."})
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        res.json({ success: false, message: "Insufficient Permission"});
+                    }
+                }
+                if (newUsername) {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') { 
+                        User.findOne({ _id: editUser}, function(err, user) {
+                            if (err) throw err;
+                            if (!user) {
+                                res.json({ success: false, message: 'No user found'});
+                            } else {
+                                user.username = newUsername;
+                                user.save(function(err) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        res.json({ success: true, message: "Username has been updated."})
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                }
+                if (newEmail) {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') { 
+                        User.findOne({ _id: editUser}, function(err, user) {
+                            if (err) throw err;
+                            if (!user) {
+                                res.json({ success: false, message: 'No user found'});
+                            } else {
+                                user.email = newEmail;
+                                user.save(function(err) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        res.json({ success: true, message: "Email  has been updated."})
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                }// only allows you to change the permissions of people who are equal or lower than you
+                if (newPermission) {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') { 
+                        User.findOne({ _id: editUser}, function(err, user) {
+                            if (err) throw err;
+                            if (!user) {
+                                res.json({ success: false, message: 'No user found'});
+                            } else {
+                                if (newPermission === 'user') {
+                                    if (user.permission === 'admin') {
+                                        if (mainUser.permission !== ' admin') {
+                                            res.json({ success: false, message: 'Insufficient permission, Only admin has authroisation to change permissions'});
+                                        } else {
+                                            user.permission = newPermission;
+                                            user.save(function(err) {
+                                                if (err) {
+                                                    console.log(err);
+                                                } else {
+                                                    res.json({ success: true, message: ' Permission updated'})
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        user.permission = newPermission;
+                                        user.save(function(err) {
+                                            if (err) {
+                                                console.log(err);
+                                            } else {
+                                                res.json({ success: true, message: ' Permission updated'})
+                                            }
+                                        });
+                                    }
+                                }
+                                if (newPermission === 'moderator') {
+                                    if (user.permission === ' admin') {
+                                        if (mainUser.permission !== 'admin') {
+                                            res.json({ success: false, message: 'Insufficient permission, Only admin has authroisation to change permissions'});
+                                        } else {
+                                            user.permission = newPermission;
+                                            user.save(function(err) {
+                                                if (err) {
+                                                    console.log(err);
+                                                } else {
+                                                    res.json({ success: true, message: ' Permission updated'})
+                                                }
+                                            });
+
+                                        }
+                                    } else  {
+                                        user.permission = newPermission;
+                                        user.save(function(err) {
+                                            if (err) {
+                                                console.log(err);
+                                            } else {
+                                                res.json({ success: true, message: ' Permission updated'})
+                                            }
+                                        });
+                                    }
+                                }
+                                if (newPermission === 'admin') {
+                                    if (mainUser.permission === 'admin') {
+                                        user.permission = newPermission;
+                                        user.save(function(err) {
+                                            if (err) {
+                                                console.log(err);
+                                            } else {
+                                                res.json({ success: true, message: ' Permission updated'})
+                                            }
+                                        });
+                                    } else {
+                                        res.json({ success: false, message: 'Insufficient permission, Only admin has authroisation to change permissions'});
+                                    }
+                                } 
+                                     
+                                
+                            }
+                        });
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                }
+            }
+        })
+    });
     return router;
 
 }

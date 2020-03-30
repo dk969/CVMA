@@ -114,7 +114,7 @@ angular.module('mainController', ['authServices', 'userServices'])
 
                 User.getPermission().then(function(data){
                     
-                    if (data.data.permission == 'admin' || data.data.permission == 'moderator') {
+                    if (data.data.permission === 'admin' || data.data.permission == 'moderator') {
                         app.authorized = true;
                         app.loadme = true;// Shows main HTML now that data has been collected by angularJS
                     } else {

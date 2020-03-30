@@ -53,6 +53,24 @@ angular.module('userServices', [])
     userFactory.getPermission = function() {
         return $http.get('/api/permission');
     };
+    //User.getUsers();
+    userFactory.getUsers = function() {
+        return $http.get('/api/management/')
+    };
+    //User.getUser(id);
+    userFactory.getUser = function(id) {
+        return $http.get('/api/edit/' + id)
+    };
+    //User.deleteUser();
+    userFactory.deleteUser = function(username) {
+        return $http.delete('/api/management/' + username);
+    };
+    
+    //User.editUser(username);
+    userFactory.editUser = function(id) {
+        return $http.put('/api/edit', id);
+    };
+
 
     return userFactory;
 });

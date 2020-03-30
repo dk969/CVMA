@@ -11,12 +11,21 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
     .when('/about', {
         templateUrl: 'app/views/pages/about.html'
     })
+    .when('/map', {
+        templateUrl: 'app/views/pages/map.html',
+        authenticated: true
+    })
 
     .when('/register', {
         templateUrl: 'app/views/pages/users/register.html',
         controller: 'regController',
         controllerAs: 'register',
         authenticated: false
+    })
+    .when('/business', {
+        templateUrl: 'app/views/pages/business/business.html',
+     
+        authenticated: true
     })
 
     .when('/login', {
@@ -111,7 +120,13 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         permission: ['admin', 'moderator']
     })
-    
+    .when('/edit/:id', {
+        templateUrl: 'app/views/pages/management/edit.html',
+        controller: 'editController',
+        controllerAs: 'edit',
+        authenticated: true,
+        permission: ['admin', 'moderator']
+    })
     
     
     .otherwise({ redirectTo: '/'} );
@@ -135,12 +150,12 @@ app.run(['$rootScope', 'Auth', '$location', 'User', function($rootScope, Auth, $
                 if (!Auth.isLoggedIn()) { 
                     event.preventDefault();
                     $location.path('/');
-                }else if (next.$$route.permission) {
+                } else if (next.$$route.permission) {
                     //user prevented and redirected to home
                     User.getPermission().then(function(data) {
                         if (next.$$route.permission[0] !== data.data.permission) {
                             if (next.$$route.permission[1] !== data.data.permission) {
-                                console.log(data);
+                        //         console.log(data);
                                 event.preventDefault();// If not logged in, prevent accessing route
                                 $location.path('/');//Redirect to home
                             }

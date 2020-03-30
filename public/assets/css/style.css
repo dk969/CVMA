@@ -1,11 +1,35 @@
 main {
     padding-top: 30px;
 }
+
+
+.showmore {
+  display: inline;
+  
+}
+.img1{
+  max-width: 8%;
+  height: auto;
+  border-radius: 8px;
+  justify-content: space-between;
+}
 header .navbar {
  
     border-radius: 0;
 
 }
+.footer {
+    position: absolute;
+    background-color: lightgrey;
+    display: flex;
+    height: auto;
+    bottom: auto;
+    width: 100%;
+    justify-content: center;
+    align-items: center;   
+    
+
+  }
 
 
 

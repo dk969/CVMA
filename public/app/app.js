@@ -1,5 +1,5 @@
 angular.module('cvmaApp',['cvmaRoutes', 'userController', 'userServices', 'ngAnimate', 'mainController', 'authServices', 'emailController' ,
-'managementController'])
+'managementController', 'businessController',])
 
 .config(function($httpProvider) {
     $httpProvider.interceptors.push('AuthInterceptors');
