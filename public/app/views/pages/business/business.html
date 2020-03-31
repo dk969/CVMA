@@ -4,39 +4,37 @@
 
 <div class="card">
     <div class="card-body">
-      <form>
-        <div class="form-group">
-          <label class="col-md-4">Person Name</label>
-          <input type="text" class="form-control" />
-        </div>
-        <div class="form-group">
-          <label class="col-md-4">Business Name </label>
-          <input type="text" class="form-control" />
-        </div>
-        <div class="form-group">
-          <label class="col-md-4">Business GST Number </label>
-          <input type="text" class="form-control" />
-        </div>
-        <div class="form-group">
+      <form ng-submit="business.conAdd(busData);">
+    
+          <label >Business Name</label>
+          <input type="text" class="form-control" name="name" placeholder="Please enter business name" ng-model="business.busData.name">
+        
+          <label >Type </label>
+          <input type="text" class="form-control" name="type" placeholder="Please enter business type" ng-model="business.busData.type">
+        
+          <label >Business Specialization </label>
+          <input type="text" class="form-control" name="name" placeholder="Please enter business specialization" ng-model="business.busData.specialization">
+        
+        
           <button type="submit" class="btn btn-primary">Add Business</button>
-        </div>
+        
       </form>
     </div>
   </div>
 <br>
 
-<div class="jumbotron text-center" ng-show="register.loading">
+<div class="jumbotron text-center" ng-show="business.loading">
     <span class="glyphicon glyphicon-repeat spinner"></span>
     <p>Loading...</p>
 </div>
 
 <br>
-<div class='row show-hide-message'ng-show="register.successMsg">
-    <div class="alert alert-success">{{register.successMsg}}</div>
+<div class='row show-hide-message'ng-show="business.successMsg">
+    <div class="alert alert-success">{{business.successMsg}}</div>
 </div>
 
 <br>
 
-<div class='row show-hide-message' ng-show="register.errorMsg">
-    <div class="alert alert-danger">{{register.errorMsg}}</div>
+<div class='row show-hide-message' ng-show="business.errorMsg">
+    <div class="alert alert-danger">{{business.errorMsg}}</div>
 </div>

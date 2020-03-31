@@ -1,27 +1,22 @@
 var Business = require('../models/business');
-var nodemailer = require('nodemailer');
-var sgTransport = require('nodemailer-sendgrid-transport');
 
 module.exports = function(businessRouter) {
 
-    var options = {
-    auth: {
-        api_user: 'dking215',
-        api_key: 'King1995!'
-    }
-    }
-
-    var client = nodemailer.createTransport(sgTransport(options));
-
+   
     businessRouter.post('/business', function(req,res) {
         var business = Business();
-        business.business_name = req.body.business_name;
-    if (req.body.business_name == null) {
+        business.name = req.body.name;
+        business.type = req.body.type;
+    if (req.body.name == null || req.body.name == '' || req.body.type == null || req.body.type == '') {
         res.json({ success: false, message: 'Ensure Business name is provided'});
 
         } else {
              business.save(function(err) {
-
+                if (err) {
+                    res.json({ success: false, message: err});
+                } else {
+                    res.json({ success: true, message: 'Business Posted'});
+                }
             });
         }   
     });
