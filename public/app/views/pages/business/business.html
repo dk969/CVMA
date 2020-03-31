@@ -7,13 +7,28 @@
       <form ng-submit="business.conAdd(busData);">
     
           <label >Business Name</label>
-          <input type="text" class="form-control" name="name" placeholder="Please enter business name" ng-model="business.busData.name">
+          <input type="text" class="form-control" name="business_name" placeholder="Please enter business name" ng-model="business.busData.business_name">
         
           <label >Type </label>
-          <input type="text" class="form-control" name="type" placeholder="Please enter business type" ng-model="business.busData.type">
+          <input type="text" class="form-control" name="business_type" placeholder="Please enter business type" ng-model="business.busData.business_type">
         
+          <label >Business Address </label>
+          <input type="text" class="form-control" name="business_address" placeholder="Please enter business specialization" ng-model="business.busData.business_address">
+
+          <label >Business Postcode </label>
+          <input type="text" class="form-control" name="business_postcode" placeholder="Please enter business postcode" ng-model="business.busData.business_postcode">
+
+          <label >Business Website </label>
+          <input type="text" class="form-control" name="website" placeholder="Please enter business website" ng-model="business.busData.website">
+
+          <label >Business Email </label>
+          <input type="text" class="form-control" name="business_email" placeholder="Please enter business business_email" ng-model="business.busData.business_email">
+
+          <label >Business Contact </label>
+          <input type="number" class="form-control" name="business_contact" placeholder="Please enter business specialization" ng-model="business.busData.business_contact">
+
           <label >Business Specialization </label>
-          <input type="text" class="form-control" name="name" placeholder="Please enter business specialization" ng-model="business.busData.specialization">
+          <input type="text" class="form-control" name="specialization" placeholder="Please enter business specialization" ng-model="business.busData.specialization">
         
         
           <button type="submit" class="btn btn-primary">Add Business</button>

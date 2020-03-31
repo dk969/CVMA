@@ -1,0 +1,56 @@
+<div class= "page-header"> 
+    <h1>Post your vehicle</h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+      <form ng-submit="vehicle.vehAdd(vehData);">
+    
+          <label >Vehicle Make</label>
+          <input type="text" class="form-control" name="vehicle_make" placeholder="Please enter vehicle make" ng-model="vehicle.vehData.vehicle_make">
+        
+          <label >Vehicle Model </label>
+          <input type="text" class="form-control" name="vehicle_model" placeholder="Please enter vehicle type" ng-model="vehicle.vehData.vehicle_model">
+                  
+          <label >Year</label>
+          <input type="number" class="form-control" name="year" placeholder="Please enter year" ng-model="vehicle.vehData.year">
+
+          <label >Engine Size</label>
+          <input type="text" class="form-control" name="engine_size" placeholder="Please enter vehicle engine size" ng-model="vehicle.vehData.engine_size">
+
+          <label >Colour </label>
+          <input type="text" class="form-control" name="colour" placeholder="Please enter vehicle colour" ng-model="vehicle.vehData.colour">
+
+          <label >MOT Date</label>
+          <input type="date" class="form-control" name="MOT_date" placeholder="Please enter vehicle MOT date" ng-model="vehicle.vehData.MOT_date">
+
+          <label >Tax Date</label>
+          <input type="date" class="form-control" name="tax_date" placeholder="Please enter vehicle TAX date" ng-model="vehicle.vehData.tax_date">
+
+          <label >Service Date</label>
+          <input type="date" class="form-control" name="service_date" placeholder="Please enter service date" ng-model="vehicle.vehData.service_date">
+
+        
+        
+          <button type="submit" class="btn btn-primary">Add Vehicle</button>
+        
+      </form>
+    </div>
+  </div>
+<br>
+
+<div class="jumbotron text-center" ng-show="vehicle.loading">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading...</p>
+</div>
+
+<br>
+<div class='row show-hide-message'ng-show="vehicle.successMsg">
+    <div class="alert alert-success">{{vehicle.successMsg}}</div>
+</div>
+
+<br>
+
+<div class='row show-hide-message' ng-show="vehicle.errorMsg">
+    <div class="alert alert-danger">{{vehicle.errorMsg}}</div>
+</div>
