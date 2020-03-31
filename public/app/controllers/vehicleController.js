@@ -1,12 +1,12 @@
-angular.module('businessController', ['businessServices'])
+angular.module('vehicleController', ['vehicleServices'])
 
-    .controller('businessController', function($http, $location, $timeout, Business) {
+    .controller('vehicleController', function($http, $location, $timeout, Vehicle) {
         var app = this;
-        this.conAdd = function(busData) {
+        this.vehAdd = function(vehData) {
             app.loading = true;
             app.errorMsg = false;
    
-            Business.create(app.busData).then(function(data) {
+            Vehicle.create(app.vehData).then(function(data) {
                 
                 if (data.data.success) {
                     app.loading = false;

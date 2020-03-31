@@ -23,11 +23,12 @@
         <script src="app/controllers/emailController.js"></script>
         <script src="app/controllers/managementController.js"></script>
         <script src="app/controllers/businessController.js"></script>
+        <script src="app/controllers/vehicleController.js"></script>
 
         <script src="app/services/userServices.js"></script>
         <script src="app/services/authServices.js"></script>
         <script src="app/services/businessServices.js"></script>
-        
+        <script src="app/services/vehicleServices.js"></script>
 
         <title>CVMA</title>
         
@@ -61,6 +62,9 @@
           </li>
           <li class="nav-item">
             <a ng-show="main.isLoggedIn " class="nav-link" href="#!/dashboard" >Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a ng-show="main.isLoggedIn " class="nav-link" href="#!/vehicle" >Your Vehicle</a>
           </li>
          
           

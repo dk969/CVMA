@@ -6,11 +6,13 @@ var mongoose   = require('mongoose');
 var bodyParser = require('body-parser')
 var router     = express.Router();
 var businessRouter = express.Router();
+var vehicleRouter = express.Router();
 var appRoutes  = require('./app/routes/api')(router);
 var path       = require('path');
 var passport   = require('passport');
 var social     = require('./app/passport/passport')(app, passport);
 var businessRoutes = require('./app/routes/businessRoute')(businessRouter);
+var vehicleRoutes = require('./app/routes/vehicleRoute')(vehicleRouter);
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());// for parsing  application/json
@@ -18,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));// parsing application/ x-www
 app.use(express.static(__dirname + '/public'));
 app.use('/api', appRoutes);
 app.use('/businessRoute', businessRoutes);
+app.use('/vehicleRoute', vehicleRoutes);
 
 mongoose.connect('mongodb+srv://dk215:King1995!@vma-database-z52b4.mongodb.net/test?retryWrites=true&w=majority', {
   useNewUrlParser: true,

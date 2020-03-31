@@ -1,0 +1,40 @@
+<div class= "page-header"> 
+    <h1>Post your vehicle</h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+      <form ng-submit="vehicle.vehAdd(vehData);">
+    
+          <label >Make</label>
+          <input type="text" class="form-control" name="make" placeholder="Please enter vehicle make" ng-model="vehicle.vehData.make">
+        
+          <label >Model </label>
+          <input type="text" class="form-control" name="model" placeholder="Please enter vehicle type" ng-model="vehicle.vehData.model">
+        
+          <label >Business Specialization </label>
+          <input type="text" class="form-control" name="name" placeholder="Please enter vehicle specialization" ng-model="vehicle.vehData.specialization">
+        
+        
+          <button type="submit" class="btn btn-primary">Add Vehicle</button>
+        
+      </form>
+    </div>
+  </div>
+<br>
+
+<div class="jumbotron text-center" ng-show="vehicle.loading">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading...</p>
+</div>
+
+<br>
+<div class='row show-hide-message'ng-show="vehicle.successMsg">
+    <div class="alert alert-success">{{vehicle.successMsg}}</div>
+</div>
+
+<br>
+
+<div class='row show-hide-message' ng-show="vehicle.errorMsg">
+    <div class="alert alert-danger">{{vehicle.errorMsg}}</div>
+</div>
