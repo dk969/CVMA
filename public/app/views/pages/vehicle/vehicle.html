@@ -46,13 +46,18 @@
             <th>Tax Date</th>
             <th>Serice Date</th>
         </tr>
-        <tr ng-repeat="person in vehicle.vehicles | limitTo: vehicle.limit">
-            <td>{{ person.name}}</td>
-            <td>{{ person.username}}</td>
-            <td>{{ person.email}}</td>
-            <td>{{ person.permission }}</td>
+        <tr ng-repeat="car in vehicle.vehicles | limitTo: vehicle.limit">
+            <td>{{ car.vehicle_make}}</td>
+            <td>{{ car.vehicle_model}}</td>
+            <td>{{ car.year}}</td>
+            <td>{{ car.engine_size}}</td>
+            <td>{{ car.colour}}</td>
+            <td>{{ car.MOT_date}}</td>
+            <td>{{ car.tax_date}}</td>
+            <td>{{ car.service_date}}</td>
+            
             <td>
-                <a href="#!/edit/{{ person._id}}">
+                <a href="#!/edit/{{ car._id}}">
                     <button type="button" ng-show="vehicle.editAccess" class="btn btn-primary">Edit</button>
                 </a>
                  <button type="button" ng-click="vehicle.deleteUser(person.username);" ng-show="vehicle.deleteAccess"class="btn btn-danger">Delete</button>

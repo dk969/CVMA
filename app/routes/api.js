@@ -1,4 +1,5 @@
 var User = require('../models/user');
+var Business = require('../models/business');
 var jwt   = require('jsonwebtoken');
 var secret = 'cvmaapp';
 var nodemailer = require('nodemailer');
@@ -630,6 +631,7 @@ module.exports = function(router) {
             }
         })
     });
+    
     return router;
 
 }

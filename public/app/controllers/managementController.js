@@ -29,6 +29,7 @@ angular.module('managementController', [])
                 }
             } else {
                 app.errorMsg = data.data.message;
+                app.loading = false;
             }
         });
     }

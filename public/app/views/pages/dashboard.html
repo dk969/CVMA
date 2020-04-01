@@ -12,8 +12,8 @@
 <br>
 <br>
 
-<div class='row show-hide-message' ng-show="management.showMoreError">
-    <div class="alert alert-danger">{{management.showMoreError}}</div>
+<div class='row show-hide-message' ng-show="business.showMoreError">
+    <div class="alert alert-danger">{{business.showMoreError}}</div>
 </div>
 <br>
 <br>
@@ -22,35 +22,40 @@
     <div class="panel-heading">
         <strong>Businesses</strong>
     </div>
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <th>Business Type</th>
-            <th>Email</th>
-            <th>Specilization</th>
-            <th>Website</th>
-        </tr>
-        <tr ng-repeat="person in management.users | limitTo: management.limit">
-            <td>{{ person.name}}</td>
-            <td>{{ person.username}}</td>
-            <td>{{ person.email}}</td>
-            <td>
-                <a href="#!/edit/{{ person._id}}">
-                    <button type="button" ng-show="management.editAccess" class="btn btn-primary">Edit</button>
-                </a>
-                 <button type="button" ng-click="management.deleteUser(person.username);" ng-show="management.deleteAccess"class="btn btn-danger">Delete</button>
-                
-            </td>
-        </tr>
-    </table>
-
 </div>
+<div class="panel panel-default" ng-controller="businessController">
+    
+      <div class="panel-body"  >
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="company in business.companies">
+            <p><strong> {{ company.business_name}}</strong></p>
+            <p>Type: {{ company.business_type}}</p>
+            <p>Address: {{ company.business_address}}</p>
+            <p>Postcode: {{ company.business_postcode}}</p>
+            <p>Website: {{company.website}}</p>
+            <p>Email: {{ company.business_email}}</p>
+            <p>Contact Number: {{ company.business_contact}}</p>
+            <p>Specialization: {{ company.specialization}}</p>
+            <a href="#!/edit/{{ company._id}}">
+                <button type="button" ng-show="business.editAccess" class="btn btn-primary">Edit</button>
+            </a>
+             <button type="button" ng-click="business.deleteUser(company.username);" ng-show="business.deleteAccess"class="btn btn-danger">Delete</button>
+            
+          </li>
+       </ul>
+     </div>
+   </div>
+
+   
 
 
 
-<div class='row show-hide-message'ng-show="management.successMsg">
-    <div class="alert alert-success">{{management.successMsg}}</div>
+<div class='row show-hide-message'ng-show="business.successMsg">
+    <div class="alert alert-success">{{business.successMsg}}</div>
 </div>
 <br>
+<div class='row show-hide-message'ng-show="business.errorMsg">
+    <div class="alert alert-danger">{{business.errorMsg}}</div>
+</div>
 
 

@@ -1,4 +1,5 @@
 var Vehicle = require('../models/vehicle');
+var User = require('../models/user');
 
 module.exports = function(vehicleRouter) {
 
@@ -28,6 +29,45 @@ module.exports = function(vehicleRouter) {
                 }
             });
         }   
+    });
+
+     //gets current user
+     vehicleRouter.post('/currentUser', function (req, res) {
+        res.send(req.decoded);
+    });
+    vehicleRouter.get('/permission', function(req, res) {
+        User.findOne({ username: req.decoded.username}, function(err, user) {
+            if (err) throw err;
+            if(!user) {
+                res.json({ success: false, message: 'No users were found'});
+            } else {
+                res.json({ success: true, permission: user.permission });
+            }
+        });
+    });
+
+    vehicleRouter.get('/vehicle', function(req,res) {
+        Vehicle.find({}, function(err, vehicles) {
+            if (err) throw err;
+            User.findOne({user: req.decoded }, function(err, mainUser) {
+                if (err) throw err;
+                if (!mainUser) {
+                    res.json({ success: false, message: ' No User found'});
+                } else {
+                    if (mainUser.permission ==='admin' || mainUser.permission === 'moderator' || mainUser.permission === 'user') {
+                        if (!vehicles) {
+                            res.json ({ success: false, message: 'Vehicles not found'});
+                        } else { 
+                            res.json({ success: true, vehicles: vehicles, permission: mainUser.permission });
+                        }
+
+
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                }
+            })
+        });
     });
     return vehicleRouter;
 }

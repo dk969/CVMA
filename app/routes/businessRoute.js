@@ -1,4 +1,5 @@
 var Business = require('../models/business');
+var User = require('../models/user');
 
 module.exports = function(businessRouter) {
 
@@ -26,6 +27,47 @@ module.exports = function(businessRouter) {
                 }
             });
         }   
+
     });
+    //gets current user
+    businessRouter.post('/currentUser', function (req, res) {
+        res.send(req.decoded);
+    });
+    businessRouter.get('/permission', function(req, res) {
+        User.findOne({ username: req.decoded.username}, function(err, user) {
+            if (err) throw err;
+            if(!user) {
+                res.json({ success: false, message: 'No users were found'});
+            } else {
+                res.json({ success: true, permission: user.permission });
+            }
+        });
+    });
+
+    businessRouter.get('/business', function(req,res) {
+        Business.find({}, function(err, companies) {
+            if (err) throw err;
+            User.findOne({user: req.decoded }, function(err, mainUser) {
+                if (err) throw err;
+                if (!mainUser) {
+                    res.json({ success: false, message: ' No User found'});
+                } else {
+                    if (mainUser.permission ==='admin' || mainUser.permission === 'moderator' || mainUser.permission === 'user') {
+                        if (!companies) {
+                            res.json ({ success: false, message: 'Businesses not found'});
+                        } else { 
+                            res.json({ success: true, companies: companies, permission: mainUser.permission });
+                        }
+
+
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                }
+            })
+        });
+    });
+
+
     return businessRouter;
 }
