@@ -17,6 +17,10 @@ angular.module('vehicleServices', [])
     vehicleFactory.getVehicles = function() {
         return $http.get('/vehicleRoute/vehicle/')
     };
+     //Business.deleteVehicle();
+     vehicleFactory.deleteVehicle = function(id) {
+        return $http.delete('/vehicleRoute/vehicle/' + id);
+    };
     
     return vehicleFactory;
 

@@ -7,23 +7,19 @@
     <p>Loading...</p>
 </div>
 
-<br>
-
-<br>
-<br>
 
 <div class='row show-hide-message' ng-show="business.showMoreError">
     <div class="alert alert-danger">{{business.showMoreError}}</div>
 </div>
 <br>
-<br>
+
 
 <div class="panel panel-primary">
     <div class="panel-heading">
         <strong>Businesses</strong>
     </div>
-</div>
-<div class="panel panel-default" ng-controller="businessController">
+
+<div class="panel panel-default card" ng-controller="businessController">
     
       <div class="panel-body"  >
         <ul class="list-group">
@@ -39,12 +35,13 @@
             <a href="#!/edit/{{ company._id}}">
                 <button type="button" ng-show="business.editAccess" class="btn btn-primary">Edit</button>
             </a>
-             <button type="button" ng-click="business.deleteUser(company.username);" ng-show="business.deleteAccess"class="btn btn-danger">Delete</button>
+             <button type="button" ng-click="business.deleteBusiness(company._id);" ng-show="business.deleteAccess"class="btn btn-danger">Delete</button>
             
           </li>
        </ul>
      </div>
    </div>
+</div>
 
    
 

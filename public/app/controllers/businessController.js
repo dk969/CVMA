@@ -33,30 +33,60 @@ angular.module('businessController', ['businessServices'])
 
             });
         };
-      
-        Business.getBusinesses().then(function(data) {
-            
-            if (data.data.success) {
-                if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
-                    app.companies = data.data.companies;
-                    app.loading = false;
-                    app.accessDenied = false;
-                    if (data.data.permission === 'admin') {
-                        app.editAccess = true;
-                        app.deleteAccess = true;
-                    } else if (data.data.permission === 'moderator') {
-                        app.editAccess = true;
-                    } else if (data.data.permission === 'user') {
-                       
+        function getBusinesses() {
+            Business.getBusinesses().then(function(data) {
+                
+                if (data.data.success) {
+                    if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
+                        app.companies = data.data.companies;
+                        app.loading = false;
+                        app.accessDenied = false;
+                        if (data.data.permission === 'admin') {
+                            app.editAccess = true;
+                            app.deleteAccess = true;
+                        } else if (data.data.permission === 'moderator') {
+                            app.editAccess = true;
+                        } else if (data.data.permission === 'user') {
+                        
+                        }
+                    } else {
+                        app.errorMsg = 'Insufficient Permissions';
+                        app.loading = false;
                     }
                 } else {
-                    app.errorMsg = 'Insufficient Permissions';
+                    app.errorMsg = data.data.message;
                     app.loading = false;
                 }
+            });
+         }
+    
+    getBusinesses();
+
+    app.showMore = function(number) {
+        app.showMoreError = false;
+
+        if (number > 0) {
+            app.limit = number;
+        } else {
+            app.showMoreError = "Please enter a valid number";
+        }
+    };
+
+    app.showAll = function() {
+        app.limit = undefined;
+        showMoreError = false;
+
+    };
+
+    app.deleteBusiness = function(_id) {
+        Business.deleteBusiness(_id).then(function(data) {
+            if (data.data.success) {
+                getBusinesses();
             } else {
-                app.errorMsg = data.data.message;
-                app.loading = false;
+                app.showMoreError = data.data.message;
             }
         });
-    });
+    };
+
+});
     

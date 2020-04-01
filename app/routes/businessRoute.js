@@ -67,6 +67,24 @@ module.exports = function(businessRouter) {
             })
         });
     });
+    businessRouter.delete('/business/:_id', function(req, res) {
+        var deletedBusiness = req.params._id;
+        User.findOne({ user: req.decoded}, function (err, mainUser) {
+            if (err) throw err;
+            if (!mainUser) {
+                res.json({ success: false, message: 'No user found'});
+            } else {
+                if (mainUser.permission !== 'admin') {
+                    res.json({ success: false, message: 'Insufficant Permission'});
+                } else {
+                    Business.findOneAndRemove({ _id: deletedBusiness }, function(err, business) {
+                        if (err) throw err;
+                        res.json({success: true, });
+                    });
+                }
+            }
+        });
+    });
 
 
     return businessRouter;

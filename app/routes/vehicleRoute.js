@@ -69,5 +69,24 @@ module.exports = function(vehicleRouter) {
             })
         });
     });
+
+    vehicleRouter.delete('/vehicle/:_id', function(req, res) {
+        var deletedVehicle = req.params._id;
+        User.findOne({ user: req.decoded}, function (err, mainUser) {
+            if (err) throw err;
+            if (!mainUser) {
+                res.json({ success: false, message: 'No user found'});
+            } else {
+                if (mainUser.permission !== 'admin') {
+                    res.json({ success: false, message: 'Insufficant Permission'});
+                } else {
+                    Vehicle.findOneAndRemove({ _id: deletedVehicle }, function(err, vehicle) {
+                        if (err) throw err;
+                        res.json({success: true, });
+                    });
+                }
+            }
+        });
+    });
     return vehicleRouter;
 }

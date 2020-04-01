@@ -33,6 +33,7 @@ angular.module('vehicleController', ['vehicleServices'])
 
 
 
+    function getVehicles() {
         Vehicle.getVehicles().then(function(data) {
            
             if (data.data.success) {
@@ -57,5 +58,35 @@ angular.module('vehicleController', ['vehicleServices'])
                 app.loading = false;
             }
         });
+    }
+
+           
+    getVehicles();
+
+    app.showMore = function(number) {
+        app.showMoreError = false;
+
+        if (number > 0) {
+            app.limit = number;
+        } else {
+            app.showMoreError = "Please enter a valid number";
+        }
+    };
+
+    app.showAll = function() {
+        app.limit = undefined;
+        showMoreError = false;
+
+    };
+
+    app.deleteVehicle = function(_id) {
+        Vehicle.deleteVehicle(_id).then(function(data) {
+            if (data.data.success) {
+                getVehicles();
+            } else {
+                app.showMoreError = data.data.message;
+            }
+        });
+    };
     });
     

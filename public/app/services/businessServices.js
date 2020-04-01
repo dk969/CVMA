@@ -22,10 +22,10 @@ angular.module('businessServices', [])
     // userFactory.getUser = function(id) {
     //     return $http.get('/api/edit/' + id)
     // };
-    // //User.deleteUser();
-    // userFactory.deleteUser = function(username) {
-    //     return $http.delete('/api/management/' + username);
-    // };
+    //Business.deleteVehicle();
+    businessFactory.deleteBusiness = function(id) {
+        return $http.delete('/businessRoute/business/' + id);
+    };
     
     // //User.editUser(username);
     // userFactory.editUser = function(id) {
