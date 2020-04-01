@@ -67,6 +67,56 @@ module.exports = function(businessRouter) {
             })
         });
     });
+
+    businessRouter.get('/business/:_id', function(req,res) {
+        var businessId = req.params._id;
+        
+        Business.findOne({ _id: businessId}, function(err, company) {
+            console.log(data);
+            if (err) throw err;
+            User.findOne({user: req.decoded }, function(err, mainUser) {
+                if (err) throw err;
+                if (!mainUser) {
+                    res.json({ success: false, message: ' No User found'});
+                } else {
+                    if (mainUser.permission ==='admin' || mainUser.permission === 'moderator' || mainUser.permission === 'user') {
+                        if (!company) {
+                            res.json ({ success: false, message: 'Businesses not found'});
+                        } else { 
+                            res.json({ success: true, company: company, permission: mainUser.permission });
+                            console.log(company);
+                        }
+
+
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                }
+            })
+        });
+    });
+    // businessRouter.get('/business/:_id', function(req,res) {
+    //     var showBusiness = req.params._id;
+    //     User.findOne({user: req.decoded}, function (err, mainUser) {
+    //         if (err) throw err;
+    //         if (!mainUser) {
+    //             res.json({ success: false, message: 'No user found'});
+    //         } else {
+    //             if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+    //                 Business.findOne({ _id: showBusiness}, function(err,business) {
+    //                     if (err) throw err;
+    //                     if (!business) {
+    //                         res.json({ success: false, message: 'No business found'});
+    //                     } else {
+    //                         res.json({ success: true, business: business});
+    //                     }
+    //                 });
+    //             } else {
+    //                 res.json({ success: false, message: 'Insufficient Permission'});
+    //             }
+    //         }
+    //     });
+    // });
     businessRouter.delete('/business/:_id', function(req, res) {
         var deletedBusiness = req.params._id;
         User.findOne({ user: req.decoded}, function (err, mainUser) {

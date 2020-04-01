@@ -87,6 +87,61 @@ angular.module('businessController', ['businessServices'])
             }
         });
     };
+    // app.showBusiness = function(_id) {
+    //     Business.showBusiness(_id).then(function(data) {
+    //             console.log(data);
+    //         if (data.data.success) {
+    //             if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
+    //                 app.show = data.data.show;
+    //                 app.loading = false;
+    //                 app.accessDenied = false;
+    //                 if (data.data.permission === 'admin') {
+    //                     app.editAccess = true;
+    //                     app.deleteAccess = true;
+    //                 } else if (data.data.permission === 'moderator') {
+    //                     app.editAccess = true;
+    //                 } else if (data.data.permission === 'user') {
+                    
+    //                 }
+    //             } else {
+    //                 app.errorMsg = 'Insufficient Permissions';
+    //                 app.loading = false;
+    //             }
+    //         } else {
+    //             app.errorMsg = data.data.message;
+    //             app.loading = false;
+    //         }
+    //     });
+    // };
+    
+    app.getBusiness = function(_id) {
+        Business.getBusiness(_id).then(function(data) {
+            console.log(data);
+            if (data.data.success) {
+                if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
+                    app.company = data.data.company;
+                    app.loading = false;
+                    app.accessDenied = false;
+                    if (data.data.permission === 'admin') {
+                        app.editAccess = true;
+                        app.deleteAccess = true;
+                    } else if (data.data.permission === 'moderator') {
+                        app.editAccess = true;
+                    } else if (data.data.permission === 'user') {
+                    
+                    }
+                } else {
+                    app.errorMsg = 'Insufficient Permissions';
+                    app.loading = false;
+                }
+            } else {
+                app.errorMsg = data.data.message;
+                app.loading = false;
+            }
+        });
+     }
+
+    
 
 });
     

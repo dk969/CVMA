@@ -47,7 +47,13 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         
     })
-
+    .when('/view_business/:id', {
+        templateUrl: 'app/views/pages/business/view_business.html',
+        controller: 'businessController',
+        controllerAs: 'business',
+        authenticated: true,
+        
+    })
     .when('/login', {
         templateUrl: 'app/views/pages/users/login.html',
         authenticated: false

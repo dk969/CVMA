@@ -8,15 +8,16 @@
 </div>
 
 <br>
-<button type="button" ng-click="vehicle.showMore(number);" class="btn btn-success">Apply Filter</button> &nbsp
-<button type="button" ng-click="vehicle.showAll();" class="btn btn-warning">Show All</button>
+
 <br>
 <br>
 <div class="showmore">
     <div class= "col-lg-6">
         <div class="input-group">      
-            <span class="input-group-addon">Results to display:  </span>
-            <input type="text" class="form-control" ng-model="number">
+            <span class="input-group-addon">Results to display:  </span>&nbsp;
+            <input type="text" class="form-control" ng-model="number">&nbsp;
+            <button type="button" ng-click="vehicle.showMore(number);" class="btn btn-success">Apply Filter</button> &nbsp;
+            <button type="button" ng-click="vehicle.showAll();" class="btn btn-warning">Show All</button>
         </div>
         
     </div>

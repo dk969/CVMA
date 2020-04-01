@@ -18,6 +18,9 @@ angular.module('businessServices', [])
     businessFactory.getBusinesses = function() {
         return $http.get('/businessRoute/business/')
     };
+    businessFactory.getBusiness = function(id) {
+        return $http.get('/businessRoute/business/'+ id)
+    };
     //User.getUser(id);
     // userFactory.getUser = function(id) {
     //     return $http.get('/api/edit/' + id)

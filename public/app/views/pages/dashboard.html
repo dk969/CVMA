@@ -8,6 +8,23 @@
 </div>
 
 
+<br>
+<br>
+<div class="showmore">
+    <div class= "col-lg-6">
+        <div class="input-group">      
+            <span class="input-group-addon">Results to display:  </span>&nbsp;
+            <input type="text" class="form-control" ng-model="number">
+            <button type="button" ng-click="business.showMore(number);" class="btn btn-success">Apply Filter</button> &nbsp
+            <button type="button" ng-click="business.showAll();" class="btn btn-warning">Show All</button>
+        </div>
+        
+    </div>
+
+</div>
+<br>
+<br>
+
 <div class='row show-hide-message' ng-show="business.showMoreError">
     <div class="alert alert-danger">{{business.showMoreError}}</div>
 </div>
@@ -23,15 +40,16 @@
     
       <div class="panel-body"  >
         <ul class="list-group">
-          <li class="list-group-item" ng-repeat="company in business.companies">
+          <li class="list-group-item" ng-repeat="company in business.companies | limitTo: business.limit">
             <p><strong> {{ company.business_name}}</strong></p>
             <p>Type: {{ company.business_type}}</p>
             <p>Address: {{ company.business_address}}</p>
             <p>Postcode: {{ company.business_postcode}}</p>
-            <p>Website: {{company.website}}</p>
-            <p>Email: {{ company.business_email}}</p>
-            <p>Contact Number: {{ company.business_contact}}</p>
             <p>Specialization: {{ company.specialization}}</p>
+            
+            <a href="#!/view_business/{{ company._id}}">
+                <button type="button"  class="btn btn-primary">More Information</button>
+            </a>
             <a href="#!/edit/{{ company._id}}">
                 <button type="button" ng-show="business.editAccess" class="btn btn-primary">Edit</button>
             </a>

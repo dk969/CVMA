@@ -1,0 +1,47 @@
+<div class= "page-header"> 
+    <h1>{{ company.business_name}}</h1>
+</div>
+<br>
+<div class="jumbotron text-center" ng-show="management.loading">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading...</p>
+</div>
+
+
+
+<br>
+
+<div class='row show-hide-message' ng-show="business.showMoreError">
+    <div class="alert alert-danger">{{business.showMoreError}}</div>
+</div>
+<br>
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <strong>Businesses</strong>
+    </div>
+
+<div class="panel panel-default card" ng-controller="businessController">
+    
+      <div class="panel-body"  >
+        <ul class="list-group">
+          <li class="list-group-item" ng-model="business.company">
+            <p><strong> {{ view.business_name}}</strong></p>
+            <p>Type: {{ company.business_type}}</p>
+            <p>Address: {{ company.business_address}}</p>
+            <p>Postcode: {{ company.business_postcode}}</p>
+            <p>Website: {{company.website}}</p>
+            <p>Email: {{ company.business_email}}</p>
+            <p>Contact Number: {{ company.business_contact}}</p>
+            <p>Specialization: {{ company.specialization}}</p>
+              <a href="#!/edit/{{ company._id}}">
+                <button type="button" ng-show="business.editAccess" class="btn btn-primary">Edit</button>
+            </a>
+             <button type="button" ng-click="business.deleteBusiness(company._id);" ng-show="business.deleteAccess"class="btn btn-danger">Delete</button>
+            
+          </li>
+       </ul>
+     </div>
+   </div>
+</div>
