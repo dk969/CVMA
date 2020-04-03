@@ -32,9 +32,7 @@
 
 
 <div class="panel panel-primary">
-    <div class="panel-heading">
-        <strong>Businesses</strong>
-    </div>
+  
 
 <div class="panel panel-default card" ng-controller="businessController">
     
@@ -50,7 +48,7 @@
             <a href="#!/view_business/{{ company._id}}">
                 <button type="button"  class="btn btn-primary">More Information</button>
             </a>
-            <a href="#!/edit/{{ company._id}}">
+            <a href="#!/edit_business/{{ company._id}}">
                 <button type="button" ng-show="business.editAccess" class="btn btn-primary">Edit</button>
             </a>
              <button type="button" ng-click="business.deleteBusiness(company._id);" ng-show="business.deleteAccess"class="btn btn-danger">Delete</button>

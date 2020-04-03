@@ -18,6 +18,26 @@ header .navbar {
     border-radius: 0;
 
 }
+
+#map {
+  height: 600px;
+  width: 800px;
+}
+
+
+#floating-panel {
+  position: absolute;
+  top: 325px;
+  left: 30%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
 .footer {
     position: absolute;
     background-color: lightgrey;

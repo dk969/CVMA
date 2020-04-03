@@ -18,13 +18,13 @@ angular.module('businessServices', [])
     businessFactory.getBusinesses = function() {
         return $http.get('/businessRoute/business/')
     };
-    businessFactory.getBusiness = function(id) {
-        return $http.get('/businessRoute/business/'+ id)
+    businessFactory.getBusinessID = function(id) {
+        return $http.get('/businessRoute/get/'+ id)
     };
-    //User.getUser(id);
-    // userFactory.getUser = function(id) {
-    //     return $http.get('/api/edit/' + id)
-    // };
+    businessFactory.getBusiness = function(id) {
+        return $http.get('/businessRoute/editBusiness/'+ id)
+    };
+  
     //Business.deleteVehicle();
     businessFactory.deleteBusiness = function(id) {
         return $http.delete('/businessRoute/business/' + id);
