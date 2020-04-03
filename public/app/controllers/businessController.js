@@ -130,7 +130,7 @@ angular.module('businessController', ['businessServices'])
 
 })
 
-.controller('editBusController', function($scope, $routeParams, Business) {
+.controller('editBusController', function($scope, $routeParams, Business, $timeout) {
     var app = this;
     $scope.business_nameTab = 'active';
     app.phase1 = true;
@@ -146,7 +146,7 @@ angular.module('businessController', ['businessServices'])
             $scope.newWebsite = data.data.business.website;
             $scope.newContact = data.data.business.business_contact;
             $scope.newSpecialization = data.data.business.specialization;
-            
+            app.currentBusiness = data.data.business._id;
             
            
         } else { 
@@ -313,9 +313,9 @@ angular.module('businessController', ['businessServices'])
         var businessObject = {};
 
         if (valid) {
-            businessObject._id = app.currentUser;
-            businessObject.name = $scope.newName;
-            Business.editBusiness(businessObject).then(function(data) {
+            businessObject._id = app.currentBusiness;
+            businessObject.business_name = $scope.newName;
+            Business.editedBusiness(businessObject).then(function(data) {
                 if (data.data.success) {
                     app.successMsg = data.data.message;
                     $timeout(function() {
@@ -335,7 +335,202 @@ angular.module('businessController', ['businessServices'])
             app.disabled = false;
         }
     };
-    
+    app.updateType = function(newType, valid) {
+        app.errorMsg = false;
+        app.disabled = true;
+        var businessObject = {};
+
+        if (valid) {
+            businessObject._id = app.currentBusiness;
+            businessObject.business_type = $scope.newType;
+            Business.editedBusiness(businessObject).then(function(data) {
+                if (data.data.success) {
+                    app.successMsg = data.data.message;
+                    $timeout(function() {
+                        app.typeForm.business_type.$setPristine();
+                        app.typeForm.business_type.$setUntouched();
+                        app.successMsg = false;
+                        app.disabled = false;
+                    }, 2000);
+                } else {
+                    app.errorMsg = data.data.message;
+                    app.disabled = false;
+                }
+            });
+
+        }else {
+            app.errorMsg = "Please fill out correctly"
+            app.disabled = false;
+        }
+    };
+    app.updateAddress = function(newAddress, valid) {
+        app.errorMsg = false;
+        app.disabled = true;
+        var businessObject = {};
+
+        if (valid) {
+            businessObject._id = app.currentBusiness;
+            businessObject.business_address = $scope.newAddress;
+            Business.editedBusiness(businessObject).then(function(data) {
+                if (data.data.success) {
+                    app.successMsg = data.data.message;
+                    $timeout(function() {
+                        app.addressForm.business_address.$setPristine();
+                        app.addressForm.business_address.$setUntouched();
+                        app.successMsg = false;
+                        app.disabled = false;
+                    }, 2000);
+                } else {
+                    app.errorMsg = data.data.message;
+                    app.disabled = false;
+                }
+            });
+
+        }else {
+            app.errorMsg = "Please fill out correctly"
+            app.disabled = false;
+        }
+    };
+    app.updatePostcode = function(newPostcode, valid) {
+        app.errorMsg = false;
+        app.disabled = true;
+        var businessObject = {};
+
+        if (valid) {
+            businessObject._id = app.currentBusiness;
+            businessObject.business_postcode = $scope.newPostcode;
+            Business.editedBusiness(businessObject).then(function(data) {
+                if (data.data.success) {
+                    app.successMsg = data.data.message;
+                    $timeout(function() {
+                        app.postcodeForm.business_postcode.$setPristine();
+                        app.postcodeForm.business_postcode.$setUntouched();
+                        app.successMsg = false;
+                        app.disabled = false;
+                    }, 2000);
+                } else {
+                    app.errorMsg = data.data.message;
+                    app.disabled = false;
+                }
+            });
+
+        }else {
+            app.errorMsg = "Please fill out correctly"
+            app.disabled = false;
+        }
+    };
+    app.updateWebsite = function(newWebsite, valid) {
+        app.errorMsg = false;
+        app.disabled = true;
+        var businessObject = {};
+
+        if (valid) {
+            businessObject._id = app.currentBusiness;
+            businessObject.website = $scope.newWebsite;
+            Business.editedBusiness(businessObject).then(function(data) {
+                if (data.data.success) {
+                    app.successMsg = data.data.message;
+                    $timeout(function() {
+                        app.websiteForm.website.$setPristine();
+                        app.websiteForm.website.$setUntouched();
+                        app.successMsg = false;
+                        app.disabled = false;
+                    }, 2000);
+                } else {
+                    app.errorMsg = data.data.message;
+                    app.disabled = false;
+                }
+            });
+
+        }else {
+            app.errorMsg = "Please fill out correctly"
+            app.disabled = false;
+        }
+    };
+    app.updateEmail = function(newEmail, valid) {
+        app.errorMsg = false;
+        app.disabled = true;
+        var businessObject = {};
+
+        if (valid) {
+            businessObject._id = app.currentBusiness;
+            businessObject.business_email = $scope.newEmail;
+            Business.editedBusiness(businessObject).then(function(data) {
+                if (data.data.success) {
+                    app.successMsg = data.data.message;
+                    $timeout(function() {
+                        app.emailForm.business_email.$setPristine();
+                        app.emailForm.business_email.$setUntouched();
+                        app.successMsg = false;
+                        app.disabled = false;
+                    }, 2000);
+                } else {
+                    app.errorMsg = data.data.message;
+                    app.disabled = false;
+                }
+            });
+
+        }else {
+            app.errorMsg = "Please fill out correctly"
+            app.disabled = false;
+        }
+    };
+    app.updateContact = function(newContact, valid) {
+        app.errorMsg = false;
+        app.disabled = true;
+        var businessObject = {};
+
+        if (valid) {
+            businessObject._id = app.currentBusiness;
+            businessObject.business_contact = $scope.newContact;
+            Business.editedBusiness(businessObject).then(function(data) {
+                if (data.data.success) {
+                    app.successMsg = data.data.message;
+                    $timeout(function() {
+                        app.contactForm.business_contact.$setPristine();
+                        app.contactForm.business_contact.$setUntouched();
+                        app.successMsg = false;
+                        app.disabled = false;
+                    }, 2000);
+                } else {
+                    app.errorMsg = data.data.message;
+                    app.disabled = false;
+                }
+            });
+
+        }else {
+            app.errorMsg = "Please fill out correctly"
+            app.disabled = false;
+        }
+    };
+    app.updateSpecialization = function(newSpecialization, valid) {
+        app.errorMsg = false;
+        app.disabled = true;
+        var businessObject = {};
+
+        if (valid) {
+            businessObject._id = app.currentBusiness;
+            businessObject.specialization = $scope.newSpecialization;
+            Business.editedBusiness(businessObject).then(function(data) {
+                if (data.data.success) {
+                    app.successMsg = data.data.message;
+                    $timeout(function() {
+                        app.specializationForm.specialization.$setPristine();
+                        app.specializationForm.specialization.$setUntouched();
+                        app.successMsg = false;
+                        app.disabled = false;
+                    }, 2000);
+                } else {
+                    app.errorMsg = data.data.message;
+                    app.disabled = false;
+                }
+            });
+
+        }else {
+            app.errorMsg = "Please fill out correctly"
+            app.disabled = false;
+        }
+    };
     
    
 });

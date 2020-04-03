@@ -31,9 +31,9 @@ angular.module('businessServices', [])
     };
     
     // //User.editUser(username);
-    // userFactory.editUser = function(id) {
-    //     return $http.put('/api/edit', id);
-    // };
+    businessFactory.editedBusiness = function(id) {
+        return $http.put('/businessRoute/editBusiness', id);
+    };
     return businessFactory;
 
 });
