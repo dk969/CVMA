@@ -169,6 +169,13 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         permission: ['admin', 'moderator']
     })
+    .when('/search', {
+        templateUrl: 'app/views/pages/management/search.html',
+        controller: 'managementController',
+        controllerAs: 'management',
+        authenticated: true,
+        permission: ['admin', 'moderator']
+    })
     
     
     .otherwise({ redirectTo: '/'} );
