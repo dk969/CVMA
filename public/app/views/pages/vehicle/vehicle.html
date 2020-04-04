@@ -58,7 +58,7 @@
             <td>{{ car.service_date}}</td>
             
             <td>
-                <a href="#!/edit/{{ car._id}}">
+                <a href="#!/edit_vehicle/{{ car._id}}">
                     <button type="button" ng-show="vehicle.editAccess" class="btn btn-primary">Edit</button>
                 </a>
                  <button type="button" ng-click="vehicle.deleteVehicle(car._id);" ng-show="vehicle.deleteAccess"class="btn btn-danger">Delete</button>

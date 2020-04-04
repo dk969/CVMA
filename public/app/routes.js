@@ -28,25 +28,6 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         controllerAs: 'business',
         authenticated: true
     })
-    .when('/vehicle', {
-        templateUrl: 'app/views/pages/vehicle/vehicle.html',
-        controller: 'vehicleController',
-        controllerAs: 'vehicle',
-        authenticated: true
-    })
-    .when('/add_vehicle', {
-        templateUrl: 'app/views/pages/vehicle/add_vehicle.html',
-        controller: 'vehicleController',
-        controllerAs: 'vehicle',
-        authenticated: true
-    })
-    .when('/dashboard', {
-        templateUrl: 'app/views/pages/dashboard.html',
-        controller: 'businessController',
-        controllerAs: 'business',
-        authenticated: true,
-        
-    })
     .when('/view_business/:id', {
         templateUrl: 'app/views/pages/business/view_business.html',
         controller: 'getController',
@@ -62,6 +43,33 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         permission: ['admin', 'moderator']
     })
+    .when('/vehicle', {
+        templateUrl: 'app/views/pages/vehicle/vehicle.html',
+        controller: 'vehicleController',
+        controllerAs: 'vehicle',
+        authenticated: true
+    })
+    .when('/add_vehicle', {
+        templateUrl: 'app/views/pages/vehicle/add_vehicle.html',
+        controller: 'vehicleController',
+        controllerAs: 'vehicle',
+        authenticated: true
+    })
+    .when('/edit_vehicle/:id', {
+        templateUrl: 'app/views/pages/vehicle/edit_vehicle.html',
+        controller: 'editVehController',
+        controllerAs: 'editVehicle',
+        authenticated: true,
+        permission: ['admin', 'moderator']
+    })
+    .when('/dashboard', {
+        templateUrl: 'app/views/pages/dashboard.html',
+        controller: 'businessController',
+        controllerAs: 'business',
+        authenticated: true,
+        
+    })
+   
     .when('/login', {
         templateUrl: 'app/views/pages/users/login.html',
         authenticated: false
