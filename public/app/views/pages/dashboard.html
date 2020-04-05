@@ -6,22 +6,6 @@
     <span class="glyphicon glyphicon-repeat spinner"></span>
     <p>Loading...</p>
 </div>
-
-
-<br>
-<br>
-<div class="showmore">
-    <div class= "col-lg-6">
-        <div class="input-group">      
-            <span class="input-group-addon">Results to display:  </span>&nbsp;
-            <input type="text" class="form-control" ng-model="number">
-            <button type="button" ng-click="business.showMore(number);" class="btn btn-success">Apply Filter</button> &nbsp
-            <button type="button" ng-click="business.showAll();" class="btn btn-warning">Show All</button>
-        </div>
-        
-    </div>
-
-</div>
 <br>
 <div class="navbar-form">
     <div class= "col-lg-6">
@@ -38,10 +22,10 @@
 <br>
 
 <div ng-show="searchFilter !== undefined">
-    <p>Total Results: {{( business.users | filter: searchFilter ).length }} </p>
+    <p>Total Results: {{( business.companies | filter: searchFilter ).length }} </p>
 </div>
 <div ng-show="searchFilter !== undefined">
-    <p>Showing: {{( business.users | filter: searchFilter | limitTo: business.limit).length }} </p>
+    <p>Showing: {{( business.companies | filter: searchFilter | limitTo: business.limit).length }} </p>
 </div>
 <br>
 
@@ -58,7 +42,7 @@
     
       <div class="panel-body"  >
         <ul class="list-group">
-          <li class="list-group-item" ng-repeat="company in business.companies | limitTo: business.limit">
+          <li class="list-group-item" ng-repeat="company in business.companies | filter: searchFilter | limitTo: business.limit">
             <p><strong> {{ company.business_name}}</strong></p>
             <p>Type: {{ company.business_type}}</p>
             <p>Address: {{ company.business_address}}</p>
@@ -69,19 +53,28 @@
                 <button type="button"  class="btn btn-primary">More Information</button>
             </a>
             <a href="#!/edit_business/{{ company._id}}">
-                <button type="button" ng-show="business.editAccess" class="btn btn-primary">Edit</button>
+                <button type="button" ng-show="business.editAccess && main.authorized" class="btn btn-primary">Edit</button>
             </a>
-             <button type="button" ng-click="business.deleteBusiness(company._id);" ng-show="business.deleteAccess"class="btn btn-danger">Delete</button>
+             <button type="button" ng-click="business.deleteBusiness(company._id);" ng-show="business.deleteAccess && main.authorized"class="btn btn-danger">Delete</button>
             
           </li>
        </ul>
      </div>
    </div>
 </div>
-
+<br>
+<br>
+<div class="showmore">
+    <div class= "col-lg-6">
+        <div class="input-group">      
+            <span class="input-group-addon">Results to display:  </span>&nbsp;
+            <input type="text" class="form-control" ng-model="number">
+            <button type="button" ng-click="business.showMore(number);" class="btn btn-success">Apply Filter</button> &nbsp
+            <button type="button" ng-click="business.showAll();" class="btn btn-warning">Show All</button>
+        </div> 
+    </div>
+</div>
    
-
-
 
 <div class='row show-hide-message'ng-show="business.successMsg">
     <div class="alert alert-success">{{business.successMsg}}</div>

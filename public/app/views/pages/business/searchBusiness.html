@@ -1,0 +1,111 @@
+<div class= "page-header"> 
+    <h1>Advanced Search</h1>
+</div>
+<br>
+<div class="jumbotron text-center" ng-show="management.loading">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading...</p>
+</div>
+
+
+<br>
+<br>
+
+
+<div class="card">
+    <br>
+
+<div class="navbar-form">
+    <div class= "col-lg-9">
+        <div class="input-group">
+            <button type="button" class="btn btn-default">Name:</button>&nbsp;
+            <input type="text" class="form-control" name="searchByName" placeholder="search by .." ng-model="searchByName">
+        </div>
+    </div>
+   
+</div>
+<br>
+<div class="navbar-form">
+    <div class= "col-lg-9">
+        <div class="input-group">
+            <button type="button" class="btn btn-default">Type:</button>
+            <input type="text" class="form-control" name="searchByType" placeholder="search by .." ng-model="searchByType">
+        </div>
+    </div>
+    
+</div>
+<br>
+<div class="navbar-form">
+    <div class= "col-lg-9">
+        <div class="input-group">
+            <button type="button" class="btn btn-default">Postcode:</button>&nbsp;
+            <input type="text" class="form-control" name="searchByName" placeholder="Please enter first 4 digits of Postcode.." ng-model="searchByPostcode">
+        </div>
+    </div>
+</div>
+<br>
+<div class="navbar-form">
+    <div class= "col-lg-9">
+        <div class="input-group">
+            <button type="button" class="btn btn-default">Specialization:</button>&nbsp;
+            <input type="text" class="form-control" name="searchBySpecialization" placeholder="Search by Specialization.." ng-model="searchBySpecialization">
+        </div>
+    </div>
+</div>
+<br>
+<div class="navbar-form">
+   &nbsp;&nbsp;&nbsp; <button type="button" ng-click="business.advancedSearch(searchByName, searchByType, searchByPostcode, searchBySpecialization );" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+
+
+    
+        <div class="dropdown">
+           &nbsp;&nbsp; <button class="btn btn-outline-danger my-2 my-sm-0">SortBy: </button>
+            <div class="dropdown-content">
+                <a ng-click="business.sortOrder('business_name');" >Name</a>
+                <a ng-click="business.sortOrder('business_type');" >Type</a>
+                <a ng-click="business.sortOrder('business_postcode');">Postcode</a>
+                <a ng-click="business.sortOrder('specialization');">Specialization</a>
+            </div>
+          </div>
+    
+</div>
+<br>
+</div>
+
+
+<div ng-show="business.searchLimit === undefined">
+    <p>Total Results: {{( business.companies | filter: advancedSearchFilter | limitTo: business.searchLimit ).length }} </p>
+</div>
+<div ng-show="business.sort">
+    <p>Sort By: {{ business.sort }} </p>
+</div>
+<br>
+
+<br>
+
+<div class="panel panel-default card" ng-controller="businessController">
+    
+    <div class="panel-body"  >
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="company in business.companies | filter: searchFilter | limitTo: business.limit | orderBy: business.sort">
+          <p><strong> {{ company.business_name}}</strong></p>
+          <p>Type: {{ company.business_type}}</p>
+          <p>Address: {{ company.business_address}}</p>
+          <p>Postcode: {{ company.business_postcode}}</p>
+          <p>Specialization: {{ company.specialization}}</p>
+          
+          <a href="#!/view_business/{{ company._id}}">
+              <button type="button"  class="btn btn-primary">More Information</button>
+          </a>
+          <a href="#!/edit_business/{{ company._id}}">
+              <button type="button" ng-show="business.editAccess && main.authorized" class="btn btn-primary">Edit</button>
+          </a>
+           <button type="button" ng-click="business.deleteBusiness(company._id);" ng-show="business.deleteAccess && main.authorized"class="btn btn-danger">Delete</button>
+          
+        </li>
+     </ul>
+   </div>
+ </div>
+</div>
+
+ 

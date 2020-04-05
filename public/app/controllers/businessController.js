@@ -9,6 +9,9 @@ angular.module('businessController', ['businessServices'])
         app.errorMsg = false;
         app.editAccess = false;
         app.deleteAccess = false;
+        app.limit = 5;
+        app.searchLimit = 0; 
+        app.authorized = false;   
 
 
 
@@ -44,11 +47,16 @@ angular.module('businessController', ['businessServices'])
                         if (data.data.permission === 'admin') {
                             app.editAccess = true;
                             app.deleteAccess = true;
+                            app.authorized = true;
                         } else if (data.data.permission === 'moderator') {
                             app.editAccess = true;
+                            app.deleteAccess = true;
+                            app.authorized = true;
                         } else if (data.data.permission === 'user') {
-                        
-                        }
+                            app.editAccess = false;
+                            app.deleteAccess = false;
+                            app.authorized = false;
+                        } 
                     } else {
                         app.errorMsg = 'Insufficient Permissions';
                         app.loading = false;
@@ -81,7 +89,10 @@ angular.module('businessController', ['businessServices'])
     app.deleteBusiness = function(_id) {
         Business.deleteBusiness(_id).then(function(data) {
             if (data.data.success) {
-                getBusinesses();
+                
+                    getBusinesses();
+                    
+                
             } else {
                 app.showMoreError = data.data.message;
             }
@@ -114,17 +125,20 @@ angular.module('businessController', ['businessServices'])
         $scope.searchKeyword = undefined;
         app.showMoreError = false;
     };
-    app.advancedSearch = function(searchByUsername, searchByEmail, searchByName) {
-        if (searchByUsername || searchByEmail || searchByName) {
+    app.advancedSearch = function(searchByName, searchByType, searchByPostcode, searchBySpecialization ) {
+        if (searchByName || searchByType || searchByPostcode || searchBySpecialization) {
             $scope.advancedSearchFilter = {};
-            if (searchByUsername) {
-                $scope.advancedSearchFilter.username = searchByUsername;
-            }
-            if (searchByEmail) {
-                $scope.advancedSearchFilter.email = searchByEmail;
-            }
             if (searchByName) {
-                $scope.advancedSearchFilter.name = searchByName;
+                $scope.advancedSearchFilter.business_name = searchByName;
+            }
+            if (searchByType) {
+                $scope.advancedSearchFilter.business_type = searchByType;
+            }
+            if (searchByPostcode) {
+                $scope.advancedSearchFilter.business_postcode = searchByPostcode;
+            }
+            if(searchBySpecialization) {
+                $scope.advancedSearchFilter.specialization = searchBySpecialization;
             }
             app.searchLimit = undefined;
         }
