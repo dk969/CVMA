@@ -154,8 +154,8 @@ module.exports = function(router) {
                                 from: 'CVMA Staff, staff@CVMA.com',
                                 to: user.email,
                                 subject: 'CVMA Activation Successful',
-                                text: 'Hello' + user.name + ', Your Activation has been successful',
-                                html: 'Hello' + user.name + ', <br>TYour Activation has been successful'
+                                text: 'Hello ' + user.name + ', Your Activation has been successful',
+                                html: 'Hello ' + user.name + ', <br>Your Activation has been successful'
                                 
                                 };
                             

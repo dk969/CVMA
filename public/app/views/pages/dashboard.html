@@ -2,6 +2,7 @@
     <h1>Dashboard</h1>
 </div>
 <br>
+<br>
 <div class="jumbotron text-center" ng-show="management.loading">
     <span class="glyphicon glyphicon-repeat spinner"></span>
     <p>Loading...</p>
@@ -20,7 +21,6 @@
     </div>
 </div>
 <br>
-
 <div ng-show="searchFilter !== undefined">
     <p>Total Results: {{( business.companies | filter: searchFilter ).length }} </p>
 </div>
@@ -28,18 +28,12 @@
     <p>Showing: {{( business.companies | filter: searchFilter | limitTo: business.limit).length }} </p>
 </div>
 <br>
-
 <div class='row show-hide-message' ng-show="business.showMoreError">
     <div class="alert alert-danger">{{business.showMoreError}}</div>
 </div>
 <br>
-
-
 <div class="panel panel-primary">
-  
-
-<div class="panel panel-default card" ng-controller="businessController">
-    
+    <div class="panel panel-default card" ng-controller="businessController">
       <div class="panel-body"  >
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="company in business.companies | filter: searchFilter | limitTo: business.limit">
@@ -83,5 +77,6 @@
 <div class='row show-hide-message'ng-show="business.errorMsg">
     <div class="alert alert-danger">{{business.errorMsg}}</div>
 </div>
-
+<br>
+<br>
 
