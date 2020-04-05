@@ -45,23 +45,19 @@
 </div>
 <br>
 <div class="navbar-form">
-   &nbsp;&nbsp;&nbsp; <button type="button" ng-click="management.advancedSearch(searchByUsername,searchByEmail, searchByName );" class="btn btn-success">Search</button>
-<br>
-<br>
+   &nbsp;&nbsp;&nbsp; <button type="button" ng-click="management.advancedSearch(searchByUsername,searchByEmail, searchByName );" class="btn btn-outline-success my-2 my-sm-0">Search</button>
 
-    <div class="btn-group">
-        &nbsp;&nbsp;&nbsp;  <button type="button" class="btn btn-danger">Sort By</button>
-        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle dropdown</span>
-        </button>
-        <ul class="dropdown-menu">
-            <li ><a ng-click="management.sortOrder('username');" href="#">Username</a></li>
-            <li ><a ng-click="management.sortOrder('email');" href="#">Email</a></li>
-            <li ><a ng-click="management.sortOrder('name');"href="#">Name</a></li>
-        </ul>
 
-    </div>
+    
+        <div class="dropdown">
+           &nbsp;&nbsp; <button class="btn btn-outline-danger my-2 my-sm-0">SortBy: </button>
+            <div class="dropdown-content">
+                <a ng-click="management.sortOrder('username');" href="#">Username</a>
+                <a ng-click="management.sortOrder('email');" href="#">Email</a>
+                <a ng-click="management.sortOrder('name');"href="#">Name</a>
+            </div>
+          </div>
+    
 </div>
 <br>
 </div>

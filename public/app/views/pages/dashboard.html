@@ -23,6 +23,26 @@
 
 </div>
 <br>
+<div class="navbar-form">
+    <div class= "col-lg-6">
+        <div class="input-group">
+            <input type="text" class="form-control" name="search" placeholder="search for .." ng-model="searchKeyword">
+            <button type="button" ng-click="business.search(searchKeyword, number);" class="btn btn-success">Search</button>
+            <button type="button" ng-click="business.clear();"class="btn btn-default">Clear</button>
+            <a href="#!/searchBusiness">
+                <button type="button" class="btn btn-warning">Advanced Search</button>
+            </a>
+        </div>
+    </div>
+</div>
+<br>
+
+<div ng-show="searchFilter !== undefined">
+    <p>Total Results: {{( business.users | filter: searchFilter ).length }} </p>
+</div>
+<div ng-show="searchFilter !== undefined">
+    <p>Showing: {{( business.users | filter: searchFilter | limitTo: business.limit).length }} </p>
+</div>
 <br>
 
 <div class='row show-hide-message' ng-show="business.showMoreError">

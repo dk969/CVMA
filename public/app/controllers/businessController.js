@@ -88,6 +88,52 @@ angular.module('businessController', ['businessServices'])
         });
     };
     
+    app.search = function(searchKeyword, number) {
+
+        if (searchKeyword) {
+            if (searchKeyword.length > 0) {
+                app.limit = 0;
+                $scope.searchFilter = searchKeyword;
+                app.limit = number;
+
+            } else {
+                $scope.searchFilter = undefined;
+                app.limit = 0;
+            }
+        } else {
+            $scope.searchFilter = undefined;
+            app.limit = 0;
+        }
+
+    };
+
+    app.clear = function() {
+        $scope.number = 'Clear';
+        app.limit = 0;
+        $scope.searchFilter = undefined;
+        $scope.searchKeyword = undefined;
+        app.showMoreError = false;
+    };
+    app.advancedSearch = function(searchByUsername, searchByEmail, searchByName) {
+        if (searchByUsername || searchByEmail || searchByName) {
+            $scope.advancedSearchFilter = {};
+            if (searchByUsername) {
+                $scope.advancedSearchFilter.username = searchByUsername;
+            }
+            if (searchByEmail) {
+                $scope.advancedSearchFilter.email = searchByEmail;
+            }
+            if (searchByName) {
+                $scope.advancedSearchFilter.name = searchByName;
+            }
+            app.searchLimit = undefined;
+        }
+    };  
+
+    app.sortOrder = function(order) {
+        app.sort = order();
+    };
+
 
     
 
@@ -127,6 +173,7 @@ angular.module('businessController', ['businessServices'])
             app.errorMsg = data.data.message;
         }
     });
+    
 
 })
 
