@@ -1,20 +1,21 @@
 <div class= "page-header"> 
-    <h1>Dashboard</h1>
+    <h1>Latest Offers</h1>
 </div>
 <br>
 <br>
-<div class="jumbotron text-center" ng-show="management.loading">
+<div class="jumbotron text-center" ng-show="businessPost.loading">
     <span class="glyphicon glyphicon-repeat spinner"></span>
     <p>Loading...</p>
 </div>
 <br>
 <div class="navbar-form">
     <div class= "col-lg-6">
+        <p>Looking for something inperticular? Why not search for it!</p>
         <div class="input-group">
             <input type="text" class="form-control" name="search" placeholder="search for .." ng-model="searchKeyword">
-            <button type="button" ng-click="business.search(searchKeyword, number);" class="btn btn-success">Search</button>
-            <button type="button" ng-click="business.clear();"class="btn btn-default">Clear</button>
-            <a href="#!/searchBusiness">
+            <button type="button" ng-click="businessPost.search(searchKeyword, number);" class="btn btn-success">Search</button>
+            <button type="button" ng-click="businessPost.clear();"class="btn btn-default">Clear</button>
+            <a href="#!/searchPosts">
                 <button type="button" class="btn btn-warning">Advanced Search</button>
             </a>
         </div>
@@ -22,34 +23,35 @@
 </div>
 <br>
 <div ng-show="searchFilter !== undefined">
-    <p>Total Results: {{( business.companies | filter: searchFilter ).length }} </p>
+    <p>Total Results: {{( businessPost.posts | filter: searchFilter ).length }} </p>
 </div>
 <div ng-show="searchFilter !== undefined">
-    <p>Showing: {{( business.companies | filter: searchFilter | limitTo: business.limit).length }} </p>
+    <p>Showing: {{( businessPost.posts | filter: searchFilter | limitTo: businessPost.limit).length }} </p>
 </div>
 <br>
-<div class='row show-hide-message' ng-show="business.showMoreError">
-    <div class="alert alert-danger">{{business.showMoreError}}</div>
+<div class='row show-hide-message' ng-show="businessPost.showMoreError">
+    <div class="alert alert-danger">{{businessPost.showMoreError}}</div>
 </div>
 <br>
 <div class="panel panel-primary">
-    <div class="panel panel-default card" ng-controller="businessController">
+    <div class="panel panel-default card" ng-controller="postController">
       <div class="panel-body"  >
         <ul class="list-group">
-          <li class="list-group-item" ng-repeat="company in business.companies | filter: searchFilter | limitTo: business.limit">
-            <p><strong> {{ company.business_name}}</strong></p>
+          <li class="list-group-item" ng-repeat="company in businessPost.posts | filter: searchFilter | limitTo: business.limit">
+            <p><strong> {{ company.business_title}}</strong></p>
+            <p>Business: {{ company.business_name}}</p>
             <p>Type: {{ company.business_type}}</p>
-            <p>Address: {{ company.business_address}}</p>
-            <p>Postcode: {{ company.business_postcode}}</p>
             <p>Specialization: {{ company.specialization}}</p>
+            <p>Offer: {{ company.post}}</p>
             
-            <a href="#!/view_business/{{ company._id}}">
-                <button type="button"  class="btn btn-primary">More Information</button>
+            
+            <a href="http://{{company.website}}">
+                <button type="button"  class="btn btn-primary">Click here for more details</button>
             </a>
             <a href="#!/edit_business/{{ company._id}}">
-                <button type="button" ng-show="business.editAccess && main.authorized" class="btn btn-primary">Edit</button>
+                <button type="button" ng-show="businessPost.editAccess && main.authorized" class="btn btn-primary">Edit</button>
             </a>
-             <button type="button" ng-click="business.deleteBusiness(company._id);" ng-show="business.deleteAccess && main.authorized"class="btn btn-danger">Delete</button>
+             <button type="button" ng-click="businessPost.deleteBusiness(company._id);" ng-show="businessPost.deleteAccess && main.authorized"class="btn btn-danger">Delete</button>
             
           </li>
        </ul>
@@ -63,19 +65,19 @@
         <div class="input-group">      
             <span class="input-group-addon">Results to display:  </span>&nbsp;
             <input type="text" class="form-control" ng-model="number">
-            <button type="button" ng-click="business.showMore(number);" class="btn btn-success">Apply Filter</button> &nbsp
-            <button type="button" ng-click="business.showAll();" class="btn btn-warning">Show All</button>
+            <button type="button" ng-click="businessPost.showMore(number);" class="btn btn-success">Apply Filter</button> &nbsp
+            <button type="button" ng-click="businessPost.showAll();" class="btn btn-warning">Show All</button>
         </div> 
     </div>
 </div>
    
 
-<div class='row show-hide-message'ng-show="business.successMsg">
-    <div class="alert alert-success">{{business.successMsg}}</div>
+<div class='row show-hide-message'ng-show="businessPost.successMsg">
+    <div class="alert alert-success">{{businessPost.successMsg}}</div>
 </div>
 <br>
-<div class='row show-hide-message'ng-show="business.errorMsg">
-    <div class="alert alert-danger">{{business.errorMsg}}</div>
+<div class='row show-hide-message'ng-show="businessPost.errorMsg">
+    <div class="alert alert-danger">{{businessPost.errorMsg}}</div>
 </div>
 <br>
 <br>

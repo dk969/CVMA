@@ -1,4 +1,5 @@
 var Business = require('../models/business');
+var BusinessPost = require('../models/businessPost');
 var User = require('../models/user');
 
 module.exports = function(businessRouter) {
@@ -24,6 +25,29 @@ module.exports = function(businessRouter) {
                     res.json({ success: false, message: err});
                 } else {
                     res.json({ success: true, message: 'Business Posted'});
+                }
+            });
+        }   
+
+    });
+    businessRouter.post('/businessPost', function(req,res) {
+        var businessPost = BusinessPost();
+        businessPost.business_title = req.body.business_title;
+        businessPost.business_name = req.body.business_name;
+        businessPost.business_type = req.body.business_type;
+        businessPost.website = req.body.website;
+        businessPost.specialization = req.body.specialization;
+        businessPost.post = req.body.post;
+    if (req.body.business_title == null || req.body.business_title == '' || req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || 
+    req.body.website == null || req.body.website == '' || req.body.specialization == null || req.body.specialization == ''|| req.body.post == null || req.body.post == '' ) {
+        res.json({ success: false, message: 'Ensure Business name is provided'});
+
+        } else {
+             businessPost.save(function(err) {
+                if (err) {
+                    res.json({ success: false, message: err});
+                } else {
+                    res.json({ success: true, message: 'Post Uploaded'});
                 }
             });
         }   
@@ -57,6 +81,29 @@ module.exports = function(businessRouter) {
                             res.json ({ success: false, message: 'Businesses not found'});
                         } else { 
                             res.json({ success: true, companies: companies, permission: mainUser.permission });
+                        }
+
+
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                }
+            })
+        });
+    });
+    businessRouter.get('/businessPost', function(req,res) {
+        BusinessPost.find({}, function(err, posts) {
+            if (err) throw err;
+            User.findOne({user: req.decoded }, function(err, mainUser) {
+                if (err) throw err;
+                if (!mainUser) {
+                    res.json({ success: false, message: ' No User found'});
+                } else {
+                    if (mainUser.permission ==='admin' || mainUser.permission === 'moderator' || mainUser.permission === 'user') {
+                        if (!posts) {
+                            res.json ({ success: false, message: 'Businesses not found'});
+                        } else { 
+                            res.json({ success: true, posts: posts, permission: mainUser.permission });
                         }
 
 

@@ -61,7 +61,10 @@
             <a ng-show="main.isLoggedIn " class="nav-link" href="#!/map" >Map</a>
           </li>
           <li class="nav-item">
-            <a ng-show="main.isLoggedIn " class="nav-link" href="#!/dashboard" >Dashboard</a>
+            <a ng-show="main.isLoggedIn " class="nav-link" href="#!/businesslist" >Businesses</a>
+          </li>
+          <li class="nav-item">
+            <a ng-show="main.isLoggedIn " class="nav-link" href="#!/dashboard" >Offers</a>
           </li>
           <li class="nav-item">
             <a ng-show="main.isLoggedIn " class="nav-link" href="#!/vehicle" >Your Vehicle</a>
@@ -76,6 +79,7 @@
               <a class="dropdown-item" href="#!/add_vehicle">Add a vehicle</a>
               <a ng-show=" main.authorized" class="dropdown-item" href="#!/business">Post</a>
               <a ng-show=" main.authorized" class="dropdown-item" href="#!/management"> User Management</a>
+              <a ng-show=" main.authorized" class="dropdown-item" href="#!/post"> Post offer</a>
               
             </div>
           </li>&nbsp

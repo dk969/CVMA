@@ -62,13 +62,7 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         permission: ['admin', 'moderator']
     })
-    .when('/dashboard', {
-        templateUrl: 'app/views/pages/dashboard.html',
-        controller: 'businessController',
-        controllerAs: 'business',
-        authenticated: true,
-        
-    })
+   
    
     .when('/login', {
         templateUrl: 'app/views/pages/users/login.html',
@@ -183,6 +177,28 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         
     })
+    .when('/post', {
+        templateUrl: 'app/views/pages/business/post.html',
+        controller: 'postController',
+        controllerAs: 'businessPost',
+        authenticated: true,
+        
+    })
+    .when('/businesslist', {
+        templateUrl: 'app/views/pages/listBusiness.html',
+        controller: 'businessController',
+        controllerAs: 'business',
+        authenticated: true,
+        
+    })
+    .when('/dashboard', {
+        templateUrl: 'app/views/pages/dashboard.html',
+        controller: 'postController',
+        controllerAs: 'businessPost',
+        authenticated: true,
+        
+    })
+    
     
     
     .otherwise({ redirectTo: '/'} );

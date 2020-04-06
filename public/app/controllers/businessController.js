@@ -594,5 +594,89 @@ angular.module('businessController', ['businessServices'])
     };
     
    
+})
+.controller('postController', function( $location, $timeout, BusinessPost, User, $scope) {
+    var app = this;
+
+    app.loading = true;
+    app.accessDenied = true;
+    app.errorMsg = false;
+    app.editAccess = false;
+    app.deleteAccess = false;
+    app.limit = 5;
+    app.searchLimit = 0; 
+    app.authorized = false;
+
+    this.postAdd = function(postData) {
+        app.loading = true;
+        app.errorMsg = false;
+
+        BusinessPost.create(app.postData).then(function(data) {
+            
+            if (data.data.success) {
+                app.loading = false;
+                app.successMsg = data.data.message + '...Redirecting';
+
+                $timeout(function() {
+                    $location.path('/');
+                }, 2000)
+            } else {
+                app.loading = false;
+                app.errorMsg = data.data.message;
+            }
+
+        });
+    };
+    function getPosts() {
+        BusinessPost.getPosts().then(function(data) {
+            
+            if (data.data.success) {
+                if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
+                    app.posts = data.data.posts;
+                    app.loading = false;
+                    app.accessDenied = false;
+                    if (data.data.permission === 'admin') {
+                        app.editAccess = true;
+                        app.deleteAccess = true;
+                        app.authorized = true;
+                    } else if (data.data.permission === 'moderator') {
+                        app.editAccess = true;
+                        app.deleteAccess = true;
+                        app.authorized = true;
+                    } else if (data.data.permission === 'user') {
+                        app.editAccess = false;
+                        app.deleteAccess = false;
+                        app.authorized = false;
+                    } 
+                } else {
+                    app.errorMsg = 'Insufficient Permissions';
+                    app.loading = false;
+                }
+            } else {
+                app.errorMsg = data.data.message;
+                app.loading = false;
+            }
+        });
+     }
+
+        getPosts();
+
+        app.showMore = function(number) {
+            app.showMoreError = false;
+
+            if (number > 0) {
+                app.limit = number;
+            } else {
+                app.showMoreError = "Please enter a valid number";
+            }
+        };
+
+        app.showAll = function() {
+            app.limit = undefined;
+            showMoreError = false;
+
+        };
+
+
 });
     

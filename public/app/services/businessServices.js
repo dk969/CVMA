@@ -9,6 +9,7 @@ angular.module('businessServices', [])
     businessFactory.create = function(busData) {
         return $http.post('/businessRoute/business', busData);
     }
+    
 
     //Business.getPermission();
     businessFactory.getPermission = function() {
@@ -36,4 +37,17 @@ angular.module('businessServices', [])
     };
     return businessFactory;
 
+})
+.factory('BusinessPost', function($http){
+    postingFactory = {}
+
+    //BusinessPost.create(postData);
+    postingFactory.create = function(postData) {
+        return $http.post('/businessRoute/businessPost', postData);
+    }
+     //BusinessPost.getPosts();
+    postingFactory.getPosts = function() {
+        return $http.get('/businessRoute/businessPost/')
+    };
+    return postingFactory;
 });
