@@ -16,7 +16,7 @@ angular.module('businessController', ['businessServices'])
 
 
 
-        this.conAdd = function(busData) {
+        app.conAdd = function(busData) {
             app.loading = true;
             app.errorMsg = false;
    
@@ -149,6 +149,7 @@ angular.module('businessController', ['businessServices'])
     };
 
 
+  
     
 
 })
@@ -592,10 +593,9 @@ angular.module('businessController', ['businessServices'])
             app.disabled = false;
         }
     };
-    
    
 })
-.controller('postController', function( $location, $timeout, BusinessPost, User, $scope) {
+.controller('postController', function( $location, $timeout, BusinessPost, User, $scope, Subscribe) {
     var app = this;
 
     app.loading = true;
@@ -607,7 +607,7 @@ angular.module('businessController', ['businessServices'])
     app.searchLimit = 0; 
     app.authorized = false;
 
-    this.postAdd = function(postData) {
+    app.postAdd = function(postData) {
         app.loading = true;
         app.errorMsg = false;
 
@@ -616,7 +616,6 @@ angular.module('businessController', ['businessServices'])
             if (data.data.success) {
                 app.loading = false;
                 app.successMsg = data.data.message + '...Redirecting';
-
                 $timeout(function() {
                     $location.path('/');
                 }, 2000)
@@ -676,7 +675,101 @@ angular.module('businessController', ['businessServices'])
             showMoreError = false;
 
         };
-
-
-});
+        app.deletePost = function(_id) {
+            BusinessPost.deletePost(_id).then(function(data) {
+                if (data.data.success) {
+                    
+                        getPosts();
+                        
+                    
+                } else {
+                    app.showMoreError = data.data.message;
+                }
+            });
+        };
+        
+        app.search = function(searchKeyword, number) {
     
+            if (searchKeyword) {
+                if (searchKeyword.length > 0) {
+                    app.limit = 0;
+                    $scope.searchFilter = searchKeyword;
+                    app.limit = number;
+    
+                } else {
+                    $scope.searchFilter = undefined;
+                    app.limit = 0;
+                }
+            } else {
+                $scope.searchFilter = undefined;
+                app.limit = 0;
+            }
+    
+        };
+    
+        app.clear = function() {
+            $scope.number = 'Clear';
+            app.limit = 0;
+            $scope.searchFilter = undefined;
+            $scope.searchKeyword = undefined;
+            app.showMoreError = false;
+        };
+        app.advancedSearch = function( searchByTitle, searchByName, searchByType, searchBySpecialization ) {
+            if (searchByTitle || searchByName || searchByType || searchBySpecialization) {
+                $scope.advancedSearchFilter = {};
+                if (searchByTitle) {
+                    $scope.advancedSearchFilter.business_title = searchByTitle;
+                }
+                if (searchByName) {
+                    $scope.advancedSearchFilter.business_name = searchByName;
+                }
+                if (searchByType) {
+                    $scope.advancedSearchFilter.business_type = searchByType;
+                }
+                if(searchBySpecialization) {
+                    $scope.advancedSearchFilter.specialization = searchBySpecialization;
+                }
+                app.searchLimit = undefined;
+            }
+        };  
+    
+        app.sortOrder = function(order) {
+            app.sort = order();
+        };
+
+})
+
+.controller('subController', function( $location, $timeout, Subscribe, $scope) {
+    var app = this;
+
+    app.loading = true;
+    app.accessDenied = true;
+    app.errorMsg = false;
+    app.editAccess = false;
+    app.deleteAccess = false;
+    app.limit = 5;
+    app.searchLimit = 0; 
+    app.authorized = false;
+
+
+    app.subAdd = function(subData) {
+        app.loading = true;
+        app.errorMsg = false;
+
+        Subscribe.create(app.subData).then(function(data) {
+            
+            if (data.data.success) {
+                app.loading = false;
+                app.successMsg = data.data.message + '...Redirecting';
+
+                $timeout(function() {
+                    $location.path('/');
+                }, 2000)
+            } else {
+                app.loading = false;
+                app.errorMsg = data.data.message;
+            }
+
+        });
+    };
+});

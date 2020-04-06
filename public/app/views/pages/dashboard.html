@@ -1,8 +1,7 @@
 <div class= "page-header"> 
     <h1>Latest Offers</h1>
 </div>
-<br>
-<br>
+
 <div class="jumbotron text-center" ng-show="businessPost.loading">
     <span class="glyphicon glyphicon-repeat spinner"></span>
     <p>Loading...</p>
@@ -19,6 +18,10 @@
                 <button type="button" class="btn btn-warning">Advanced Search</button>
             </a>
         </div>
+        <br>
+        <a href="#!/subscribe">
+            <button type="button" class="btn btn-warning">Subscribe for notifcations</button>
+        </a>
     </div>
 </div>
 <br>
@@ -48,10 +51,8 @@
             <a href="http://{{company.website}}">
                 <button type="button"  class="btn btn-primary">Click here for more details</button>
             </a>
-            <a href="#!/edit_business/{{ company._id}}">
-                <button type="button" ng-show="businessPost.editAccess && main.authorized" class="btn btn-primary">Edit</button>
-            </a>
-             <button type="button" ng-click="businessPost.deleteBusiness(company._id);" ng-show="businessPost.deleteAccess && main.authorized"class="btn btn-danger">Delete</button>
+            
+             <button type="button" ng-click="businessPost.deletePost(company._id);" ng-show="businessPost.deleteAccess && main.authorized"class="btn btn-danger">Remove Offer</button>
             
           </li>
        </ul>

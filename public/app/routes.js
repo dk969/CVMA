@@ -198,6 +198,13 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         
     })
+    .when('/subscribe', {
+        templateUrl: 'app/views/pages/notifcations/subscribe.html',
+        controller: 'subController',
+        controllerAs: 'subscribe',
+        authenticated: true,
+        
+    })
     
     
     

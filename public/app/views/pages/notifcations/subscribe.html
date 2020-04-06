@@ -1,0 +1,43 @@
+<div class= "page-header"> 
+    <h1>Subscribe</h1>
+</div>
+
+<form name="subForm" ng-submit="subscribe.subAdd(subData, subForm.$valid);" novalidate>
+
+
+    <div ng-class="{ 'has-success':(subForm.email.$valid && !subForm.email.$pristine && !subscribe.emailInvalid  ), 'has-error':(!subForm.email.$valid && !subForm.email.$pristine) || (!subForm.email.$valid && 
+    subForm.$submitted) || subscribe.emailInvalid }">
+        <label>Email</label>
+        <input ng-disabled="subscribe.disabled" class="form-control" type="text" name="email" placeholder="Please Enter Your Email" ng-model="subscribe.subData.email" ng-pattern="/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/" 
+        ng-blur="subscribe.checkEmail(regData);"ng-minlength="3" ng-maxlength="25" required>
+        <p class="help-block" ng-show="(!subForm.email.$pristine && subForm.email.$error.required) || (subForm.$submitted && subForm.email.$error.required)">This field is required</p>
+        
+        <p class="help-block" ng-show="subscribe.emailMsg && !subForm.email.$error.required && subForm.email.$valid">{{subscribe.emailMsg}}</p>
+        <ul ng-show="(!subForm.email.$pristine && subForm.email.$error.pattern) || (!subForm.email.$pristine && subForm.email.$error.minlength) || (!subForm.email.$pristine && subForm.email.$error.maxlength)"class="help-block">
+            <li>Must contain"@"</li>
+            <li>Must not contain any special characters e.g.(@£$)</li>
+            <li>Musy be between 3 and 25 characters</li> 
+        </ul>
+    </div>
+
+    <br>
+    <button ng-disabled="subscribe.disabled" class="btn btn-primary" type="submit">Subscribe for updates </button>
+
+</form>
+<br>
+
+<div class="jumbotron text-center" ng-show="subscribe.loading">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading...</p>
+</div>
+
+<br>
+<div class='row show-hide-message'ng-show="subscribe.successMsg">
+    <div class="alert alert-success">{{subscribe.successMsg}}</div>
+</div>
+
+<br>
+
+<div class='row show-hide-message' ng-show="subscribe.errorMsg">
+    <div class="alert alert-danger">{{subscribe.errorMsg}}</div>
+</div>

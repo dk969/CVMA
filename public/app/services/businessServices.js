@@ -35,6 +35,7 @@ angular.module('businessServices', [])
     businessFactory.editedBusiness = function(id) {
         return $http.put('/businessRoute/editBusiness', id);
     };
+    
     return businessFactory;
 
 })
@@ -49,5 +50,25 @@ angular.module('businessServices', [])
     postingFactory.getPosts = function() {
         return $http.get('/businessRoute/businessPost/')
     };
+    //Business.deleteVehicle();
+    postingFactory.deletePost = function(id) {
+        return $http.delete('/businessRoute/businessPost/' + id);
+    };
+  
+    
+
+     
     return postingFactory;
-});
+})
+.factory('Subscribe', function($http) {
+    subFactory = {}
+
+    //Subscribe.create(subData);
+    subFactory.create = function(subData) {
+        return $http.post('/businessRoute/subscribe', subData);
+    }
+    // subFactory.sendEmail = function(subscribers) {
+    //     return $http.put('/businessRoute/businessPost/', subscribers);
+    // };
+    return subFactory;
+})

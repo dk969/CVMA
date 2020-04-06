@@ -1,9 +1,21 @@
 var Business = require('../models/business');
 var BusinessPost = require('../models/businessPost');
+var Subscribe = require('../models/subscribe');
 var User = require('../models/user');
+var nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport');
 
 module.exports = function(businessRouter) {
 
+    var options = {
+        auth: {
+            api_user: 'dking215',
+            api_key: 'King1995!'
+        }
+        }
+    
+        var client = nodemailer.createTransport(sgTransport(options));
+    
    
     businessRouter.post('/business', function(req,res) {
         var business = Business();
@@ -30,6 +42,26 @@ module.exports = function(businessRouter) {
         }   
 
     });
+
+    businessRouter.post('/subscribe', function(req,res) {
+        var subscribe = Subscribe();
+        subscribe.email = req.body.email;
+        
+    if (req.body.email == null || req.body.email == '' ) {
+        res.json({ success: false, message: 'Ensure Email is provided'});
+
+        } else {
+             subscribe.save(function(err) {
+                if (err) {
+                    res.json({ success: false, message: err});
+                } else {
+                    res.json({ success: true, message: 'Subscription Successful'});
+                }
+            });
+        }   
+
+    });
+
     businessRouter.post('/businessPost', function(req,res) {
         var businessPost = BusinessPost();
         businessPost.business_title = req.body.business_title;
@@ -38,21 +70,97 @@ module.exports = function(businessRouter) {
         businessPost.website = req.body.website;
         businessPost.specialization = req.body.specialization;
         businessPost.post = req.body.post;
-    if (req.body.business_title == null || req.body.business_title == '' || req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || 
-    req.body.website == null || req.body.website == '' || req.body.specialization == null || req.body.specialization == ''|| req.body.post == null || req.body.post == '' ) {
-        res.json({ success: false, message: 'Ensure Business name is provided'});
-
-        } else {
-             businessPost.save(function(err) {
+       
+            if (req.body.business_title == null || req.body.business_title == '' || req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || 
+            req.body.website == null || req.body.website == '' || req.body.specialization == null || req.body.specialization == ''|| req.body.post == null || req.body.post == '' ) {
+                res.json({ success: false, message: 'Ensure Business name is provided'});
+                
+            } else {
+                businessPost.save(function(err) {
+                Subscribe.find({ }, function(err, subscribe) {
+                        
                 if (err) {
-                    res.json({ success: false, message: err});
+                    if (err.error != null) {
+                        if (err.errors.email) {
+                            res.json({ success: false, message: err.errors.email.message }); 
+                        }else {
+                            res.json({ success: false, message: err });
+                        }
+                    } else if (err.code == 11000) {
+                       if (err.errmsg[61] == "e") {
+                            res.json({ success: false, message: "Email already used"});
+                        }
+                    } else {
+                        res.json({ success: false, message: err });
+                    } 
                 } else {
+
+                    var email = {
+                        from: 'CVMA Staff, staff@CVMA.com',
+                        to: subscribe.email,
+                        subject: 'CVMA New Post Link',
+                        text: 'Hello' +  + ', Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' ,
+                        html: 'Hello' +  + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' +  '">http://localhost:4200/activate</a>'
+                        
+                        };
+                    
+                        client.sendMail(email, function(err, info){
+                            if (err ){
+                            console.log(err);
+                            }
+                            else {
+                            console.log('Message sent: ' + info.response);
+                            }
+                        });
                     res.json({ success: true, message: 'Post Uploaded'});
                 }
-            });
+                
+            })
+        });
         }   
-
+        
     });
+    //sends email after getting subscribers
+    // businessRouter.put('/businessPost', function(req,res) {
+    //     Subscribe.find({ }, function(err, subscribers) {
+    //         if (err) throw err;
+            
+    //             if (err) {
+    //                 console.log(err);
+    //                 if (!subscribers) {
+    //                     res.json ({ success: false, message: 'Emails not found'});
+    //                 } else { 
+    //                     res.json({ success: true, subscribers: subscribers, permission: mainUser.permission });
+    //                 }
+    //             } else {
+    //                 var email = {
+    //                     from: 'CVMA Staff, staff@CVMA.com',
+    //                     to: subscribers.email,
+    //                     subject: 'CVMA New Post Link',
+    //                     text: 'Hello' +  + ', Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' ,
+    //                     html: 'Hello' +  + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' +  '">http://localhost:4200/activate</a>'
+                        
+    //                     };
+                    
+    //                     client.sendMail(email, function(err, info){
+    //                         if (err ){
+    //                         console.log(err);
+    //                         }
+    //                         else {
+    //                         console.log('Message sent: ' + info.response);
+    //                         }
+    //                     });
+
+
+    //             }
+            
+    //     })
+    // });
+
+
+
+
+
     //gets current user
     businessRouter.post('/currentUser', function (req, res) {
         res.send(req.decoded);
@@ -153,6 +261,24 @@ module.exports = function(businessRouter) {
                     res.json({ success: false, message: 'Insufficant Permission'});
                 } else {
                     Business.findOneAndRemove({ _id: deletedBusiness }, function(err, business) {
+                        if (err) throw err;
+                        res.json({success: true, });
+                    });
+                }
+            }
+        });
+    });
+    businessRouter.delete('/businessPost/:_id', function(req, res) {
+        var deletedPost = req.params._id;
+        User.findOne({ user: req.decoded}, function (err, mainUser) {
+            if (err) throw err;
+            if (!mainUser) {
+                res.json({ success: false, message: 'No user found'});
+            } else {
+                if (mainUser.permission !== 'admin') {
+                    res.json({ success: false, message: 'Insufficant Permission'});
+                } else {
+                    BusinessPost.findOneAndRemove({ _id: deletedPost }, function(err, business) {
                         if (err) throw err;
                         res.json({success: true, });
                     });
