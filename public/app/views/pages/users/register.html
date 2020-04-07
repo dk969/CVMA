@@ -1,6 +1,4 @@
-<div class= "page-header"> 
-    <h1>User Registration</h1>
-</div>
+<div class= "headers">  User Registration</div>
 
 <form name="regForm" ng-submit="register.regUser(regData, regForm.$valid);" novalidate>
     <div ng-class="{ 'has-success':(regForm.name.$valid && !regForm.name.$pristine), 'has-error':(!regForm.name.$valid && !regForm.name.$pristine) || (!regForm.name.$valid && 

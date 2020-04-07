@@ -11,8 +11,6 @@ angular.module('userController', ['userServices'])
         
         if(valid) {
             User.create(app.regData).then(function(data) {
-                console.log(data.data.success);
-                console.log(data.data.message);
                 if (data.data.success) {
                    app.loading = false;
                     //creates success message

@@ -1,21 +1,16 @@
 
-<div class= "page-header"> 
-    <h1>Subscribers</h1>
-</div>
+<div class= "headers"> Subscribers</div>
 
 
 <div class="panel panel-primary">
-    <div class="panel panel-default card" ng-controller="subController">
+    <div class="panel panel-default " ng-controller="subController">
       <div class="panel-body"  >
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="userSub in subscribe.subscribers | filter: searchFilter | limitTo: subscribe.limit">
             <p><strong> {{ company.business_name}}</strong></p>
-            <p>Email: {{ userSub.email}}</p>
-            
-            
-          
-           
-             <button type="button" ng-click="subscribe.deleteSub(userSub._id);" ng-show="subscribe.deleteAccess && main.authorized"class="btn btn-danger">Delete</button>
+            <p>Email: {{ userSub.email}}&nbsp;&nbsp;
+                <button type="button" ng-click="subscribe.deleteSub(userSub._id);" ng-show="subscribe.deleteAccess && main.authorized"class="btn btn-danger">Unsubscribe</button>
+            </p>
             
           </li>
        </ul>
