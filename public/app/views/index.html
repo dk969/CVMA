@@ -24,11 +24,13 @@
         <script src="app/controllers/managementController.js"></script>
         <script src="app/controllers/businessController.js"></script>
         <script src="app/controllers/vehicleController.js"></script>
+        <script src="app/controllers/mapController.js"></script>
 
         <script src="app/services/userServices.js"></script>
         <script src="app/services/authServices.js"></script>
         <script src="app/services/businessServices.js"></script>
         <script src="app/services/vehicleServices.js"></script>
+        <script src="app/services/mapServices.js"></script>
 
         <title>Classic Solutions</title>
         
@@ -91,10 +93,7 @@
         <li class="nav-item">
           <a ng-show="main.isLoggedIn" class="nav-link" href="#" ng-click="main.logout();">Logout</a>
         </li>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        
       </ul>
       </div>
     </nav>

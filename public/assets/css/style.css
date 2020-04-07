@@ -19,9 +19,9 @@ header .navbar {
 
 }
 
-#map {
-  height: 600px;
-  width: 800px;
+#map_canvas {
+  height: 300px;
+  width: 100%;
 }
 
 
@@ -196,7 +196,8 @@ body, html {
 
 .bg-image {
   /* Full height */
-  height: 100%;
+  height: 900px;
+  width: 100%;
 
   /* Center and scale the image nicely */
   background-position: center;
@@ -205,12 +206,11 @@ body, html {
 }
 
 /* Images used */
-.img1 { background-image: url("../Driving-Solutions.jpeg"); }
-.img2 { background-image: url("../Driving-Solutions.jpeg"); }
-.img3 { background-image: url("img_lights.jpg"); }
-.img4 { background-image: url("img_nature.jpg"); }
-.img5 { background-image: url("img_forest.jpg"); }
-.img6 { background-image: url("https://i.postimg.cc/QN7zzLgC/Driving-Solutions.jpg"); }
+
+.img2 { background-image: url("../classic_1.jpg"); }
+.img3 { background-image: url("../classic_3.jpg"); }
+.img4 { background-image: url("../classic_2.jpg"); }
+
  
 
 /* Position text in the middle of the page/image */
@@ -220,7 +220,7 @@ body, html {
   color: white;
   font-weight: bold;
   font-size: 80px;
-  border: 10px solid black;
+  border: 10px solid rgb(190, 16, 16);
   position: fixed; /* Stay fixed */
   top: 50%;
   left: 50%;
@@ -231,7 +231,7 @@ body, html {
   text-align: center;
 }
 .headers {
-
+  
   color: black;
   font-weight: bold;
   font-size: 40px;
