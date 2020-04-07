@@ -16,7 +16,7 @@ module.exports = function(businessRouter) {
     
         var client = nodemailer.createTransport(sgTransport(options));
     
-   
+    //POSTS
     businessRouter.post('/business', function(req,res) {
         var business = Business();
         business.business_name = req.body.business_name;
@@ -61,6 +61,7 @@ module.exports = function(businessRouter) {
         }   
 
     });
+    
 
     businessRouter.post('/businessPost', function(req,res) {
         var businessPost = BusinessPost();
@@ -73,12 +74,12 @@ module.exports = function(businessRouter) {
        
             if (req.body.business_title == null || req.body.business_title == '' || req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || 
             req.body.website == null || req.body.website == '' || req.body.specialization == null || req.body.specialization == ''|| req.body.post == null || req.body.post == '' ) {
-                res.json({ success: false, message: 'Ensure Business name is provided'});
+                res.json({ success: false, message: 'Ensure the offer details are provided'});
                 
             } else {
                 businessPost.save(function(err) {
-                Subscribe.find({ }, function(err, subscribe) {
-                        
+                Subscribe.find({email: req.body.email}, function(err, subscribers) {
+                        if (err) throw err;
                 if (err) {
                     if (err.error != null) {
                         if (err.errors.email) {
@@ -97,7 +98,7 @@ module.exports = function(businessRouter) {
 
                     var email = {
                         from: 'CVMA Staff, staff@CVMA.com',
-                        to: subscribe.email,
+                        to: subscribers.email,
                         subject: 'CVMA New Post Link',
                         text: 'Hello' +  + ', Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' ,
                         html: 'Hello' +  + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' +  '">http://localhost:4200/activate</a>'
@@ -165,6 +166,8 @@ module.exports = function(businessRouter) {
     businessRouter.post('/currentUser', function (req, res) {
         res.send(req.decoded);
     });
+
+    //GETS
     businessRouter.get('/permission', function(req, res) {
         User.findOne({ username: req.decoded.username}, function(err, user) {
             if (err) throw err;
@@ -249,6 +252,31 @@ module.exports = function(businessRouter) {
             })
         });
     });
+    businessRouter.get('/subscribe', function(req,res) {
+        Subscribe.find({}, function(err, subscribers) {
+            if (err) throw err;
+            User.findOne({user: req.decoded }, function(err, mainUser) {
+                if (err) throw err;
+                if (!mainUser) {
+                    res.json({ success: false, message: ' No User found'});
+                } else {
+                    if (mainUser.permission ==='admin' || mainUser.permission === 'moderator' ) {
+                        if (!subscribers) {
+                            res.json ({ success: false, message: 'Subscribers not found'});
+                        } else { 
+                            res.json({ success: true, subscribers: subscribers, permission: mainUser.permission });
+                        }
+
+
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                }
+            })
+        });
+    });
+
+    //DELETES
    
     businessRouter.delete('/business/:_id', function(req, res) {
         var deletedBusiness = req.params._id;
@@ -286,6 +314,24 @@ module.exports = function(businessRouter) {
             }
         });
     });
+    businessRouter.delete('/subscribe/:_id', function(req, res) {
+        var deletedSub = req.params._id;
+        User.findOne({ user: req.decoded}, function (err, mainUser) {
+            if (err) throw err;
+            if (!mainUser) {
+                res.json({ success: false, message: 'No user found'});
+            } else {
+                if (mainUser.permission !== 'admin') {
+                    res.json({ success: false, message: 'Insufficant Permission'});
+                } else {
+                    Subscribe.findOneAndRemove({ _id: deletedSub }, function(err, business) {
+                        if (err) throw err;
+                        res.json({success: true, });
+                    });
+                }
+            }
+        });
+    });
 
     businessRouter.get('/editBusiness/:id', function(req,res) {
         var editBusiness = req.params.id;
@@ -309,7 +355,7 @@ module.exports = function(businessRouter) {
             }
         });
     })
-    
+    //EDIT
     businessRouter.put('/editBusiness', function(req,res) {
         var editBusiness = req.body._id;
         if (req.body.business_name) var newName = req.body.business_name;

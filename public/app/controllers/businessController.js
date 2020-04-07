@@ -617,7 +617,7 @@ angular.module('businessController', ['businessServices'])
                 app.loading = false;
                 app.successMsg = data.data.message + '...Redirecting';
                 $timeout(function() {
-                    $location.path('/');
+                    $location.path('/dashboard');
                 }, 2000)
             } else {
                 app.loading = false;
@@ -745,7 +745,7 @@ angular.module('businessController', ['businessServices'])
     app.loading = true;
     app.accessDenied = true;
     app.errorMsg = false;
-    app.editAccess = false;
+    app.viewAccess = false;
     app.deleteAccess = false;
     app.limit = 5;
     app.searchLimit = 0; 
@@ -770,6 +770,52 @@ angular.module('businessController', ['businessServices'])
                 app.errorMsg = data.data.message;
             }
 
+        });
+    };
+    function getSubscribers() {
+        Subscribe.getSubscribers().then(function(data) {
+            
+            if (data.data.success) {
+                if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
+                    app.subscribers = data.data.subscribers;
+                    app.loading = false;
+                    app.accessDenied = false;
+                    if (data.data.permission === 'admin') {
+                        app.viewAccess = true;
+                        app.deleteAccess = true;
+                        app.authorized = true;
+                    } else if (data.data.permission === 'moderator') {
+                        app.viewAccess = true;
+                        app.authorized = true;
+                    } else if (data.data.permission === 'user') {
+                        app.viewAccess = false;
+                        app.deleteAccess = false;
+                        app.authorized = false;
+                    } 
+                } else {
+                    app.errorMsg = 'Insufficient Permissions';
+                    app.loading = false;
+                }
+            } else {
+                app.errorMsg = data.data.message;
+                app.loading = false;
+            }
+        });
+     }
+
+     getSubscribers();
+
+
+     app.deleteSub = function(_id) {
+        BusinessPost.deleteSub(_id).then(function(data) {
+            if (data.data.success) {
+                
+                getSubscribers();
+                    
+                
+            } else {
+                app.showMoreError = data.data.message;
+            }
         });
     };
 });

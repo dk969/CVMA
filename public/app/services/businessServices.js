@@ -45,7 +45,7 @@ angular.module('businessServices', [])
     //BusinessPost.create(postData);
     postingFactory.create = function(postData) {
         return $http.post('/businessRoute/businessPost', postData);
-    }
+    };
      //BusinessPost.getPosts();
     postingFactory.getPosts = function() {
         return $http.get('/businessRoute/businessPost/')
@@ -66,7 +66,15 @@ angular.module('businessServices', [])
     //Subscribe.create(subData);
     subFactory.create = function(subData) {
         return $http.post('/businessRoute/subscribe', subData);
-    }
+    };
+     //Subscribe.getSubscribers();
+     subFactory.getSubscribers = function() {
+        return $http.get('/businessRoute/subscribe/')
+    };
+    //Business.deleteVehicle();
+    subFactory.deleteSub = function(id) {
+        return $http.delete('/businessRoute/subscribe/' + id);
+    };
     // subFactory.sendEmail = function(subscribers) {
     //     return $http.put('/businessRoute/businessPost/', subscribers);
     // };
