@@ -13,6 +13,8 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
     })
     .when('/map', {
         templateUrl: 'app/views/pages/map.html',
+        controller: 'mapController',
+        controllerAs: 'map',
         authenticated: true
     })
 

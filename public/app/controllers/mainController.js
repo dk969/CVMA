@@ -60,10 +60,10 @@ angular.module('mainController', ['authServices', 'userServices'])
             $("#myModal").modal({ backdrop: "static" });
             $timeout(function() {
                 Auth.logout();
-                $location.path('/');
+                $location.path('#!/logout');
                 hideModal();
                 $route.reload();
-            }, 2000);
+            }, 3000);
         }
         $timeout(function() {
             if (!app.choiceMade) {
@@ -149,7 +149,7 @@ angular.module('mainController', ['authServices', 'userServices'])
         app.loading = true;
         app.errorMsg =false;
         app.expired = false;
-        app.disable = true;
+        app.disable = false;
         
         Auth.login(app.loginData).then(function(data) {
             

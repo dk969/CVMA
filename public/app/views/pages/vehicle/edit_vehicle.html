@@ -2,14 +2,14 @@
 
 
 <ul class="nav nav-tabs">
-    <li role="presentation" ng-click="editVehicle.vehicle_makePhase();" ng-class="vehicle_makeTab"><a> Make</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editVehicle.vehicle_modelPhase();" ng-class="vehicle_modelTab"><a> Model</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editVehicle.yearPhase();" ng-class="yearTab"><a> Year</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editVehicle.engine_sizePhase();" ng-class="engine_sizeTab"><a> Engine Size</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editVehicle.colourPhase();" ng-class="colourTab"><a> Colour</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editVehicle.MOT_datePhase();" ng-class="MOT_dateTab"><a> MOT</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editVehicle.tax_datePhase();" ng-class="tax_dateTab"><a> Tax</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editVehicle.service_datePhase();" ng-class="service_dateTab"><a> Servicing</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editVehicle.vehicle_makePhase();" ng-class="vehicle_makeTab"><a> Make</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editVehicle.vehicle_modelPhase();" ng-class="vehicle_modelTab"><a> Model</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editVehicle.yearPhase();" ng-class="yearTab"><a> Year</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editVehicle.engine_sizePhase();" ng-class="engine_sizeTab"><a> Engine Size</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editVehicle.colourPhase();" ng-class="colourTab"><a> Colour</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editVehicle.MOT_datePhase();" ng-class="MOT_dateTab"><a> MOT</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editVehicle.tax_datePhase();" ng-class="tax_dateTab"><a> Tax</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editVehicle.service_datePhase();" ng-class="service_dateTab"><a> Servicing</a></li>&nbsp;&nbsp;
 
 </ul>
 <br>
@@ -21,7 +21,7 @@
           <input ng-disabled="editVehicle.disabled" type="text" class="form-control" name="vehicle_make" placeholder="Please enter vehicle make " ng-model="newMake">
 
           <br>
-          <button type="submit" class="btn btn-primary">Update</button>
+          <button type="submit" class="btn btn-danger">Update</button>
       </form>
 
       <form name="editVehicle.modelForm" ng-show= "editVehicle.phase2" ng-submit="editVehicle.updateModel(newModel, editVehicle.modelForm.vehicle_model.$valid)" novalidate>
@@ -30,7 +30,7 @@
         <input ng-disabled="editVehicle.disabled" type="text" class="form-control" name="vehicle_model" placeholder="Please enter vehicle model " ng-model="newModel">
 
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
     <form name="editVehicle.yearForm" ng-show= "editVehicle.phase3" ng-submit="editVehicle.updateYear(newYear, editVehicle.yearForm.year.$valid)" novalidate>
     
@@ -38,7 +38,7 @@
         <input ng-disabled="editVehicle.disabled" type="text" class="form-control" name="year" placeholder="Please enter vehicles year " ng-model="newYear">
 
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
     <form name="editVehicle.engineSizeForm" ng-show= "editVehicle.phase4" ng-submit="editVehicle.updateEngineSize(newEngine_size, editVehicle.engineSizeForm.engine_size.$valid)" novalidate>
     
@@ -46,7 +46,7 @@
         <input ng-disabled="editVehicle.disabled" type="text" class="form-control" name="engine_size" placeholder="Please enter vehicles Engine Size " ng-model="newEngine_size">
 
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
     <form name="editVehicle.colourForm" ng-show= "editVehicle.phase5" ng-submit="editVehicle.updateColour(newColour, editVehicle.colourForm.colour.$valid)" novalidate>
     
@@ -54,7 +54,7 @@
         <input ng-disabled="editVehicle.disabled" type="text" class="form-control" name="colour" placeholder="Please enter vehicle Colour " ng-model="newColour">
 
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
     <form name="editVehicle.motForm" ng-show= "editVehicle.phase6" ng-submit="editVehicle.updateMot(newMOT, editVehicle.motForm.MOT_date.$valid)" novalidate>
     
@@ -62,7 +62,7 @@
         <input ng-disabled="editVehicle.disabled" type="date" class="form-control" name="MOT_date" placeholder="Please enter vehicles MOT Date " ng-model="newMOT">
 
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
     <form name="editVehicle.taxForm" ng-show= "editVehicle.phase7" ng-submit="editVehicle.updateTax(newTax, editVehicle.taxForm.tax_date.$valid)" novalidate>
     
@@ -70,7 +70,7 @@
         <input ng-disabled="editVehicle.disabled" type="date" class="form-control" name="tax_date" placeholder="Please enter vehicles Tax Date " ng-model="newTax">
 
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
     <form name="editVehicle.serviceForm" ng-show= "editVehicle.phase8" ng-submit="editVehicle.updateService(newService, editVehicle.serviceForm.service_date.$valid)" novalidate>
     
@@ -78,7 +78,7 @@
         <input ng-disabled="editVehicle.disabled" type="date" class="form-control" name="service_date" placeholder="Please enter the vehicles new Service Date " ng-model="newService">
 
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
 
 

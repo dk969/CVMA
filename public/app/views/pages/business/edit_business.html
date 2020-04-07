@@ -1,19 +1,19 @@
 <h1 class="headers">Edit business</h1>
 
 
-<ul class="nav nav-tabs">
-    <li role="presentation" ng-click="editBusiness.business_namePhase();" ng-class="business_nameTab"><a > Name</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editBusiness.business_typePhase();" ng-class="business_typeTab"><a> Type</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editBusiness.business_addressPhase();" ng-class="business_addressTab"><a >Address</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editBusiness.business_postcodePhase();" ng-class="business_postcodeTab"><a >Postcode</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editBusiness.websitePhase();" ng-class="websiteTab"><a >Website</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editBusiness.business_emailPhase();" ng-class="business_emailTab"><a >Email</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editBusiness.business_contactPhase();" ng-class="business_contactTab"><a >Contact</a></li>&nbsp;&nbsp;
-    <li role="presentation" ng-click="editBusiness.specializationPhase();" ng-class="specializationTab"><a >Specialization</a></li>&nbsp;&nbsp;
+<ul class="nav nav-tabs">  &nbsp;&nbsp;&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editBusiness.business_namePhase();" ng-class="business_nameTab"><a > Name</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editBusiness.business_typePhase();" ng-class="business_typeTab"><a> Type</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editBusiness.business_addressPhase();" ng-class="business_addressTab"><a >Address</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editBusiness.business_postcodePhase();" ng-class="business_postcodeTab"><a >Postcode</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editBusiness.websitePhase();" ng-class="websiteTab"><a >Website</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editBusiness.business_emailPhase();" ng-class="business_emailTab"><a >Email</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editBusiness.business_contactPhase();" ng-class="business_contactTab"><a >Contact</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="editBusiness.specializationPhase();" ng-class="specializationTab"><a >Specialization</a></li>&nbsp;&nbsp;
 
 </ul>
 <br>
-<div class="card">
+<div class="card ">
     <div class="card-body">
       <form name="editBusiness.nameForm" ng-show= "editBusiness.phase1" ng-submit="editBusiness.updateName(newName, editBusiness.nameForm.business_name.$valid)" novalidate>
     
@@ -21,7 +21,7 @@
           <input ng-disabled="editBusiness.disabled" type="text" class="form-control" name="business_name" placeholder="Please enter business name" ng-model="newName">
 
           <br>
-          <button type="submit" class="btn btn-primary">Update</button>
+          <button type="submit" class="btn btn-danger">Update</button>
       </form>
 
       <form name="editBusiness.typeForm" ng-show= "editBusiness.phase2" ng-submit="editBusiness.updateType(newType, editBusiness.typeForm.business_type.$valid)" novalidate>
@@ -29,7 +29,7 @@
         <label >Business Type</label>
         <input ng-disabled="editBusiness.disabled" type="text" class="form-control" name="business_type" placeholder="Please enter business type" ng-model="newType">
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
 
     <form name="editBusiness.addressForm" ng-show= "editBusiness.phase3" ng-submit="editBusiness.updateAddress(newAddress, editBusiness.addressForm.business_address.$valid)" novalidate>
@@ -37,7 +37,7 @@
         <label >Business Address </label>
         <input type="text" class="form-control" name="business_address" placeholder="Please enter businesses new address" ng-model="newAddress">
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
 
     <form name="editBusiness.postcodeForm" ng-show= "editBusiness.phase4" ng-submit="editBusiness.updatePostcode(newPostcode, editBusiness.postcodeForm.business_postcode.$valid)" novalidate>
@@ -45,7 +45,7 @@
         <label >Business Postcode </label>
         <input type="text" class="form-control" name="business_postcode" placeholder="Please enter businesses new Postcode" ng-model="newPostcode">
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
 
     <form name="editBusiness.websiteForm" ng-show= "editBusiness.phase5" ng-submit="editBusiness.updateWebsite(newWebsite, editBusiness.websiteForm.website.$valid)" novalidate>
@@ -53,7 +53,7 @@
         <label >Business Website</label>
         <input type="text" class="form-control" name="website" placeholder="Please enter businesses new website address" ng-model="newWebsite">
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
 
     <form name="editBusiness.emailForm" ng-show= "editBusiness.phase6" ng-submit="editBusiness.updateEmail(newEmail, editBusiness.emailForm.business_email.$valid)" novalidate>
@@ -61,7 +61,7 @@
         <label >Business Email</label>
         <input type="text" class="form-control" name="business_email" placeholder="Please enter businesses new email" ng-model="newEmail">
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
 
     <form name="editBusiness.contactForm" ng-show= "editBusiness.phase7" ng-submit="editBusiness.updateContact(newContact, editBusiness.contactForm.business_contact.$valid)" novalidate>
@@ -69,7 +69,7 @@
         <label >Business Contact </label>
         <input type="text" class="form-control" name="business_contact" placeholder="Please enter businesses new contact number" ng-model="newContact">
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
 
     <form name="editBusiness.specializationForm" ng-show= "editBusiness.phase8" ng-submit="editBusiness.updateSpecialization(newSpecialization, editBusiness.specializationForm.specialization.$valid)" novalidate>
@@ -77,7 +77,7 @@
         <label >Business specialization</label>
         <input type="text" class="form-control" name="specialization" placeholder="Please enter businesses new specialization" ng-model="newSpecialization">
         <br>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-danger">Update</button>
     </form>
     </div>
 </div>
