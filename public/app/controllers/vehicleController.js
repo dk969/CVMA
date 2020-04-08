@@ -21,7 +21,7 @@ angular.module('vehicleController', ['vehicleServices'])
                     app.successMsg = data.data.message + '...Redirecting';
 
                     $timeout(function() {
-                        $location.path('/vehicle');
+                        $location.path('#!/vehicle');
                     }, 2000)
                 } else {
                     app.loading = false;

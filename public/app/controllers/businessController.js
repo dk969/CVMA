@@ -145,7 +145,7 @@ angular.module('businessController', ['businessServices'])
     };  
 
     app.sortOrder = function(order) {
-        app.sort = order();
+        app.sort = order;
     };
 
 

@@ -87,10 +87,6 @@ module.exports = function(businessRouter) {
                         }else {
                             res.json({ success: false, message: err });
                         }
-                    } else if (err.code == 11000) {
-                       if (err.errmsg[61] == "e") {
-                            res.json({ success: false, message: "Email already used"});
-                        }
                     } else {
                         res.json({ success: false, message: err });
                     } 

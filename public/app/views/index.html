@@ -75,14 +75,15 @@
           
           
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle"ng-show="main.isLoggedIn" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
+            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#!/profile">Profile</a>
-              <a class="dropdown-item" href="#!/add_vehicle">Add a vehicle</a>
+              <a ng-show="main.isLoggedIn"class="dropdown-item" href="#!/profile">Profile</a>
+              <a ng-show="main.isLoggedIn" class="dropdown-item" href="#!/add_vehicle">Add a vehicle</a>
               <a ng-show=" main.authorized" class="dropdown-item" href="#!/business">Post</a>
               <a ng-show=" main.authorized" class="dropdown-item" href="#!/management"> User Management</a>
-              <a ng-show=" main.authorized" class="dropdown-item" href="#!/post"> Post offer</a>
+              <a ng-show=" main.authorized" class="dropdown-item" href="#!/post"> Post an Offer</a>
               <a class="dropdown-item" href="#!/about">About</a>
+
               
             </div>
           </li>&nbsp

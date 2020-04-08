@@ -105,7 +105,7 @@ angular.module('managementController', [])
     };  
 
     app.sortOrder = function(order) {
-        app.sort = order();
+        app.sort = order;
     };
 
 })

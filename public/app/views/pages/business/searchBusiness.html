@@ -85,7 +85,7 @@
     
     <div class="panel-body"  >
       <ul class="list-group">
-        <li class="list-group-item" ng-repeat="company in business.companies | filter: searchFilter | limitTo: business.limit | orderBy: business.sort">
+        <li class="list-group-item" ng-repeat="company in business.companies | filter: advancedSearchFilter | limitTo: business.limit | orderBy: business.sort">
           <p><strong> {{ company.business_name}}</strong></p>
           <p>Type: {{ company.business_type}}</p>
           <p>Address: {{ company.business_address}}</p>
