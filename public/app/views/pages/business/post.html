@@ -5,7 +5,7 @@
       
       <form name="postForm" ng-submit="businessPost.postAdd(postData, postForm.$valid);"novalidate>
 
-        <div ng-class="{ 'has-success':(postForm.business_title.$valid && !postForm.business_title.$pristine), 'has-error':(!postForm.business_title.$valid && !postForm.business_title.$pristine) || (!postForm.post.$valid && 
+        <div ng-class="{ 'has-success':(postForm.business_title.$valid && !postForm.business_title.$pristine), 'has-error':(!postForm.business_title.$valid && !postForm.business_title.$pristine) || (!postForm.business_title.$valid && 
         postForm.$submitted)}">
               <label >Title </label>
               <input  ng-disabled="businessPost.disabled" type="text" class="form-control" name="business_title" placeholder="Please enter your offer title" ng-model="businessPost.postData.business_title" required>
@@ -15,6 +15,7 @@
                   <li>Please enter the title of your offer</li>
               </ul>
         </div>
+        <br>
           <div ng-class="{ 'has-success':(postForm.business_name.$valid && !postForm.business_name.$pristine), 'has-error':(!postForm.business_name.$valid && !postForm.business_name.$pristine) || (!postForm.business_name.$valid && 
           postForm.$submitted)}">
           <label >Business Name</label>

@@ -1,33 +1,90 @@
-<div class= "headers"> Add A Vehicle</div>
+<div class= "headers"> Add Your Vehicle</div>
 
 <div class="card">
     <div class="card-body">
-      <form ng-submit="vehicle.vehAdd(vehData);">
-    
+        <form name="vehForm" ng-submit="vehicle.vehAdd(vehData, vehForm.$valid);" novalidate>
+      
+        <div ng-class="{ 'has-success':(vehForm.vehicle_make.$valid && !vehForm.vehicle_make.$pristine), 'has-error':(!vehForm.vehicle_make.$valid && !vehForm.vehicle_make.$pristine) || (!vehForm.vehicle_make.$valid && 
+        vehForm.$submitted)}">
           <label >Vehicle Make</label>
-          <input type="text" class="form-control" name="vehicle_make" placeholder="Please enter vehicle make" ng-model="vehicle.vehData.vehicle_make">
-        
+          <input ng-disabled="vehicle.disabled" type="text" class="form-control" name="vehicle_make" placeholder="Please enter vehicle make" ng-model="vehicle.vehData.vehicle_make" required>
+          <p class="help-block" ng-show="(!vehForm.vehicle_make.$pristine && vehForm.vehicle_make.$error.required) || (vehForm.$submitted && vehForm.vehicle_make.$error.required)">This field is required</p>
+
+          <ul ng-show="(!vehForm.vehicle_make.$pristine)"class="help-block">
+            <li>Please enter the make of your vehicle. e.g. Jaguar</li>
+        </ul>
+        </div>
+        <br>
+        <div ng-class="{ 'has-success':(vehForm.vehicle_model.$valid && !vehForm.vehicle_model.$pristine), 'has-error':(!vehForm.vehicle_model.$valid && !vehForm.vehicle_model.$pristine) || (!vehForm.vehicle_model.$valid && 
+        vehForm.$submitted)}">
           <label >Vehicle Model </label>
-          <input type="text" class="form-control" name="vehicle_model" placeholder="Please enter vehicle type" ng-model="vehicle.vehData.vehicle_model">
-                  
+          <input type="text" class="form-control" name="vehicle_model" placeholder="Please enter vehicle type" ng-model="vehicle.vehData.vehicle_model" required>
+          <p class="help-block" ng-show="(!vehForm.vehicle_model.$pristine && vehForm.vehicle_model.$error.required) || (vehForm.$submitted && vehForm.vehicle_model.$error.required)">This field is required</p>
+          <ul ng-show="(!vehForm.vehicle_model.$pristine)"class="help-block">
+            <li>Please enter the model of your vehicle. e.g. E-Type</li>
+        </ul>
+        </div>
+        <br>
+        <div ng-class="{ 'has-success':(vehForm.year.$valid && !vehForm.year.$pristine), 'has-error':(!vehForm.year.$valid && !vehForm.year.$pristine) || (!vehForm.year.$valid && 
+        vehForm.$submitted)}"> 
           <label >Year</label>
-          <input type="number" class="form-control" name="year" placeholder="Please enter year" ng-model="vehicle.vehData.year">
-
+          <input type="number" class="form-control" name="year" placeholder="Please enter year" ng-model="vehicle.vehData.year"required>
+          <p class="help-block" ng-show="(!vehForm.year.$pristine && vehForm.year.$error.required) || (vehForm.$submitted && vehForm.year.$error.required)">This field is required</p>
+          <ul ng-show="(!vehForm.year.$pristine)"class="help-block">
+            <li>Please enter the Year of your vehicle. e.g. 2008</li>
+        </ul>
+        </div>
+          <br>
+          <div ng-class="{ 'has-success':(vehForm.engine_size.$valid && !vehForm.engine_size.$pristine), 'has-error':(!vehForm.engine_size.$valid && !vehForm.engine_size.$pristine) || (!vehForm.engine_size.$valid && 
+          vehForm.$submitted)}">
           <label >Engine Size</label>
-          <input type="text" class="form-control" name="engine_size" placeholder="Please enter vehicle engine size" ng-model="vehicle.vehData.engine_size">
-
+          <input type="text" class="form-control" name="engine_size" placeholder="Please enter vehicle engine size" ng-model="vehicle.vehData.engine_size"required>
+          <p class="help-block" ng-show="(!vehForm.engine_size.$pristine && vehForm.engine_size.$error.required) || (vehForm.$submitted && vehForm.engine_size.$error.required)">This field is required</p>
+          <ul ng-show="(!vehForm.engine_size.$pristine)"class="help-block">
+            <li>Please enter the Engine Size of your vehicle. e.g. 1.3</li>
+        </ul>
+        </div>
+          <br>
+          <div ng-class="{ 'has-success':(vehForm.colour.$valid && !vehForm.colour.$pristine), 'has-error':(!vehForm.colour.$valid && !vehForm.colour.$pristine) || (!vehForm.colour.$valid && 
+          vehForm.$submitted)}">
           <label >Colour </label>
-          <input type="text" class="form-control" name="colour" placeholder="Please enter vehicle colour" ng-model="vehicle.vehData.colour">
-
+          <input type="text" class="form-control" name="colour" placeholder="Please enter vehicle colour" ng-model="vehicle.vehData.colour"required>
+          <p class="help-block" ng-show="(!vehForm.colour.$pristine && vehForm.colour.$error.required) || (vehForm.$submitted && vehForm.colour.$error.required)">This field is required</p>
+          <ul ng-show="(!vehForm.colour.$pristine)"class="help-block">
+            <li>Please enter the colour of your vehicle. e.g. Black</li>
+        </ul>
+        </div>
+          <br>
+          <div ng-class="{ 'has-success':(vehForm.MOT_date.$valid && !vehForm.MOT_date.$pristine), 'has-error':(!vehForm.MOT_date.$valid && !vehForm.MOT_date.$pristine) || (!vehForm.MOT_date.$valid && 
+          vehForm.$submitted)}">
           <label >MOT Date</label>
-          <input type="date" class="form-control" name="MOT_date" placeholder="Please enter vehicle MOT date" ng-model="vehicle.vehData.MOT_date">
-
+          <input type="date" class="form-control" name="MOT_date" placeholder="Please enter vehicle MOT date" ng-model="vehicle.vehData.MOT_date"required>
+          <p class="help-block" ng-show="(!vehForm.MOT_date.$pristine && vehForm.MOT_date.$error.required) || (vehForm.$submitted && vehForm.MOT_date.$error.required)">This field is required</p>
+          <ul ng-show="(!vehForm.MOT_date.$pristine)"class="help-block">
+            <li>Please enter the date of your MOT of your vehicle. e.g. 22/04/2019</li>
+        </ul>
+        </div>
+          <br>
+          <div ng-class="{ 'has-success':(vehForm.tax_date.$valid && !vehForm.tax_date.$pristine), 'has-error':(!vehForm.tax_date.$valid && !vehForm.tax_date.$pristine) || (!vehForm.tax_date.$valid && 
+          vehForm.$submitted)}">
           <label >Tax Date</label>
-          <input type="date" class="form-control" name="tax_date" placeholder="Please enter vehicle TAX date" ng-model="vehicle.vehData.tax_date">
-
+          <input type="date" class="form-control" name="tax_date" placeholder="Please enter vehicle TAX date" ng-model="vehicle.vehData.tax_date"required>
+          <p class="help-block" ng-show="(!vehForm.tax_date.$pristine && vehForm.tax_date.$error.required) || (vehForm.$submitted && vehForm.tax_date.$error.required)">This field is required</p>
+          <ul ng-show="(!vehForm.tax_date.$pristine)"class="help-block">
+            <li>Please enter the date of your Tax of your vehicle. e.g. 22/04/2019</li>
+        </ul>
+        </div>
+          <br>
+          <div ng-class="{ 'has-success':(vehForm.service_date.$valid && !vehForm.service_date.$pristine), 'has-error':(!vehForm.service_date.$valid && !vehForm.service_date.$pristine) || (!vehForm.service_date.$valid && 
+          vehForm.$submitted)}">
           <label >Service Date</label>
-          <input type="date" class="form-control" name="service_date" placeholder="Please enter service date" ng-model="vehicle.vehData.service_date">
-
+          <input type="date" class="form-control" name="service_date" placeholder="Please enter service date" ng-model="vehicle.vehData.service_date"required>
+          <p class="help-block" ng-show="(!vehForm.service_date.$pristine && vehForm.service_date.$error.required) || (vehForm.$submitted && vehForm.service_date.$error.required)">This field is required</p>
+          <ul ng-show="(!vehForm.service_date.$pristine)"class="help-block">
+            <li>Please enter the date of your Service of your vehicle. e.g. 22/04/2019</li>
+        </ul>
+        </div>
+        <br>
         
         
           <button type="submit" class="btn btn-primary">Add Vehicle</button>
