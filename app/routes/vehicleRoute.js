@@ -23,7 +23,29 @@ module.exports = function(vehicleRouter) {
         } else {
             vehicle.save(function(err) {
                 if (err) {
-                    res.json({ success: false, message: err});
+                    if (err.errors != null) {
+                        if (err.errors.vehicle_make) {
+                            res.json({ success: false, message: err.errors.vehicle_make.message});
+                        } else if (err.errors.vehicle_model) {
+                            res.json({ success: false, message: err.errors.vehicle_model.message});
+                        } else if (err.errors.year) {
+                            res.json({ success: false, message: err.errors.year.message});
+                        } else if (err.errors.engine_size) {
+                            res.json({ success: false, message: err.errors.engine_size.message});
+                        } else if (err.errors.colour) {
+                            res.json({ success: false, message: err.errors.colour.message});
+                        } else if (err.errors.MOT_date) {
+                            res.json({ success: false, message: err.errors.MOT_date.message});
+                        } else if (err.errors.tax_date) {
+                            res.json({ success: false, message: err.errors.tax_date.message});
+                        } else if (err.errors.service_date) {
+                            res.json({ success: false, message: err.errors.service_date.message});
+                        } else {
+                            res.json({success: false, message: err});
+                        }
+                    }else if(err) {
+                        res.json({success:false, message: err});
+                    }
                 } else {
                     res.json({ success: true, message: 'Vehicle Posted'});
                 }

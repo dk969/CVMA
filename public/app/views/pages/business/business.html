@@ -1,33 +1,103 @@
 <div class= "headers">Post your business details</div>
 
 <div class="card">
-    <div class="card-body">
-      <form ng-submit="business.conAdd(busData);">
-    
-          <label >Business Name</label>
-          <input type="text" class="form-control" name="business_name" placeholder="Please enter business name" ng-model="business.busData.business_name">
+                <div class="card-body">
+                <form name="busForm" ng-submit="business.conAdd(busData, busForm.$valid);" novalidate>
+                    <div ng-class="{ 'has-success':(busForm.business_name.$valid && !busForm.business_name.$pristine), 'has-error':(!busForm.business_name.$valid && !busForm.business_name.$pristine) || (!busForm.business_name.$valid && 
+                    busForm.$submitted)}">
+                    <label >Business Name</label>
+                    <input ng-disabled="business.disabled" type="text" class="form-control" name="business_name" placeholder="Please enter business name" ng-model="business.busData.business_name"ng-pattern="/^(([a-zA-Z]{2,20})+[ ]+([a-zA-Z]{2,20})+)+$|([a-zA-Z]{2,20})+/" 
+                    ng-minlength="3" ng-maxlength="20" required>
+                    <p class="help-block" ng-show="(!busForm.business_name.$pristine && busForm.business_name.$error.required) || (busForm.$submitted && busForm.business_name.$error.required)">This field is required</p>
+                    <ul ng-show="(!busForm.business_name.$pristine && busForm.business_name.$error.pattern) || (!busForm.business_name.$pristine && busForm.business_name.$error.minlength) || (!busForm.business_name.$pristine && busForm.business_name.$error.maxlength)"class="help-block">
+                        <li>Must not contain any special characters e.g.(@£$)</li>
+                    </ul>
+                </div>
+                <br> 
+                <div ng-class="{ 'has-success':(busForm.business_type.$valid && !busForm.business_type.$pristine), 'has-error':(!busForm.business_type.$valid && !busForm.business_type.$pristine) || (!busForm.business_type.$valid && 
+                busForm.$submitted)}">
+                    <label >Type </label>
+                    <input ng-disabled="business.disabled" type="text" class="form-control" name="business_type" placeholder="Please enter business type" ng-model="business.busData.business_type"ng-pattern="/garage|Garage|Parts Supplier|parts supplier|garage and parts supplier/" 
+                     required>
+                    <p class="help-block" ng-show="(!busForm.business_type.$pristine && busForm.business_type.$error.required) || (busForm.$submitted && busForm.business_type.$error.required)">This field is required</p>
+                    <ul ng-show="(!busForm.business_type.$pristine && busForm.business_type.$error.pattern) || (!busForm.business_type.$pristine && busForm.business_type.$error.minlength) || (!busForm.business_type.$pristine && busForm.business_type.$error.maxlength)"class="help-block">
+                        <li>Please enter your business type.</li>
+                        <li>Example: Garage or Parts Supplier</li>
+                    </ul>
+                </div>
+                <br> 
+                <div ng-class="{ 'has-success':(busForm.business_address.$valid && !busForm.business_address.$pristine), 'has-error':(!busForm.business_address.$valid && !busForm.business_address.$pristine) || (!busForm.business_address.$valid && 
+                busForm.$submitted)}">
+                    <label >Business Address </label>
+                    <input  ng-disabled="business.disabled"type="text" class="form-control" name="business_address" placeholder="Please enter business address" ng-model="business.busData.business_address"ng-pattern="/^\d+\s[A-z]+\s[A-z]+,\s[A-z]+/" 
+                    ng-minlength="3" ng-maxlength="35" required>
+                    <p class="help-block" ng-show="(!busForm.business_address.$pristine && busForm.business_address.$error.required) || (busForm.$submitted && busForm.business_address.$error.required)">This field is required</p>
+                    <ul ng-show="(!busForm.business_address.$pristine && busForm.business_address.$error.pattern) || (!busForm.business_address.$pristine && busForm.business_address.$error.minlength) || (!busForm.business_address.$pristine && busForm.business_address.$error.maxlength)"class="help-block">
+                        <li>Please enter your street name and number as well as the city.</li>
+                        <li>Example: 61 Park Street, Leicester</li>
+                    </ul>
+                </div>
+                <br> 
+                <div ng-class="{ 'has-success':(busForm.business_postcode.$valid && !busForm.business_postcode.$pristine), 'has-error':(!busForm.business_postcode.$valid && !busForm.business_postcode.$pristine) || (!busForm.business_postcode.$valid && 
+                busForm.$submitted)}">
+                    <label >Business Postcode </label>
+                    <input  ng-disabled="business.disabled"type="text" class="form-control" name="business_postcode" placeholder="Please enter business postcode" ng-model="business.busData.business_postcode" ng-pattern="/([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/" 
+                    ng-minlength="4" ng-maxlength="10" required>
+                    <p class="help-block" ng-show="(!busForm.business_postcode.$pristine && busForm.business_postcode.$error.required) || (busForm.$submitted && busForm.business_postcode.$error.required)">This field is required</p>
+                    <ul ng-show="(!busForm.business_postcode.$pristine && busForm.business_postcode.$error.pattern) || (!busForm.business_postcode.$pristine && busForm.business_postcode.$error.minlength) || (!busForm.business_postcode.$pristine && busForm.business_postcode.$error.maxlength)"class="help-block">
+                        <li>Please enter your business postcode in the following format</li>
+                        <li>Examples: SE50EG, se5 0eg, WC2H 7LT</li>
+                    </ul>
+                </div>
+                <br> 
+                <div ng-class="{ 'has-success':(busForm.website.$valid && !busForm.website.$pristine), 'has-error':(!busForm.website.$valid && !busForm.website.$pristine) || (!busForm.website.$valid && 
+                busForm.$submitted)}">
+                    <label >Business Website </label>
+                    <input  ng-disabled="business.disabled"type="text" class="form-control" name="website" placeholder="Please enter business website" ng-model="business.busData.website"ng-pattern=" /(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/" 
+                    ng-minlength="3" ng-maxlength="30" required>
+                    <p class="help-block" ng-show="(!busForm.website.$pristine && busForm.website.$error.required) || (busForm.$submitted && busForm.website.$error.required)">This field is required</p>
+                    <ul ng-show="(!busForm.website.$pristine && busForm.website.$error.pattern) || (!busForm.website.$pristine && busForm.website.$error.minlength) || (!busForm.website.$pristine && busForm.website.$error.maxlength)"class="help-block">
+                        <li>Please enter you website address in the following format</li>
+                        <li>Examples: www.cool.com, http://www.cool.com.au</li>
+                    </ul>
+                </div>
+                <br> 
+                <div ng-class="{ 'has-success':(busForm.business_email.$valid && !busForm.business_email.$pristine), 'has-error':(!busForm.business_email.$valid && !busForm.business_email.$pristine) || (!busForm.business_email.$valid && 
+                busForm.$submitted)}">
+                    <label >Business Email </label>
+                    <input  ng-disabled="business.disabled"type="text" class="form-control" name="business_email" placeholder="Please enter business business_email" ng-model="business.busData.business_email"ng-pattern="/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/" 
+                    ng-minlength="3" ng-maxlength="25" required>
+                    <p class="help-block" ng-show="(!busForm.business_email.$pristine && busForm.business_email.$error.required) || (busForm.$submitted && busForm.business_email.$error.required)">This field is required</p>
+                    <ul ng-show="(!busForm.business_email.$pristine && busForm.business_email.$error.pattern) || (!busForm.business_email.$pristine && busForm.business_email.$error.minlength) || (!busForm.business_email.$pristine && busForm.business_email.$error.maxlength)"class="help-block">
+                        <li>Must contain"@"</li>
+                        <li>Must not contain any special characters e.g.(@£$)</li>
+                        <li>Musy be between 3 and 25 characters</li> 
+                    </ul>
+                </div>
+                <br> 
+                <div ng-class="{ 'has-success':(busForm.business_contact.$valid && !busForm.business_contact.$pristine), 'has-error':(!busForm.business_contact.$valid && !busForm.business_contact.$pristine) || (!busForm.business_contact.$valid && 
+                busForm.$submitted)}">
+                    <label >Business Contact </label>
+                    <input  ng-disabled="business.disabled"type="text" class="form-control" name="business_contact" placeholder="Please enter business Contact Number" ng-model="business.busData.business_contact" ng-pattern="/^((\(?0\d{4}\)?\s?\d{3}\s?\d{3})|(\(?0\d{3}\)?\s?\d{3}\s?\d{4})|(\(?0\d{2}\)?\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/" 
+                    ng-minlength="3" ng-maxlength="20" required>
+                    <p class="help-block" ng-show="(!busForm.business_contact.$pristine && busForm.business_contact.$error.required) || (busForm.$submitted && busForm.business_contact.$error.required)">This field is required</p>
+                    <ul ng-show="(!busForm.business_contact.$pristine && busForm.business_contact.$error.pattern) || (!busForm.business_contact.$pristine && busForm.business_contact.$error.minlength) || (!busForm.business_contact.$pristine && busForm.business_contact.$error.maxlength)"class="help-block">
+            
+                        <li>Please enter you contact details in this format. Examples 01222 555 555 | (010) 55555555 #2222 | 0122 555 5555#222</li>
+                    </ul>
+                </div>
+                <br> 
+                <div ng-class="{ 'has-success':(busForm.specialization.$valid && !busForm.specialization.$pristine), 'has-error':(!busForm.specialization.$valid && !busForm.specialization.$pristine) || (!busForm.business_name.$valid && 
+                busForm.$submitted)}">
+                <label >Business Specialization </label>
+                <input  ng-disabled="business.disabled" type="text" class="form-control" name="specialization" placeholder="Please enter business specialization" ng-model="business.busData.specialization" required>
+                <p class="help-block" ng-show="(!busForm.specialization.$pristine && busForm.specialization.$error.required) || (busForm.$submitted && busForm.specialization.$error.required)">This field is required</p>
+                <ul ng-show="(!busForm.specialization.$pristine)"class="help-block">
         
-          <label >Type </label>
-          <input type="text" class="form-control" name="business_type" placeholder="Please enter business type" ng-model="business.busData.business_type">
-        
-          <label >Business Address </label>
-          <input type="text" class="form-control" name="business_address" placeholder="Please enter business address" ng-model="business.busData.business_address">
-
-          <label >Business Postcode </label>
-          <input type="text" class="form-control" name="business_postcode" placeholder="Please enter business postcode" ng-model="business.busData.business_postcode">
-
-          <label >Business Website </label>
-          <input type="text" class="form-control" name="website" placeholder="Please enter business website" ng-model="business.busData.website">
-
-          <label >Business Email </label>
-          <input type="text" class="form-control" name="business_email" placeholder="Please enter business business_email" ng-model="business.busData.business_email">
-
-          <label >Business Contact </label>
-          <input type="number" class="form-control" name="business_contact" placeholder="Please enter business Contact Number" ng-model="business.busData.business_contact">
-
-          <label >Business Specialization </label>
-          <input type="text" class="form-control" name="specialization" placeholder="Please enter business specialization" ng-model="business.busData.specialization">
-        
+                    <li>What does your business specialize in? e.g.Volkswagen</li>
+                </ul>
+            </div>
+            <br> 
           <br>
           <button type="submit" class="btn btn-primary">Add Business</button>
         

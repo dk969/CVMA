@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var titlize = require('mongoose-title-case');
 var validate = require('mongoose-validator');
 
 

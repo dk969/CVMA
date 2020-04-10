@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt-nodejs');
 var titlize = require('mongoose-title-case');
 var validate = require('mongoose-validator');
 
-//Validations
+//Validations for user back end
 var nameValidator = [
     validate({
         validator: 'matches',
@@ -78,7 +78,7 @@ UserSchema.pre('save', function(next){
         next();
     });
 });
-
+//User name Validation, first and last
 UserSchema.plugin(titlize, {
     paths: [ 'name' ]
 });

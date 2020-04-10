@@ -29,12 +29,33 @@ module.exports = function(businessRouter) {
         business.specialization = req.body.specialization;
     if (req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || req.body.business_address == null || req.body.business_address == '' || req.body.business_postcode == null || req.body.business_postcode == ''
     || req.body.website == null || req.body.website == '' || req.body.business_email == null || req.body.business_email == '' || req.body.business_contact == null || req.body.business_contact == '' || req.body.specialization == null || req.body.specialization == '') {
-        res.json({ success: false, message: 'Ensure Business name is provided'});
+        res.json({ success: false, message: 'Ensure Business details are provided'});
 
         } else {
              business.save(function(err) {
                 if (err) {
-                    res.json({ success: false, message: err});
+                    if (err.errors != null) {
+                        if (err.errors.business_name) {
+                            res.json({ success: false, message: err.errors.business_name.message});
+                        } else if (err.errors.business_type) {
+                            res.json({ success: false, message: err.errors.business_type.message});
+                        } else if (err.errors.business_address) {
+                            res.json({ success: false, message: err.errors.business_address.message});
+                        } else if (err.errors.business_postcode) {
+                            res.json({ success: false, message: err.errors.business_postcode.message});
+                        } else if (err.errors.website) {
+                            res.json({ success: false, message: err.errors.website.message});
+                        } else if (err.errors.business_email) {
+                            res.json({ success: false, message: err.errors.business_email.message});
+                        } else if (err.errors.business_contact) {
+                            res.json({ success: false, message: err.errors.business_contact.message});
+                        } else {
+                            res.json({success: false, message: err});
+                        }
+                    }else if(err) {
+                        res.json({success:false, message: err});
+                    }
+
                 } else {
                     res.json({ success: true, message: 'Business Posted'});
                 }
@@ -78,42 +99,54 @@ module.exports = function(businessRouter) {
                 
             } else {
                 businessPost.save(function(err) {
-                Subscribe.find({email: req.body.email}, function(err, subscribers) {
-                        if (err) throw err;
-                if (err) {
-                    if (err.error != null) {
-                        if (err.errors.email) {
-                            res.json({ success: false, message: err.errors.email.message }); 
-                        }else {
-                            res.json({ success: false, message: err });
-                        }
-                    } else {
-                        res.json({ success: false, message: err });
-                    } 
-                } else {
-
-                    var email = {
-                        from: 'CVMA Staff, staff@CVMA.com',
-                        to: subscribers.email,
-                        subject: 'CVMA New Post Link',
-                        text: 'Hello' +  + ', Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' ,
-                        html: 'Hello' +  + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' +  '">http://localhost:4200/activate</a>'
-                        
-                        };
-                    
-                        client.sendMail(email, function(err, info){
-                            if (err ){
-                            console.log(err);
+              
+                        if (err) {
+                            if (err.errors != null) {
+                                if (err.errors.business_title) {
+                                    res.json({ success: false, message: err.errors.business_title.message});
+                                } else if (err.errors.business_name) {
+                                    res.json({ success: false, message: err.errors.business_name.message});
+                                } else if (err.errors.business_type) {
+                                    res.json({ success: false, message: err.errors.business_type.message});
+                                } else if (err.errors.website) {
+                                    res.json({ success: false, message: err.errors.website.message});
+                                } else if (err.errors.specialization) {
+                                    res.json({ success: false, message: err.errors.specialization.message});
+                                } else if (err.errors.post) {
+                                    res.json({ success: false, message: err.errors.post.message});
+                                } else {
+                                    res.json({success: false, message: err});
+                                }
+                            }else if(err) {
+                                res.json({success:false, message: err});
                             }
-                            else {
-                            console.log('Message sent: ' + info.response);
-                            }
-                        });
-                    res.json({ success: true, message: 'Post Uploaded'});
-                }
+                        } else {
+                        Subscribe.find({email: req.body.email}, function(err, subscribers) {
+                            console.log(email)
+                            if (err) throw err;
+                            var email = {
+                                from: 'CVMA Staff, staff@CVMA.com',
+                                to: subscribers.email,
+                                subject: 'CVMA New Post Link',
+                                text: 'Hello' +  + ', Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' ,
+                                html: 'Hello' +  + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' +  '">http://localhost:4200/activate</a>'
+                                
+                                };
+                            
+                                client.sendMail(email, function(err, info){
+                                    if (err ){
+                                    console.log(err);
+                                    }
+                                    else {
+                                    console.log('Message sent: ' + info.response);
+                                    }
+                                });
+                            });
+                         res.json({ success: true, message: 'Post Uploaded'});
+                    }
                 
             })
-        });
+        
         }   
         
     });

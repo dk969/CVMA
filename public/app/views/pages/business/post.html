@@ -2,26 +2,75 @@
 
 <div class="card">
     <div class="card-body">
-      <form ng-submit="businessPost.postAdd(postData);">
+      
+      <form name="postForm" ng-submit="businessPost.postAdd(postData, postForm.$valid);"novalidate>
 
-        <label >Title </label>
-        <input type="text" class="form-control" name="business_title" placeholder="Please enter a Title" ng-model="businessPost.postData.business_title">
-    
+        <div ng-class="{ 'has-success':(postForm.business_title.$valid && !postForm.business_title.$pristine), 'has-error':(!postForm.business_title.$valid && !postForm.business_title.$pristine) || (!postForm.post.$valid && 
+        postForm.$submitted)}">
+              <label >Title </label>
+              <input  ng-disabled="businessPost.disabled" type="text" class="form-control" name="business_title" placeholder="Please enter your offer title" ng-model="businessPost.postData.business_title" required>
+              <p class="help-block" ng-show="(!postForm.business_title.$pristine && postForm.business_title.$error.required) || (postForm.$submitted && postForm.business_title.$error.required)">This field is required</p>
+              <ul ng-show="(!postForm.business_title.$pristine)"class="help-block">
+  
+                  <li>Please enter the title of your offer</li>
+              </ul>
+        </div>
+          <div ng-class="{ 'has-success':(postForm.business_name.$valid && !postForm.business_name.$pristine), 'has-error':(!postForm.business_name.$valid && !postForm.business_name.$pristine) || (!postForm.business_name.$valid && 
+          postForm.$submitted)}">
           <label >Business Name</label>
-          <input type="text" class="form-control" name="business_name" placeholder="Please enter business name" ng-model="businessPost.postData.business_name">
-        
+          <input ng-disabled="businessPost.disabled" type="text" class="form-control" name="business_name" placeholder="Please enter business name" ng-model="businessPost.postData.business_name"ng-pattern="/^(([a-zA-Z]{2,20})+[ ]+([a-zA-Z]{2,20})+)+$|([a-zA-Z]{2,20})+/" 
+          ng-minlength="3" ng-maxlength="20" required>
+          <p class="help-block" ng-show="(!postForm.business_name.$pristine && postForm.business_name.$error.required) || (postForm.$submitted && postForm.business_name.$error.required)">This field is required</p>
+          <ul ng-show="(!postForm.business_name.$pristine && postForm.business_name.$error.pattern) || (!postForm.business_name.$pristine && postForm.business_name.$error.minlength) || (!postForm.business_name.$pristine && postForm.business_name.$error.maxlength)"class="help-block">
+              <li>Must not contain any special characters e.g.(@£$)</li>
+          </ul>
+      </div>
+      <br> 
+      <div ng-class="{ 'has-success':(postForm.business_type.$valid && !postForm.business_type.$pristine), 'has-error':(!postForm.business_type.$valid && !postForm.business_type.$pristine) || (!postForm.business_type.$valid && 
+      postForm.$submitted)}">
           <label >Type </label>
-          <input type="text" class="form-control" name="business_type" placeholder="Please enter business type" ng-model="businessPost.postData.business_type">
-
+          <input ng-disabled="businessPost.disabled" type="text" class="form-control" name="business_type" placeholder="Please enter business type" ng-model="businessPost.postData.business_type"ng-pattern="/garage|Garage|Parts Supplier|parts supplier|garage and parts supplier/" 
+           required>
+          <p class="help-block" ng-show="(!postForm.business_type.$pristine && postForm.business_type.$error.required) || (postForm.$submitted && postForm.business_type.$error.required)">This field is required</p>
+          <ul ng-show="(!postForm.business_type.$pristine && postForm.business_type.$error.pattern) || (!postForm.business_type.$pristine && postForm.business_type.$error.minlength) || (!postForm.business_type.$pristine && postForm.business_type.$error.maxlength)"class="help-block">
+              <li>Please enter your business type.</li>
+              <li>Example: Garage or Parts Supplier</li>
+          </ul>
+      </div>
+      <br> 
+      <div ng-class="{ 'has-success':(postForm.website.$valid && !postForm.website.$pristine), 'has-error':(!postForm.website.$valid && !postForm.website.$pristine) || (!postForm.website.$valid && 
+      postForm.$submitted)}">
           <label >Business Website </label>
-          <input type="text" class="form-control" name="website" placeholder="Please enter a link to the offer" ng-model="businessPost.postData.website">
+          <input  ng-disabled="businessPost.disabled"type="text" class="form-control" name="website" placeholder="Please enter business website" ng-model="businessPost.postData.website"ng-pattern=" /(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/" 
+          ng-minlength="3" ng-maxlength="30" required>
+          <p class="help-block" ng-show="(!postForm.website.$pristine && postForm.website.$error.required) || (postForm.$submitted && postForm.website.$error.required)">This field is required</p>
+          <ul ng-show="(!postForm.website.$pristine && postForm.website.$error.pattern) || (!postForm.website.$pristine && postForm.website.$error.minlength) || (!postForm.website.$pristine && postForm.website.$error.maxlength)"class="help-block">
+              <li>Please enter you website address in the following format</li>
+              <li>Examples: www.cool.com, http://www.cool.com.au</li>
+          </ul>
+      </div>
+      <br>
+      <div ng-class="{ 'has-success':(postForm.specialization.$valid && !postForm.specialization.$pristine), 'has-error':(!postForm.specialization.$valid && !postForm.specialization.$pristine) || (!postForm.specialization.$valid && 
+      postForm.$submitted)}">
+            <label >Business Specialization </label>
+            <input  ng-disabled="businessPost.disabled" type="text" class="form-control" name="specialization" placeholder="Please enter business specialization" ng-model="businessPost.postData.specialization" required>
+            <p class="help-block" ng-show="(!postForm.specialization.$pristine && postForm.specialization.$error.required) || (postForm.$submitted && postForm.specialization.$error.required)">This field is required</p>
+            <ul ng-show="(!postForm.specialization.$pristine)"class="help-block">
 
-          <label >Business Specialization </label>
-          <input type="text" class="form-control" name="specialization" placeholder="Please enter business specialization" ng-model="businessPost.postData.specialization">
+                <li>What does your business specialize in? e.g.Volkswagen</li>
+            </ul>
+      </div>
+      <br>
+      <div ng-class="{ 'has-success':(postForm.post.$valid && !postForm.post.$pristine), 'has-error':(!postForm.post.$valid && !postForm.post.$pristine) || (!postForm.post.$valid && 
+      postForm.$submitted)}">
+            <label >Post </label>
+            <input  ng-disabled="businessPost.disabled" type="text" class="form-control" name="post" placeholder="Please enter business post" ng-model="businessPost.postData.post" required>
+            <p class="help-block" ng-show="(!postForm.post.$pristine && postForm.post.$error.required) || (postForm.$submitted && postForm.post.$error.required)">This field is required</p>
+            <ul ng-show="(!postForm.post.$pristine)"class="help-block">
 
-          <label >Post </label>
-          <input type="text" class="form-control" name="post" placeholder="Please enter your post" ng-model="businessPost.postData.post">
-        
+                <li>Please enter your offer details</li>
+            </ul>
+      </div>
           <br>
           <button type="submit" class="btn btn-primary">Add Business</button>
         
