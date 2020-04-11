@@ -70,6 +70,10 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         templateUrl: 'app/views/pages/users/login.html',
         authenticated: false
     })
+    .when('/buslogin', {
+        templateUrl: 'app/views/pages/users/business_login.html',
+        authenticated: false
+    })
     .when('/logout', {
         templateUrl: 'app/views/pages/users/logout.html',
         authenticated: true 
@@ -77,6 +81,7 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
 
     .when('/profile', {
         templateUrl: 'app/views/pages/users/profile.html',
+        
         authenticated: true
     })
 
@@ -211,6 +216,19 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         templateUrl: 'app/views/pages/notifcations/subscribers.html',
         controller: 'subController',
         controllerAs: 'subscribe',
+        authenticated: true,
+        
+    })
+    .when('/upgrade/:id', {
+        templateUrl: 'app/views/pages/users/upgrade.html',
+        controller: 'upgradeController',
+        controllerAs: 'upgrade',
+        authenticated: true,
+        
+    })
+    .when('/redirect', {
+        templateUrl: 'app/views/pages/users/redirect.html',
+        
         authenticated: true,
         
     })

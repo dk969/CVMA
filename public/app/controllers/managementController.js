@@ -309,4 +309,91 @@ angular.module('managementController', [])
 
       
 
-});
+})
+.controller("getUserController", function($scope, $routeParams, User) {
+
+    var app = this;
+
+        
+    app.loading = true;
+    app.accessDenied = true;
+    app.errorMsg = false;
+    app.editAccess = false;
+    app.deleteAccess = false;
+
+    User.getCurrent($routeParams.id).then(function(data) {
+        if (data.data.success) {
+            if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
+                        $scope.user = data.data.user;
+                        app.loading = false;
+                        app.accessDenied = false;
+                        if (data.data.permission === 'admin') {
+                            app.editAccess = true;
+                            app.deleteAccess = true;
+                            
+                        } else if (data.data.permission === 'moderator') {
+                            app.editAccess = true;
+                        } else if (data.data.permission === 'user') {
+                        
+                        }
+                    } else {
+                        app.errorMsg = 'Insufficient Permissions';
+                        app.loading = false;
+                    }
+
+        } else {
+            app.errorMsg = data.data.message;
+        }
+    });
+})
+.controller("upgradeController", function($scope, $routeParams, User, $timeout) {
+    var app = this;
+    
+    
+    
+    User.getUser($routeParams.id).then(function(data) {
+        if (data.data.success) {
+            console.log(data.data.user.name);
+            $scope.newName = data.data.user.name;
+            $scope.newUsername =data.data.user.username;
+            $scope.newEmail = data.data.user.email;
+            $scope.newPermission = data.data.user.permission;
+            app.currentUser = data.data.user._id;
+           
+        } else { 
+            app.errorMsg = data.data.message;
+        }
+    });
+    app.upgradePermission = function(newPermission) {
+        app.errorMsg = false;
+      
+        app.disableModerator= true;
+        
+        
+        var userObject = {};
+
+        userObject._id = app.currentUser;
+        userObject.permission = newPermission;
+            User.upgradeUser(userObject).then(function(data) {
+                if (data.data.success) {
+                    app.successMsg = data.data.message;
+                    $timeout(function() {
+                        app.successMsg = false;
+                            if (newPermission === 'moderator') {
+                                $scope.newPermission = 'moderator';
+                                app.disableUser = false;
+                                app.disableModerator= true;
+                               
+                            } else  {
+                               
+                            }         
+                    }, 2000);
+                } else {
+                    app.errorMsg = data.data.message;
+                    app.disabled = false;
+                }
+            });
+       
+    };
+  
+})

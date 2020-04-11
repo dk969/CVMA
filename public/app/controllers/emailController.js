@@ -2,7 +2,7 @@ angular.module('emailController', ['userServices'])
 
     .controller('emailController', function($routeParams, User, $timeout, $location) {
 
-        app = this;
+        var app = this;
 
         User.activateAccount($routeParams.token).then(function(data) {
             app.successMsg = false;
@@ -11,15 +11,21 @@ angular.module('emailController', ['userServices'])
             if (data.data.success) {
                 app.successMsg = data.data.message + '.... Redirecting';
                 $timeout(function() {
-                    $location.path('#!/login');
-                }, 2000);
+                    $location.path('/login');
+                }, 10000);
             } else {
                 app.errorMsg = data.data.message + '.... Redirecting';
                 $timeout(function() {
-                    $location.path('#!/login');
-                }, 2000);
+                    $location.path('/login');
+                }, 10000);
             }
         }); 
+
+    
+        
+
+
+
     })
 
     .controller('resendController', function(User) {

@@ -55,7 +55,7 @@ module.exports = function(router) {
                 } 
 
              } else {
-
+                
                 var email = {
                     from: 'CVMA Staff, staff@CVMA.com',
                     to: user.email,
@@ -383,8 +383,9 @@ module.exports = function(router) {
         }
     });
     //gets current user
-    router.post('/currentUser', function (req, res) {
+    router.get('/currentUser', function (req, res) {
         res.send(req.decoded);
+        res.send(req.decoded.name);
     });
 
     router.get('/renewToken/:username', function(req, res) {
@@ -434,6 +435,8 @@ module.exports = function(router) {
             })
         });
     });
+
+
     router.delete('/management/:username', function(req, res) {
         var deletedUser = req.params.username;
         User.findOne({ username: req.decoded.username}, function (err, mainUser) {
@@ -448,6 +451,28 @@ module.exports = function(router) {
                         if (err) throw err;
                         res.json({success: true, });
                     });
+                }
+            }
+        });
+    });
+    router.get('/user/:id', function(req,res) {
+        var user = req.params.id;
+        User.findOne({username: req.decoded.username}, function (err, mainUser) {
+            if (err) throw err;
+            if (!mainUser) {
+                res.json({ success: false, message: 'No user found'});
+            } else {
+                if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                    User.findOne({ _id: user}, function(err,user) {
+                        if (err) throw err;
+                        if (!user) {
+                            res.json({ success: false, message: 'No user found'});
+                        } else {
+                            res.json({ success: true, user: user});
+                        }
+                    });
+                } else {
+                    res.json({ success: false, message: 'Insufficient Permission'});
                 }
             }
         });
@@ -631,6 +656,41 @@ module.exports = function(router) {
             }
         })
     });
+    router.put('/upgrade', function(req,res) {
+        var editUser = req.body._id;
+        if (req.body.permission) var newPermission = req.body.permission;
+        User.findOne({username: req.decoded.username }, function(err, mainUser) {
+            if (err) throw err;
+            if(!mainUser) {
+                res.json({ success: false, message: " No user found"});
+            } else { 
+                if (newPermission) {
+                    
+                        User.findOne({ _id: editUser}, function(err, user) {
+                            if (err) throw err;
+                            if (!user) {
+                                res.json({ success: false, message: 'No user found'});
+                            } else {
+                                if (newPermission === 'moderator') {
+                                            user.permission = newPermission;
+                                            user.save(function(err) {
+                                                if (err) {
+                                                    console.log(err);
+                                                } else {
+                                                    res.json({ success: true, message: ' Permission updated'})
+                                                }
+                                            });
+                                        } 
+                                     
+                                
+                                    }
+                                });
+                    
+                }
+            }
+        })
+    });
+
     
     return router;
 

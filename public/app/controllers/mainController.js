@@ -60,7 +60,7 @@ angular.module('mainController', ['authServices', 'userServices'])
             $("#myModal").modal({ backdrop: "static" });
             $timeout(function() {
                 Auth.logout();
-                $location.path('#!/logout');
+                $location.path('/logout');
                 hideModal();
                 $route.reload();
             }, 3000);
@@ -109,7 +109,8 @@ angular.module('mainController', ['authServices', 'userServices'])
             app.isLoggedIn = true;
 
             Auth.getUser().then(function(data) { 
-                app.name = data.data.name;
+                
+                app.name = data.data.user;
                 app.username = data.data.username;
                 app.useremail = data.data.email;
                 app.userpermission = data.data.permission;
@@ -159,6 +160,46 @@ angular.module('mainController', ['authServices', 'userServices'])
                 app.successMsg = data.data.message + ' ...Redirecting';
                 $timeout(function() {
                     $location.path('/');
+                    app.loginData = '';
+                    app.successMsg = false;
+                    app.disabled = false;
+                    app.checkSession();
+                }, 2000);
+
+             } else {
+                if (data.data.expired) {
+                     //creates an error message
+                    app.expired = true;
+                    app.loading = false;
+                    app.errorMsg = data.data.message;
+                } else {
+                     //creates an error message
+                    app.loading = false;
+                    app.disable = true;
+                    app.errorMsg = data.data.message;
+                }
+             }
+        });
+    };
+    //Redirects you to business upgrade 
+    app.busLogin = function(loginData) {
+        app.loading = true;
+        app.errorMsg =false;
+        app.expired = false;
+        app.disable = false;
+
+        
+        
+        Auth.login(app.loginData).then(function(data) {
+            
+             if (data.data.success) {
+                 
+                app.loading = false;
+                //redirects to home page and creates success message
+                app.successMsg = data.data.message + ' ...Redirecting';
+                $timeout(function() {
+                    
+                    $location.path('/redirect');
                     app.loginData = '';
                     app.successMsg = false;
                     app.disabled = false;
