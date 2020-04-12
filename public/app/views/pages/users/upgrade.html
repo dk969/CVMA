@@ -1,4 +1,40 @@
 
+
+
+
+<div class="panel panel-default card" ng-controller="getUserController">
+    
+    <div class="panel-body"  >
+      <ul class="list-group">
+        <li class="list-group-item" ng-model="user">
+          <p><strong> {{ user.name}}</strong></p>
+          <p>Username: {{ user.username}}</p>
+          <p>Permission: {{ user.permission}}</p>
+          <p>Postcode: {{ company.business_postcode}}</p>
+         
+          <p>_id: {{ user._id}}</p>
+          <p>Contact Number: {{ company.business_contact}}</p>
+          <p>Specialization: {{ company.specialization}}</p>
+          <a href="#!/businesslist">
+            <button type="button" class="btn btn-primary">Back</button>
+          </a>
+        </li>
+     </ul>
+   </div>
+   
+ </div>
  <label><strong>Permission: &nbsp &nbsp</strong> </label> {{ newPermission }}
 
 <button  ng-disabled="upgrade.disableModerator" ng-click="upgrade.upgradePermission('moderator');"type="button" class="btn btn-info">Moderator</button>&nbsp
+
+
+<br>
+<div class='row show-hide-message'ng-show="upgrade.successMsg">
+    <div class="alert alert-success">{{upgrade.successMsg}}</div>
+</div>
+
+<br>
+
+<div class='row show-hide-message' ng-show="upgrade.errorMsg">
+    <div class="alert alert-danger">{{upgrade.errorMsg}}</div>
+</div>

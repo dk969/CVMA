@@ -71,12 +71,12 @@ angular.module('userServices', [])
         return $http.put('/api/edit', id);
     };
     //User.upgradeUser(id);
-    userFactory.upgradeUser = function(id) {
-        return $http.put('/api/upgrade', id);
+    userFactory.upgradeUser = function(username) {
+        return $http.put('/api/upgrade', username);
     };
     //User.getUser(id);
-    userFactory.getCurrent = function(id) {
-        return $http.get('/api/user/' + id)
+    userFactory.getCurrent = function(username) {
+        return $http.get('/api/user/' + username)
     };
     
 

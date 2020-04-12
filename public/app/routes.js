@@ -219,7 +219,7 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         
     })
-    .when('/upgrade/:id', {
+    .when('/upgrade/:username', {
         templateUrl: 'app/views/pages/users/upgrade.html',
         controller: 'upgradeController',
         controllerAs: 'upgrade',
@@ -228,7 +228,6 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
     })
     .when('/redirect', {
         templateUrl: 'app/views/pages/users/redirect.html',
-        
         authenticated: true,
         
     })

@@ -321,7 +321,7 @@ angular.module('managementController', [])
     app.editAccess = false;
     app.deleteAccess = false;
 
-    User.getCurrent($routeParams.id).then(function(data) {
+    User.getCurrent($routeParams.username).then(function(data) {
         if (data.data.success) {
             if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
                         $scope.user = data.data.user;
@@ -349,21 +349,33 @@ angular.module('managementController', [])
 .controller("upgradeController", function($scope, $routeParams, User, $timeout) {
     var app = this;
     
-    
-    
-    User.getUser($routeParams.id).then(function(data) {
+    User.getCurrent($routeParams.username).then(function(data) {
         if (data.data.success) {
-            console.log(data.data.user.name);
-            $scope.newName = data.data.user.name;
-            $scope.newUsername =data.data.user.username;
-            $scope.newEmail = data.data.user.email;
-            $scope.newPermission = data.data.user.permission;
-            app.currentUser = data.data.user._id;
            
-        } else { 
+                        $scope.user = data.data.user;
+                        app.loading = false;
+                        app.accessDenied = false;
+                        $scope.newPermission = data.data.user.permission;
+                        app.currentUser = data.data.user._id; 
+                        
+                          
+                   
+
+        } else {
             app.errorMsg = data.data.message;
         }
     });
+    
+//    User.getUser($routeParams.username).then(function(data) {
+//         if (data.data.success) { 
+//             console.log(data.data.user.name);
+//             $scope.newName = data.data.user.name;
+//             $s =data.data.user.username;
+//             $scope.newEmail = data.data.user.email;
+//             $scope.newPermission = data.data.user.permission;
+//             app.currentUser = data.data.user._id;
+           
+
     app.upgradePermission = function(newPermission) {
         app.errorMsg = false;
       

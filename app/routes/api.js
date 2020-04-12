@@ -455,15 +455,14 @@ module.exports = function(router) {
             }
         });
     });
-    router.get('/user/:id', function(req,res) {
-        var user = req.params.id;
+    router.get('/user/:username', function(req,res) {
+        var user = req.params.username;
         User.findOne({username: req.decoded.username}, function (err, mainUser) {
             if (err) throw err;
             if (!mainUser) {
                 res.json({ success: false, message: 'No user found'});
             } else {
-                if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
-                    User.findOne({ _id: user}, function(err,user) {
+                User.findOne({ username: user}, function(err,user) {
                         if (err) throw err;
                         if (!user) {
                             res.json({ success: false, message: 'No user found'});
@@ -471,9 +470,7 @@ module.exports = function(router) {
                             res.json({ success: true, user: user});
                         }
                     });
-                } else {
-                    res.json({ success: false, message: 'Insufficient Permission'});
-                }
+                
             }
         });
     });
@@ -657,7 +654,7 @@ module.exports = function(router) {
         })
     });
     router.put('/upgrade', function(req,res) {
-        var editUser = req.body._id;
+        var upgradeUser = req.body._id;
         if (req.body.permission) var newPermission = req.body.permission;
         User.findOne({username: req.decoded.username }, function(err, mainUser) {
             if (err) throw err;
@@ -666,7 +663,7 @@ module.exports = function(router) {
             } else { 
                 if (newPermission) {
                     
-                        User.findOne({ _id: editUser}, function(err, user) {
+                        User.findOne({ _id: upgradeUser}, function(err, user) {
                             if (err) throw err;
                             if (!user) {
                                 res.json({ success: false, message: 'No user found'});
