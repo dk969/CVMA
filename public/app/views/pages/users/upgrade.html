@@ -7,21 +7,20 @@
     <div class="panel-body"  >
       <ul class="list-group">
         <li class="list-group-item" ng-model="user">
-          <p><strong> {{ user.name}}</strong></p>
+          <p><strong> Hi, {{ user.name}}</strong></p>
+          <p>_id: {{ user._id}}</p>
           <p>Username: {{ user.username}}</p>
           <p>Permission: {{ user.permission}}</p>
           <p>Postcode: {{ company.business_postcode}}</p>
          
-          <p>_id: {{ user._id}}</p>
-          <p>Contact Number: {{ company.business_contact}}</p>
-          <p>Specialization: {{ company.specialization}}</p>
-          <a href="#!/businesslist">
-            <button type="button" class="btn btn-primary">Back</button>
-          </a>
+          
         </li>
      </ul>
    </div>
    
+ </div>
+ <div>
+   <p> Please click on the link below to become a business</p>
  </div>
  <label><strong>Permission: &nbsp &nbsp</strong> </label> {{ newPermission }}
 

@@ -8,17 +8,17 @@ angular.module('emailController', ['userServices'])
             app.successMsg = false;
             app.errorMsg = false;
            
-            if (data.data.success) {
-                app.successMsg = data.data.message + '.... Redirecting';
-                $timeout(function() {
-                    $location.path('/login');
-                }, 10000);
-            } else {
-                app.errorMsg = data.data.message + '.... Redirecting';
-                $timeout(function() {
-                    $location.path('/login');
-                }, 10000);
-            }
+            // if (data.data.success) {
+            //     app.successMsg = data.data.message + '.... Redirecting';
+            //     $timeout(function() {
+            //         $location.path('/login');
+            //     }, 6000);
+            // } else {
+            //     app.errorMsg = data.data.message + '.... Redirecting';
+            //     $timeout(function() {
+            //         $location.path('/login');
+            //     }, 6000);
+            // }
         }); 
 
     

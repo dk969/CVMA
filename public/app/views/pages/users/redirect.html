@@ -1,20 +1,10 @@
 <h1>Are you a business?</h1>
+<br>
 <p>Would you like to post offers and showcase your business?</p>
 
 
-<div class="panel panel-default card" ng-controller="getUserController">
-    
-    <div class="panel-body"  >
-      <ul class="list-group">
-        <li class="list-group-item" ng-model="user">
-          <p>{{ main.username}}</p>  
-        </li>
-      </ul>
-    </div>
-<a href="#!/upgrade/{{user._id}}">
-    <button type="button"  class="btn btn-primary">I am a business</button>
-</a>
-</div>
+
+
 <div class="pannel pannel-info">
     <div class="panel-heading" style="text-align: center;"><strong>User Profile</strong></div>
     <table class="table">
@@ -26,13 +16,14 @@
             
         </tr>
         <tr>
-            <td>{{ main._id}}</td>
+            
             <td>{{ main.username}}</td>
             <td>{{ main.useremail }}</td>
             <td>***********</td>
             
         </tr>
-        <a href="#!/upgrade/{{main.username}}">
-            <button type="button"  class="btn btn-primary">I am a business</button>
-        </a>
+       
     </table>
+    <div> <a href="#!/upgrade/{{main.username}}">
+        <button type="button"  class="btn btn-success">Yes I would like to post</button>
+    </a></div>

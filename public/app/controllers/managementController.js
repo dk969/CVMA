@@ -310,42 +310,42 @@ angular.module('managementController', [])
       
 
 })
-.controller("getUserController", function($scope, $routeParams, User) {
+// .controller("getUserController", function($scope, $routeParams, User) {
 
-    var app = this;
+//     var app = this;
 
         
-    app.loading = true;
-    app.accessDenied = true;
-    app.errorMsg = false;
-    app.editAccess = false;
-    app.deleteAccess = false;
+//     app.loading = true;
+//     app.accessDenied = true;
+//     app.errorMsg = false;
+//     app.editAccess = false;
+//     app.deleteAccess = false;
 
-    User.getCurrent($routeParams.username).then(function(data) {
-        if (data.data.success) {
-            if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
-                        $scope.user = data.data.user;
-                        app.loading = false;
-                        app.accessDenied = false;
-                        if (data.data.permission === 'admin') {
-                            app.editAccess = true;
-                            app.deleteAccess = true;
+//     User.getCurrent($routeParams.username).then(function(data) {
+//         if (data.data.success) {
+//             if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
+//                         $scope.user = data.data.user;
+//                         app.loading = false;
+//                         app.accessDenied = false;
+//                         if (data.data.permission === 'admin') {
+//                             app.editAccess = true;
+//                             app.deleteAccess = true;
                             
-                        } else if (data.data.permission === 'moderator') {
-                            app.editAccess = true;
-                        } else if (data.data.permission === 'user') {
+//                         } else if (data.data.permission === 'moderator') {
+//                             app.editAccess = true;
+//                         } else if (data.data.permission === 'user') {
                         
-                        }
-                    } else {
-                        app.errorMsg = 'Insufficient Permissions';
-                        app.loading = false;
-                    }
+//                         }
+//                     } else {
+//                         app.errorMsg = 'Insufficient Permissions';
+//                         app.loading = false;
+//                     }
 
-        } else {
-            app.errorMsg = data.data.message;
-        }
-    });
-})
+//         } else {
+//             app.errorMsg = data.data.message;
+//         }
+//     });
+// })
 .controller("upgradeController", function($scope, $routeParams, User, $timeout) {
     var app = this;
     
