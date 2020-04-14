@@ -27,7 +27,6 @@ module.exports = function(businessRouter) {
             if (!user) {
                 res.json({ success: false, message: ' No User found'});
             } else {
-                
         business.business_name = req.body.business_name;
         business.business_type = req.body.business_type;
         business.business_address = req.body.business_address;
@@ -100,12 +99,21 @@ module.exports = function(businessRouter) {
 
     businessRouter.post('/businessPost', function(req,res) {
         var businessPost = BusinessPost();
+        User.findOne({user: req.decoded}, function(err, user) {
+            if (err) throw err;
+            if (!user) {
+                res.json({ success: false, message: ' No User found'});
+            } else {
         businessPost.business_title = req.body.business_title;
         businessPost.business_name = req.body.business_name;
         businessPost.business_type = req.body.business_type;
         businessPost.website = req.body.website;
         businessPost.specialization = req.body.specialization;
         businessPost.post = req.body.post;
+        businessPost.author = {
+            id: user._id,
+            username: user.username
+         }
        
             if (req.body.business_title == null || req.body.business_title == '' || req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || 
             req.body.website == null || req.body.website == '' || req.body.specialization == null || req.body.specialization == ''|| req.body.post == null || req.body.post == '' ) {
@@ -162,6 +170,8 @@ module.exports = function(businessRouter) {
             })
         
         }   
+     }
+    })
         
     });
     //sends email after getting subscribers
@@ -234,7 +244,7 @@ module.exports = function(businessRouter) {
                         if (!companies) {
                             res.json ({ success: false, message: 'Businesses not found'});
                         } else { 
-                            res.json({ success: true, companies: companies, permission: mainUser.permission });
+                            res.json({ success: true, companies: companies, permission: mainUser.permission, _id: mainUser._id});
                         }
 
 
@@ -383,7 +393,7 @@ module.exports = function(businessRouter) {
             if (!mainUser) {
                 res.json({ success: false, message: 'No user found'});
             } else {
-                if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator' ) {
                     Business.findOne({ _id: editBusiness}, function(err,business) {
                         if (err) throw err;
                         if (!business) {

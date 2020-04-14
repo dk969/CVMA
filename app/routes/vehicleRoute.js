@@ -6,6 +6,11 @@ module.exports = function(vehicleRouter) {
    
     vehicleRouter.post('/vehicle', function(req,res) {
         var vehicle = Vehicle();
+        User.findOne({user: req.decoded}, function(err, user) {
+            if (err) throw err;
+            if (!user) {
+                res.json({ success: false, message: ' No User found'});
+            } else {
         vehicle.vehicle_make = req.body.vehicle_make;
         vehicle.vehicle_model = req.body.vehicle_model;
         vehicle.year = req.body.year;
@@ -14,6 +19,10 @@ module.exports = function(vehicleRouter) {
         vehicle.MOT_date = req.body.MOT_date;
         vehicle.tax_date = req.body.tax_date;
         vehicle.service_date = req.body.service_date;
+        vehicle.author = {
+            id: user._id,
+            username: user.username
+         }
 
     if (req.body.vehicle_make == null || req.body.vehicle_make == '' || req.body.vehicle_model == null || req.body.vehicle_model == '' || req.body.year == null || req.body.year == '' || req.body.engine_size == null || req.body.engine_size == ''
     || req.body.colour == null || req.body.colour == '' || req.body.MOT_date == null || req.body.MOT_date == '' || req.body.tax_date == null || req.body.tax_date == '' || req.body.service_date == null || req.body.service_date == ''
@@ -50,7 +59,9 @@ module.exports = function(vehicleRouter) {
                     res.json({ success: true, message: 'Vehicle Posted'});
                 }
             });
-        }   
+             }   
+         }
+        })      
     });
 
      //gets current user
@@ -80,7 +91,7 @@ module.exports = function(vehicleRouter) {
                         if (!vehicles) {
                             res.json ({ success: false, message: 'Vehicles not found'});
                         } else { 
-                            res.json({ success: true, vehicles: vehicles, permission: mainUser.permission });
+                            res.json({ success: true, vehicles: vehicles, permission: mainUser.permission, _id: mainUser._id});
                         }
 
 

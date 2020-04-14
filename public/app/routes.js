@@ -32,9 +32,9 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
     })
     .when('/view_business/:id', {
         templateUrl: 'app/views/pages/business/view_business.html',
-        controller: 'getController',
-        controllerAs: 'getBusinessID',
+        controller: 'businessController',
         controllerAs: 'business',
+        
         authenticated: true,
         
     })

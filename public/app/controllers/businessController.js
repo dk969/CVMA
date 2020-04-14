@@ -38,9 +38,10 @@ angular.module('businessController', ['businessServices'])
         };
         function getBusinesses() {
             Business.getBusinesses().then(function(data) {
-                
+                console.log(data); 
                 if (data.data.success) {
-                    if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
+                   
+                    if (data.data.permission === 'admin' || data.data.permission === 'moderator'|| data.data.permission === 'user') {
                         app.companies = data.data.companies;
                         app.loading = false;
                         app.accessDenied = false;
@@ -48,7 +49,7 @@ angular.module('businessController', ['businessServices'])
                             app.editAccess = true;
                             app.deleteAccess = true;
                             app.authorized = true;
-                        } else if (data.data.permission === 'moderator') {
+                        } else if (data.data.permission === 'moderator' ) {
                             app.editAccess = true;
                             app.deleteAccess = true;
                             app.authorized = true;
@@ -85,6 +86,7 @@ angular.module('businessController', ['businessServices'])
         showMoreError = false;
 
     };
+    
 
     app.deleteBusiness = function(_id) {
         Business.deleteBusiness(_id).then(function(data) {
@@ -163,6 +165,7 @@ angular.module('businessController', ['businessServices'])
     app.errorMsg = false;
     app.editAccess = false;
     app.deleteAccess = false;
+    app.authorized = false;
 
     Business.getBusinessID($routeParams.id).then(function(data) {
         if (data.data.success) {
@@ -173,11 +176,15 @@ angular.module('businessController', ['businessServices'])
                         if (data.data.permission === 'admin') {
                             app.editAccess = true;
                             app.deleteAccess = true;
-                            
+                            app.authorized = true;
                         } else if (data.data.permission === 'moderator') {
                             app.editAccess = true;
+                            app.deleteAccess = true;
+                            app.authorized = true;
                         } else if (data.data.permission === 'user') {
-                        
+                            app.editAccess = false;
+                            app.deleteAccess = false;
+                            app.authorized = false;
                         }
                     } else {
                         app.errorMsg = 'Insufficient Permissions';

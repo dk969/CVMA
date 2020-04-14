@@ -45,7 +45,7 @@
                 <button type="button"  class="btn btn-primary">More Information</button>
             </a>
             <a href="#!/edit_business/{{ company._id}}">
-                <button type="button" ng-show="business.editAccess && main.authorized" class="btn btn-primary">Edit</button>
+                <button type="button" ng-show="business.editAccess && main.authorized " class="btn btn-primary">Edit</button>
             </a>
              <button type="button" ng-click="business.deleteBusiness(company._id);" ng-show="business.deleteAccess && main.authorized"class="btn btn-danger">Delete</button>
             

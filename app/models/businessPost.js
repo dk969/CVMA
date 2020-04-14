@@ -47,10 +47,15 @@ let BusinessPost = new Schema({
   business_type: {type: String, required: true, validate: typeValidator},
   website: {type: String, required: true, validate: websiteValidator},
   specialization: {type: String, required: true,},
-  post: {type: String, required: true, }
+  post: {type: String, required: true, },
  
-},{
-    collection: 'businessPost'
+  author:{ 
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+    username: String
+  }
 });
 
 module.exports = mongoose.model('BusinessPost', BusinessPost);

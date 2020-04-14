@@ -48,11 +48,15 @@ let Vehicle = new Schema({
       colour: {type: String, required: true},
       MOT_date: {type: Date, required: true, },
       tax_date: {type: Date, required: true, },
-      service_date: {type: Date, required: true, }
+      service_date: {type: Date, required: true, },
+      author:{ 
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User"
+        },
+        username: String
+      }
 
- 
-},{
-    collection: 'vehicle'
 });
 
 module.exports = mongoose.model('Vehicle', Vehicle);

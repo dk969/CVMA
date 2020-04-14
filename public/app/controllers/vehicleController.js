@@ -1,6 +1,6 @@
 angular.module('vehicleController', ['vehicleServices'])
 
-    .controller('vehicleController', function($http, $location, $timeout, Vehicle) {
+    .controller('vehicleController', function($http, $location, $timeout, Vehicle, $routeParams) {
         var app = this;
         
         app.loading = true;
@@ -34,7 +34,7 @@ angular.module('vehicleController', ['vehicleServices'])
 
 
     function getVehicles() {
-        Vehicle.getVehicles().then(function(data) {
+        Vehicle.getVehicles($routeParams.id).then(function(data) {
            
             if (data.data.success) {
                 if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
