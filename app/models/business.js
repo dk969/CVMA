@@ -93,7 +93,7 @@ var contactValidator = [
 ];
 
 // Define collection and schema for Business
-let Business = new Schema({
+var Business = new Schema({
   business_name: { type: String, required: true, validate: nameValidator },
   business_type: { type: String, required: true, validate: typeValidator},
   business_address: { type: String, required: true, validate:addressValidator},
@@ -101,10 +101,16 @@ let Business = new Schema({
   website: { type: String, required: true,  validate: websiteValidator},
   business_email: {type: String, required: true, lowercase: true, unique: true, validate: emailValidator},
   business_contact: {  type: String, required: true, validate: contactValidator},
-  specialization: { type: String, required: true}
+  specialization: { type: String, required: true},
+  author:{ 
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+    username: String
+  }
  
-},{
-    collection: 'business'
+
 });
 
 module.exports = mongoose.model('Business', Business);

@@ -5,6 +5,7 @@ var User = require('../models/user');
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
 
+
 module.exports = function(businessRouter) {
 
     var options = {
@@ -18,7 +19,15 @@ module.exports = function(businessRouter) {
     
     //POSTS
     businessRouter.post('/business', function(req,res) {
+
         var business = Business();
+   
+        User.findOne({user: req.decoded}, function(err, user) {
+            if (err) throw err;
+            if (!user) {
+                res.json({ success: false, message: ' No User found'});
+            } else {
+                
         business.business_name = req.body.business_name;
         business.business_type = req.body.business_type;
         business.business_address = req.body.business_address;
@@ -27,10 +36,13 @@ module.exports = function(businessRouter) {
         business.business_email = req.body.business_email;
         business.business_contact = req.body.business_contact;
         business.specialization = req.body.specialization;
+        business.author = {
+            id: user._id,
+            username: user.username
+         }
     if (req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || req.body.business_address == null || req.body.business_address == '' || req.body.business_postcode == null || req.body.business_postcode == ''
     || req.body.website == null || req.body.website == '' || req.body.business_email == null || req.body.business_email == '' || req.body.business_contact == null || req.body.business_contact == '' || req.body.specialization == null || req.body.specialization == '') {
         res.json({ success: false, message: 'Ensure Business details are provided'});
-
         } else {
              business.save(function(err) {
                 if (err) {
@@ -60,7 +72,9 @@ module.exports = function(businessRouter) {
                     res.json({ success: true, message: 'Business Posted'});
                 }
             });
-        }   
+                }   
+            }
+        })
 
     });
 
