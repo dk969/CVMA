@@ -3,13 +3,14 @@ sudo: false
 
 language: node_js
 node_js:
-  - lts/*
+  - "node"
 
 cache: npm
 
 install:
   - npm install
+  - npm install -g nodemon
   
 
 script:
-  - nodemon server.js
+  - npm start
