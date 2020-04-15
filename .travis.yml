@@ -13,4 +13,8 @@ install:
   
 
 script:
+<<<<<<< HEAD
   - npm start
+=======
+  - node server.js
+>>>>>>> 5abc2b14e4be1dd69e54e25ece05b4c84bd292d5
