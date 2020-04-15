@@ -9,7 +9,7 @@ cache: npm
 
 install:
   - npm install
-  - npm install @angular/cli --global
+  
 
 script:
-  - ng build
+  - nodemon server.js
