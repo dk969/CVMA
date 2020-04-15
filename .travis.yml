@@ -4,13 +4,14 @@ sudo: false
 language: node_js
 node_js:
   - 12 
+  - 13
 
 cache: npm
 
 install:
   - npm install
-  - npm install -g nodemon
+
   
 
 script:
-  - npm start
+  - ng build
