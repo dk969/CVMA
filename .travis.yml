@@ -14,4 +14,4 @@ install:
   
 
 script:
-  - ng build
+  - npm run build
