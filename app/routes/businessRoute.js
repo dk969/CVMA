@@ -17,18 +17,37 @@ module.exports = function(businessRouter) {
     
         var client = nodemailer.createTransport(sgTransport(options));
     
+    // businessRouter.get('/user/:username', function(req, res) {
+    //     User.find( {username: req.decoded.username }, function(err, mainUser) {
+    //         console.log(mainUser);
+    //         if (err) throw err;
+    //         if(!mainUser) {
+    //             res.json({ success: false, message: " No user found"});
+    //         } else { 
+    //              User.findOne({ _id: req.body._id}, function(err, user) {
+    //                  console.log(user);
+    //                 if (err) throw err;
+    //                 if (!user) {
+    //                     res.json({ success: false, message: 'No user found'});
+    //                 } else {
+
+    //                 }
+    //             })
+    //         }
+    //     });
+    // });
     //POSTS
     businessRouter.post('/business/', function(req,res) {
 
         var business = Business();
         
-        User.find( {username: req.decoded }, function(err, mainUser) {
-            console.log(mainUser);
+        User.find( req.params.username , function(err, mainUser) {
+            console.log(mainUser.username);
             if (err) throw err;
             if(!mainUser) {
                 res.json({ success: false, message: " No user found"});
             } else { 
-                 User.findOne({ _id: req.body._id}, function(err, user) {
+                 User.findOne({ _id: mainUser}, function(err, user) {
                      console.log(user);
                     if (err) throw err;
                     if (!user) {

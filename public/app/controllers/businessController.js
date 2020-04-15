@@ -1,6 +1,6 @@
 angular.module('businessController', ['businessServices'])
 
-    .controller('businessController', function( $location, $timeout, Business, User, $scope) {
+    .controller('businessController', function( $location, $timeout, Business, User, $scope, $routeParams) {
         var app = this;
 
         
@@ -14,11 +14,27 @@ angular.module('businessController', ['businessServices'])
         app.authorized = false;   
 
 
-
+        // Business.getCurrent($routeParams.username).then(function(data) {
+        //     if (data.data.success) {
+               
+        //                     $scope.user = data.data.user;
+        //                     app.loading = false;
+        //                     app.accessDenied = false;
+                            
+        //                     app.currentUser = data.data.user._id; 
+                            
+                              
+                       
+    
+        //     } else {
+        //         app.errorMsg = data.data.message;
+        //     }
+        // });
 
         app.conAdd = function(busData) {
             app.loading = true;
             app.errorMsg = false;
+            
             
             Business.create(app.busData).then(function(data) {
                 

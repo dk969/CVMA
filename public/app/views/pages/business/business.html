@@ -53,7 +53,7 @@
                 <div ng-class="{ 'has-success':(busForm.website.$valid && !busForm.website.$pristine), 'has-error':(!busForm.website.$valid && !busForm.website.$pristine) || (!busForm.website.$valid && 
                 busForm.$submitted)}">
                     <label >Business Website </label>
-                    <input  ng-disabled="business.disabled"type="text" class="form-control" name="website" placeholder="Please enter business website" ng-model="business.busData.website"ng-pattern=" /(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/" 
+                    <input  ng-disabled="business.disabled"type="text" class="form-control" name="website" placeholder="Please enter business website" ng-model="business.busData.website"ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/" 
                     ng-minlength="3" ng-maxlength="30" required>
                     <p class="help-block" ng-show="(!busForm.website.$pristine && busForm.website.$error.required) || (busForm.$submitted && busForm.website.$error.required)">This field is required</p>
                     <ul ng-show="(!busForm.website.$pristine && busForm.website.$error.pattern) || (!busForm.website.$pristine && busForm.website.$error.minlength) || (!busForm.website.$pristine && busForm.website.$error.maxlength)"class="help-block">

@@ -42,7 +42,7 @@
       <div ng-class="{ 'has-success':(postForm.website.$valid && !postForm.website.$pristine), 'has-error':(!postForm.website.$valid && !postForm.website.$pristine) || (!postForm.website.$valid && 
       postForm.$submitted)}">
           <label >Business Website </label>
-          <input  ng-disabled="businessPost.disabled"type="text" class="form-control" name="website" placeholder="Please enter business website" ng-model="businessPost.postData.website"ng-pattern=" /(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/" 
+          <input  ng-disabled="businessPost.disabled"type="text" class="form-control" name="website" placeholder="Please enter business website" ng-model="businessPost.postData.website"ng-pattern="/^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/" 
           ng-minlength="3" ng-maxlength="30" required>
           <p class="help-block" ng-show="(!postForm.website.$pristine && postForm.website.$error.required) || (postForm.$submitted && postForm.website.$error.required)">This field is required</p>
           <ul ng-show="(!postForm.website.$pristine && postForm.website.$error.pattern) || (!postForm.website.$pristine && postForm.website.$error.minlength) || (!postForm.website.$pristine && postForm.website.$error.maxlength)"class="help-block">
