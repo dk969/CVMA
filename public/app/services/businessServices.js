@@ -7,7 +7,7 @@ angular.module('businessServices', [])
 
     //Business.create(busData);
     businessFactory.create = function(busData) {
-        return $http.post('/businessRoute/business', busData);
+        return $http.post('/businessRoute/business/', busData );
     }
     
 

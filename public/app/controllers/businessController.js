@@ -19,7 +19,7 @@ angular.module('businessController', ['businessServices'])
         app.conAdd = function(busData) {
             app.loading = true;
             app.errorMsg = false;
-   
+            
             Business.create(app.busData).then(function(data) {
                 
                 if (data.data.success) {
@@ -27,7 +27,7 @@ angular.module('businessController', ['businessServices'])
                     app.successMsg = data.data.message + '...Redirecting';
 
                     $timeout(function() {
-                        $location.path('/');
+                        $location.path('/businesslist');
                     }, 2000)
                 } else {
                     app.loading = false;
@@ -617,6 +617,7 @@ angular.module('businessController', ['businessServices'])
     app.postAdd = function(postData) {
         app.loading = true;
         app.errorMsg = false;
+        
 
         BusinessPost.create(app.postData).then(function(data) {
             

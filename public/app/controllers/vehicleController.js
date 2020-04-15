@@ -34,8 +34,8 @@ angular.module('vehicleController', ['vehicleServices'])
 
 
     function getVehicles() {
-        Vehicle.getVehicles($routeParams.id).then(function(data) {
-           
+        Vehicle.getVehicles().then(function(data) {
+           console.log(data);
             if (data.data.success) {
                 if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
                     app.vehicles = data.data.vehicles;

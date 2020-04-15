@@ -14,8 +14,8 @@ angular.module('vehicleServices', [])
         return $http.get('/businessRoute/permission');
     };
     //Vehicle.getVehicles();
-    vehicleFactory.getVehicles = function() {
-        return $http.get('/vehicleRoute/vehicle/')
+    vehicleFactory.getVehicles = function(id) {
+        return $http.get('/vehicleRoute/vehicle/', id)
     };
      //User.getVehicel(id);
      vehicleFactory.getVehicle = function(id) {

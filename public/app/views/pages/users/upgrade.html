@@ -2,7 +2,7 @@
 
 
 
-<div class="panel panel-default card" ng-controller="getUserController">
+<div class="panel panel-default card" >
     
     <div class="panel-body"  >
       <ul class="list-group">
@@ -26,6 +26,10 @@
 
 <button  ng-disabled="upgrade.disableModerator" ng-click="upgrade.upgradePermission('moderator');"type="button" class="btn btn-info">Moderator</button>&nbsp
 
+<br>
+<div> <a href="#!/business/{{user._id}}">
+  <button type="button"  class="btn btn-success">Yes I would like to post my business</button>
+</a></div>
 
 <br>
 <div class='row show-hide-message'ng-show="upgrade.successMsg">

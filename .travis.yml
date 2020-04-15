@@ -1,0 +1,15 @@
+dist: bionic
+sudo: false
+
+language: node_js
+node_js:
+  - lts/*
+
+cache: npm
+
+install:
+  - npm install
+  - npm install @angular/cli --global
+
+script:
+  - ng build
