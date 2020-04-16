@@ -155,12 +155,13 @@ module.exports = function(businessRouter) {
                                 res.json({success:false, message: err});
                             }
                         } else {
-                        Subscribe.find({email: req.body.email}, function(err, subscribers) {
-                            console.log(email)
+                        Subscribe.find(req.params.email, function(err, subscribers) {
+                            console.log(subscribers);
+                            
                             if (err) throw err;
                             var email = {
                                 from: 'CVMA Staff, staff@CVMA.com',
-                                to: subscribers.email,
+                                to: subscribers,
                                 subject: 'CVMA New Post Link',
                                 text: 'Hello' +  + ', Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' ,
                                 html: 'Hello' +  + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' +  '">http://localhost:4200/activate</a>'
