@@ -4,70 +4,7 @@ var User = require('../models/user');
 module.exports = function(vehicleRouter) {
 
    
-    // vehicleRouter.post('/vehicle', function(req,res) {
-    //     var vehicle = Vehicle();
-    //     User.findOne({user: req.decoded}, function(err, user) {
-    //         if (err) throw err;
-    //         if (!user) {
-    //             res.json({ success: false, message: ' No User found'});
-    //         } else {
-    //     vehicle.vehicle_make = req.body.vehicle_make;
-    //     vehicle.vehicle_model = req.body.vehicle_model;
-    //     vehicle.year = req.body.year;
-    //     vehicle.engine_size = req.body.engine_size;
-    //     vehicle.colour = req.body.colour;
-    //     vehicle.MOT_date = req.body.MOT_date;
-    //     vehicle.tax_date = req.body.tax_date;
-    //     vehicle.service_date = req.body.service_date;
-    //     vehicle.author = {
-    //         id: user._id,
-    //         username: user.username
-    //      }
 
-    // if (req.body.vehicle_make == null || req.body.vehicle_make == '' || req.body.vehicle_model == null || req.body.vehicle_model == '' || req.body.year == null || req.body.year == '' || req.body.engine_size == null || req.body.engine_size == ''
-    // || req.body.colour == null || req.body.colour == '' || req.body.MOT_date == null || req.body.MOT_date == '' || req.body.tax_date == null || req.body.tax_date == '' || req.body.service_date == null || req.body.service_date == ''
-    // ) {
-    //     res.json({ success: false, message: 'Ensure all vehicle details are provided'});
-
-    //     } else {
-    //         vehicle.save(function(err) {
-    //             if (err) {
-    //                 if (err.errors != null) {
-    //                     if (err.errors.vehicle_make) {
-    //                         res.json({ success: false, message: err.errors.vehicle_make.message});
-    //                     } else if (err.errors.vehicle_model) {
-    //                         res.json({ success: false, message: err.errors.vehicle_model.message});
-    //                     } else if (err.errors.year) {
-    //                         res.json({ success: false, message: err.errors.year.message});
-    //                     } else if (err.errors.engine_size) {
-    //                         res.json({ success: false, message: err.errors.engine_size.message});
-    //                     } else if (err.errors.colour) {
-    //                         res.json({ success: false, message: err.errors.colour.message});
-    //                     } else if (err.errors.MOT_date) {
-    //                         res.json({ success: false, message: err.errors.MOT_date.message});
-    //                     } else if (err.errors.tax_date) {
-    //                         res.json({ success: false, message: err.errors.tax_date.message});
-    //                     } else if (err.errors.service_date) {
-    //                         res.json({ success: false, message: err.errors.service_date.message});
-    //                     } else {
-    //                         res.json({success: false, message: err});
-    //                     }
-    //                 }else if(err) {
-    //                     res.json({success:false, message: err});
-    //                 }
-    //             } else {
-    //                 res.json({ success: true, message: 'Vehicle Posted'});
-    //             }
-    //         });
-    //          }   
-    //      }
-    //     })      
-    // });
-
-     //gets current user
-     vehicleRouter.post('/currentUser', function (req, res) {
-        res.send(req.decoded);
-    });
     vehicleRouter.get('/permission', function(req, res) {
         User.findOne({ username: req.decoded.username}, function(err, user) {
             if (err) throw err;
@@ -79,30 +16,30 @@ module.exports = function(vehicleRouter) {
         });
     });
 
-    vehicleRouter.get('/vehicle', function(req,res) {
-            User.findOne({user: req.decoded}, function(err, user) {
-                if (err) throw err;
-                if (!user) {
-                    res.json({ success: false, message: ' No User found'});
-                } else {
-                    Vehicle.find({'author.id': user._id}, function(err, vehicles) {
-                        if (err) throw err;
-                    if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
-                        if (!vehicles) {
-                            res.json ({ success: false, message: 'Vehicles not found'});
-                        } else { 
-                            res.json({ success: true, vehicles: vehicles, permission: user.permission, id: user._id });
-                        }
+    // vehicleRouter.get('/vehicle', function(req,res) {
+    //         User.findOne({user: req.decoded}, function(err, user) {
+    //             if (err) throw err;
+    //             if (!user) {
+    //                 res.json({ success: false, message: ' No User found'});
+    //             } else {
+    //                 Vehicle.find({'author.id': user._id}, function(err, vehicles) {
+    //                     if (err) throw err;
+    //                 if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
+    //                     if (!vehicles) {
+    //                         res.json ({ success: false, message: 'Vehicles not found'});
+    //                     } else { 
+    //                         res.json({ success: true, vehicles: vehicles, permission: user.permission, id: user._id });
+    //                     }
 
 
-                    } else {
-                        res.json({ success: false, message: 'Insufficient Permission'});
-                    }
-                });
-                }
-            })
+    //                 } else {
+    //                     res.json({ success: false, message: 'Insufficient Permission'});
+    //                 }
+    //             });
+    //             }
+    //         })
         
-    });
+    // });
 //     vehicleRouter.get('/vehicle/:id', function(req,res) {
 //         User.findOne( {user: req.decoded}, function(err, user) {
             

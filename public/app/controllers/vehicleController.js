@@ -35,7 +35,6 @@ angular.module('vehicleController', ['vehicleServices'])
 
     function getVehicles() {
         Vehicle.getVehicles().then(function(data) {
-           console.log(data);
             if (data.data.success) {
                 if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
                     app.vehicles = data.data.vehicles;
@@ -46,8 +45,10 @@ angular.module('vehicleController', ['vehicleServices'])
                         app.deleteAccess = true;
                     } else if (data.data.permission === 'moderator') {
                         app.editAccess = true;
+                        app.deleteAccess = true;
                     } else if (data.data.permission === 'user') {
-                       
+                        app.editAccess = true;
+                        app.deleteAccess = true;
                     }
                 } else {
                     app.errorMsg = 'Insufficient Permissions';

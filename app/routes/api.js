@@ -792,8 +792,7 @@ module.exports = function(router) {
                         res.json({ success: false, message: 'Ensure the offer details are provided'});
                         
                     } else {
-                        businessPost.save(function(err) {
-                    
+                        businessPost.save(function(err) {           
                                 if (err) {
                                     if (err.errors != null) {
                                         if (err.errors.business_title) {
@@ -850,7 +849,6 @@ module.exports = function(router) {
         router.post('/vehicle', function(req,res) {
             var vehicle = Vehicle();
             User.find({ username: req.decoded.username}, function(err, mainUser) {
-                console.log(mainUser.username);
                 if (err) throw err;
                 if(!mainUser) {
                     res.json({ success: false, message: " No user found"});
@@ -915,6 +913,38 @@ module.exports = function(router) {
            }
        });
    });
+   router.get('/vehicle', function(req,res) {
+    User.find({ username: req.decoded.username}, function(err, mainUser) {
+        if (err) throw err;
+        if(!mainUser) {
+            res.json({ success: false, message: " No user found"});
+        } else { 
+             User.findOne({ _id: mainUser}, function(err, user) {
+                 console.log(user);
+                if (err) throw err;
+                if (!user) {
+                    res.json({ success: false, message: 'No user found'});
+                } else {
+                    Vehicle.find({'author.id': user._id}, function(err, vehicles) {
+                        if (err) throw err;
+                    if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
+                        if (!vehicles) {
+                            res.json ({ success: false, message: 'Vehicles not found'});
+                        } else { 
+                            res.json({ success: true, vehicles: vehicles, permission: user.permission, id: user._id });
+                        }
+
+
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                })
+            }
+        });
+        }
+    })
+
+});
     return router;
 
 }

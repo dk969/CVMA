@@ -15,7 +15,7 @@ angular.module('vehicleServices', [])
     };
     //Vehicle.getVehicles();
     vehicleFactory.getVehicles = function(id) {
-        return $http.get('/vehicleRoute/vehicle/', id)
+        return $http.get('/api/vehicle/', id)
     };
      //User.getVehicel(id);
      vehicleFactory.getVehicle = function(id) {
