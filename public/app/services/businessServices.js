@@ -44,7 +44,7 @@ angular.module('businessServices', [])
 
     //BusinessPost.create(postData);
     postingFactory.create = function(postData) {
-        return $http.post('/businessRoute/businessPost', postData);
+        return $http.post('/api/businessPost', postData);
     };
      //BusinessPost.getPosts();
     postingFactory.getPosts = function() {

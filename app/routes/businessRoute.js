@@ -42,7 +42,7 @@ module.exports = function(businessRouter) {
     //     });
     // });
 
-    
+
     //POSTS
     // businessRouter.post('/business', function(req,res) {
 
@@ -116,84 +116,84 @@ module.exports = function(businessRouter) {
     // });
     
 
-    businessRouter.post('/businessPost', function(req,res) {
-        var businessPost = BusinessPost();
-        User.findOne({user: req.decoded}, function(err, user) {
-            if (err) throw err;
-            if (!user) {
-                res.json({ success: false, message: ' No User found'});
-            } else {
-        businessPost.business_title = req.body.business_title;
-        businessPost.business_name = req.body.business_name;
-        businessPost.business_type = req.body.business_type;
-        businessPost.website = req.body.website;
-        businessPost.specialization = req.body.specialization;
-        businessPost.post = req.body.post;
-        businessPost.author = {
-            id: user._id,
-            username: user.username
-         }
+    // businessRouter.post('/businessPost', function(req,res) {
+    //     var businessPost = BusinessPost();
+    //     User.findOne({user: req.decoded}, function(err, user) {
+    //         if (err) throw err;
+    //         if (!user) {
+    //             res.json({ success: false, message: ' No User found'});
+    //         } else {
+    //     businessPost.business_title = req.body.business_title;
+    //     businessPost.business_name = req.body.business_name;
+    //     businessPost.business_type = req.body.business_type;
+    //     businessPost.website = req.body.website;
+    //     businessPost.specialization = req.body.specialization;
+    //     businessPost.post = req.body.post;
+    //     businessPost.author = {
+    //         id: user._id,
+    //         username: user.username
+    //      }
        
-            if (req.body.business_title == null || req.body.business_title == '' || req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || 
-            req.body.website == null || req.body.website == '' || req.body.specialization == null || req.body.specialization == ''|| req.body.post == null || req.body.post == '' ) {
-                res.json({ success: false, message: 'Ensure the offer details are provided'});
+    //         if (req.body.business_title == null || req.body.business_title == '' || req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || 
+    //         req.body.website == null || req.body.website == '' || req.body.specialization == null || req.body.specialization == ''|| req.body.post == null || req.body.post == '' ) {
+    //             res.json({ success: false, message: 'Ensure the offer details are provided'});
                 
-            } else {
-                businessPost.save(function(err) {
+    //         } else {
+    //             businessPost.save(function(err) {
               
-                        if (err) {
-                            if (err.errors != null) {
-                                if (err.errors.business_title) {
-                                    res.json({ success: false, message: err.errors.business_title.message});
-                                } else if (err.errors.business_name) {
-                                    res.json({ success: false, message: err.errors.business_name.message});
-                                } else if (err.errors.business_type) {
-                                    res.json({ success: false, message: err.errors.business_type.message});
-                                } else if (err.errors.website) {
-                                    res.json({ success: false, message: err.errors.website.message});
-                                } else if (err.errors.specialization) {
-                                    res.json({ success: false, message: err.errors.specialization.message});
-                                } else if (err.errors.post) {
-                                    res.json({ success: false, message: err.errors.post.message});
-                                } else {
-                                    res.json({success: false, message: err});
-                                }
-                            }else if(err) {
-                                res.json({success:false, message: err});
-                            }
-                        } else {
-                        Subscribe.find(req.params.email, function(err, subscribers) {
-                            console.log(subscribers);
+    //                     if (err) {
+    //                         if (err.errors != null) {
+    //                             if (err.errors.business_title) {
+    //                                 res.json({ success: false, message: err.errors.business_title.message});
+    //                             } else if (err.errors.business_name) {
+    //                                 res.json({ success: false, message: err.errors.business_name.message});
+    //                             } else if (err.errors.business_type) {
+    //                                 res.json({ success: false, message: err.errors.business_type.message});
+    //                             } else if (err.errors.website) {
+    //                                 res.json({ success: false, message: err.errors.website.message});
+    //                             } else if (err.errors.specialization) {
+    //                                 res.json({ success: false, message: err.errors.specialization.message});
+    //                             } else if (err.errors.post) {
+    //                                 res.json({ success: false, message: err.errors.post.message});
+    //                             } else {
+    //                                 res.json({success: false, message: err});
+    //                             }
+    //                         }else if(err) {
+    //                             res.json({success:false, message: err});
+    //                         }
+    //                     } else {
+    //                     Subscribe.find(req.params.email, function(err, subscribers) {
+    //                         console.log(subscribers);
                             
-                            if (err) throw err;
-                            var email = {
-                                from: 'CVMA Staff, staff@CVMA.com',
-                                to: subscribers,
-                                subject: 'CVMA New Post Link',
-                                text: 'Hello' +  + ', Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' ,
-                                html: 'Hello' +  + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' +  '">http://localhost:4200/activate</a>'
+    //                         if (err) throw err;
+    //                         var email = {
+    //                             from: 'CVMA Staff, staff@CVMA.com',
+    //                             to: subscribers,
+    //                             subject: 'CVMA New Post Link',
+    //                             text: 'Hello' +  + ', Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' ,
+    //                             html: 'Hello' +  + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' +  '">http://localhost:4200/activate</a>'
                                 
-                                };
+    //                             };
                             
-                                client.sendMail(email, function(err, info){
-                                    if (err ){
-                                    console.log(err);
-                                    }
-                                    else {
-                                    console.log('Message sent: ' + info.response);
-                                    }
-                                });
-                            });
-                         res.json({ success: true, message: 'Post Uploaded'});
-                    }
+    //                             client.sendMail(email, function(err, info){
+    //                                 if (err ){
+    //                                 console.log(err);
+    //                                 }
+    //                                 else {
+    //                                 console.log('Message sent: ' + info.response);
+    //                                 }
+    //                             });
+    //                         });
+    //                      res.json({ success: true, message: 'Post Uploaded'});
+    //                 }
                 
-            })
+    //         })
         
-        }   
-     }
-    })
+    //     }   
+    //  }
+    // })
         
-    });
+    // });
     //sends email after getting subscribers
     // businessRouter.put('/businessPost', function(req,res) {
     //     Subscribe.find({ }, function(err, subscribers) {

@@ -7,7 +7,7 @@ angular.module('vehicleServices', [])
 
     //Vehicle.create(vehData);
     vehicleFactory.create = function(vehData) {
-        return $http.post('/vehicleRoute/vehicle', vehData);
+        return $http.post('/api/vehicle', vehData);
     }
      //Vehicle.getPermission();
      vehicleFactory.getPermission = function() {

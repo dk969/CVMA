@@ -1,5 +1,8 @@
 var User = require('../models/user');
 var Business = require('../models/business');
+var BusinessPost = require('../models/businessPost');
+var Vehicle = require('../models/vehicle');
+var Subscribe = require('../models/subscribe');
 var jwt   = require('jsonwebtoken');
 var secret = 'cvmaapp';
 var nodemailer = require('nodemailer');
@@ -688,10 +691,9 @@ module.exports = function(router) {
         })
     });
 
+     //Business posted User as Author 
     router.post('/business', function(req,res) {
-
         var business = Business();
-        
         User.find({ username: req.decoded.username}, function(err, mainUser) {
             console.log(mainUser.username);
             if (err) throw err;
@@ -758,8 +760,161 @@ module.exports = function(router) {
     
 
     });
+        //BusinessPost posted User as Author 
 
+            router.post('/businessPost', function(req,res) {
+                var businessPost = BusinessPost();
+                User.find({ username: req.decoded.username}, function(err, mainUser) {
+                    console.log(mainUser.username);
+                    if (err) throw err;
+                    if(!mainUser) {
+                        res.json({ success: false, message: " No user found"});
+                    } else { 
+                        User.findOne({ _id: mainUser}, function(err, user) {
+                            console.log(user);
+                            if (err) throw err;
+                            if (!user) {
+                                res.json({ success: false, message: 'No user found'});
+                            } else {
+                                businessPost.business_title = req.body.business_title;
+                                businessPost.business_name = req.body.business_name;
+                                businessPost.business_type = req.body.business_type;
+                                businessPost.website = req.body.website;
+                                businessPost.specialization = req.body.specialization;
+                                businessPost.post = req.body.post;
+                                businessPost.author = {
+                                    id: user._id,
+                                    username: user.username
+                            }
+            
+                    if (req.body.business_title == null || req.body.business_title == '' || req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || 
+                    req.body.website == null || req.body.website == '' || req.body.specialization == null || req.body.specialization == ''|| req.body.post == null || req.body.post == '' ) {
+                        res.json({ success: false, message: 'Ensure the offer details are provided'});
+                        
+                    } else {
+                        businessPost.save(function(err) {
+                    
+                                if (err) {
+                                    if (err.errors != null) {
+                                        if (err.errors.business_title) {
+                                            res.json({ success: false, message: err.errors.business_title.message});
+                                        } else if (err.errors.business_name) {
+                                            res.json({ success: false, message: err.errors.business_name.message});
+                                        } else if (err.errors.business_type) {
+                                            res.json({ success: false, message: err.errors.business_type.message});
+                                        } else if (err.errors.website) {
+                                            res.json({ success: false, message: err.errors.website.message});
+                                        } else if (err.errors.specialization) {
+                                            res.json({ success: false, message: err.errors.specialization.message});
+                                        } else if (err.errors.post) {
+                                            res.json({ success: false, message: err.errors.post.message});
+                                        } else {
+                                            res.json({success: false, message: err});
+                                        }
+                                    }else if(err) {
+                                        res.json({success:false, message: err});
+                                    }
+                                } else {
+                                Subscribe.find(req.params.email, function(err, subscribers) {
+                                    console.log(subscribers);
+                                    
+                                    if (err) throw err;
+                                    var email = {
+                                        from: 'CVMA Staff, staff@CVMA.com',
+                                        to: subscribers,
+                                        subject: 'CVMA New Post Link',
+                                        text: 'Hello' +  + ', Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' ,
+                                        html: 'Hello' +  + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' +  '">http://localhost:4200/activate</a>'
+                                        
+                                        };
+                                    
+                                        client.sendMail(email, function(err, info){
+                                            if (err ){
+                                            console.log(err);
+                                            }
+                                            else {
+                                            console.log('Message sent: ' + info.response);
+                                            }
+                                        });
+                                    });
+                                res.json({ success: true, message: 'Post Uploaded'});
+                                }
+                             });
+                            }   
+                         }
+                    })
+                }
+            });
+        });
+
+        router.post('/vehicle', function(req,res) {
+            var vehicle = Vehicle();
+            User.find({ username: req.decoded.username}, function(err, mainUser) {
+                console.log(mainUser.username);
+                if (err) throw err;
+                if(!mainUser) {
+                    res.json({ success: false, message: " No user found"});
+                } else { 
+                     User.findOne({ _id: mainUser}, function(err, user) {
+                         console.log(user);
+                        if (err) throw err;
+                        if (!user) {
+                            res.json({ success: false, message: 'No user found'});
+                        } else {
+                        vehicle.vehicle_make = req.body.vehicle_make;
+                        vehicle.vehicle_model = req.body.vehicle_model;
+                        vehicle.year = req.body.year;
+                        vehicle.engine_size = req.body.engine_size;
+                        vehicle.colour = req.body.colour;
+                        vehicle.MOT_date = req.body.MOT_date;
+                        vehicle.tax_date = req.body.tax_date;
+                        vehicle.service_date = req.body.service_date;
+                        vehicle.author = {
+                            id: user._id,
+                            username: user.username
+                        }
     
+                if (req.body.vehicle_make == null || req.body.vehicle_make == '' || req.body.vehicle_model == null || req.body.vehicle_model == '' || req.body.year == null || req.body.year == '' || req.body.engine_size == null || req.body.engine_size == ''
+                || req.body.colour == null || req.body.colour == '' || req.body.MOT_date == null || req.body.MOT_date == '' || req.body.tax_date == null || req.body.tax_date == '' || req.body.service_date == null || req.body.service_date == ''
+                ) {
+                    res.json({ success: false, message: 'Ensure all vehicle details are provided'});
+            
+                    } else {
+                        vehicle.save(function(err) {
+                            if (err) {
+                                if (err.errors != null) {
+                                    if (err.errors.vehicle_make) {
+                                        res.json({ success: false, message: err.errors.vehicle_make.message});
+                                    } else if (err.errors.vehicle_model) {
+                                        res.json({ success: false, message: err.errors.vehicle_model.message});
+                                    } else if (err.errors.year) {
+                                        res.json({ success: false, message: err.errors.year.message});
+                                    } else if (err.errors.engine_size) {
+                                        res.json({ success: false, message: err.errors.engine_size.message});
+                                    } else if (err.errors.colour) {
+                                        res.json({ success: false, message: err.errors.colour.message});
+                                    } else if (err.errors.MOT_date) {
+                                        res.json({ success: false, message: err.errors.MOT_date.message});
+                                    } else if (err.errors.tax_date) {
+                                        res.json({ success: false, message: err.errors.tax_date.message});
+                                    } else if (err.errors.service_date) {
+                                        res.json({ success: false, message: err.errors.service_date.message});
+                                    } else {
+                                        res.json({success: false, message: err});
+                                    }
+                                }else if(err) {
+                                    res.json({success:false, message: err});
+                                }
+                            } else {
+                                res.json({ success: true, message: 'Vehicle Posted'});
+                            }
+                        });
+                       }   
+                    }
+               })
+           }
+       });
+   });
     return router;
 
 }
