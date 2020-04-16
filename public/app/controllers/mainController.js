@@ -110,7 +110,7 @@ angular.module('mainController', ['authServices', 'userServices'])
 
             Auth.getUser().then(function(data) { 
                 
-                app.name = data.data.user;
+                app.name = data.data.name;
                 app.username = data.data.username;
                 app.useremail = data.data.email;
                 app.userpermission = data.data.permission;

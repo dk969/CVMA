@@ -16,6 +16,11 @@ module.exports = function(businessRouter) {
         }
     
         var client = nodemailer.createTransport(sgTransport(options));
+
+         //gets current user
+    businessRouter.post('/currentUser', function (req, res) {
+        res.send(req.decoded);
+    });
     
     // businessRouter.get('/user/:username', function(req, res) {
     //     User.find( {username: req.decoded.username }, function(err, mainUser) {
@@ -36,77 +41,79 @@ module.exports = function(businessRouter) {
     //         }
     //     });
     // });
+
+    
     //POSTS
-    businessRouter.post('/business/', function(req,res) {
+    // businessRouter.post('/business', function(req,res) {
 
-        var business = Business();
+    //     var business = Business();
         
-        User.find( req.params.username , function(err, mainUser) {
-            console.log(mainUser.username);
-            if (err) throw err;
-            if(!mainUser) {
-                res.json({ success: false, message: " No user found"});
-            } else { 
-                 User.findOne({ _id: mainUser}, function(err, user) {
-                     console.log(user);
-                    if (err) throw err;
-                    if (!user) {
-                        res.json({ success: false, message: 'No user found'});
-                    } else {
-                        console.log(user._id);
-                        business.business_name = req.body.business_name;
-                        business.business_type = req.body.business_type;
-                        business.business_address = req.body.business_address;
-                        business.business_postcode = req.body.business_postcode;
-                        business.website = req.body.website;
-                        business.business_email = req.body.business_email;
-                        business.business_contact = req.body.business_contact;
-                        business.specialization = req.body.specialization;
-                        business.author = {
-                            id: user._id,
-                            username: user.username
-                        }
-                if (req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || req.body.business_address == null || req.body.business_address == '' || req.body.business_postcode == null || req.body.business_postcode == ''
-                || req.body.website == null || req.body.website == '' || req.body.business_email == null || req.body.business_email == '' || req.body.business_contact == null || req.body.business_contact == '' || req.body.specialization == null || req.body.specialization == '') {
-                    res.json({ success: false, message: 'Ensure Business details are provided'});
-                    } else {
-                        business.save(function(err) {
-                            if (err) {
-                                if (err.errors != null) {
-                                    if (err.errors.business_name) {
-                                        res.json({ success: false, message: err.errors.business_name.message});
-                                    } else if (err.errors.business_type) {
-                                        res.json({ success: false, message: err.errors.business_type.message});
-                                    } else if (err.errors.business_address) {
-                                        res.json({ success: false, message: err.errors.business_address.message});
-                                    } else if (err.errors.business_postcode) {
-                                        res.json({ success: false, message: err.errors.business_postcode.message});
-                                    } else if (err.errors.website) {
-                                        res.json({ success: false, message: err.errors.website.message});
-                                    } else if (err.errors.business_email) {
-                                        res.json({ success: false, message: err.errors.business_email.message});
-                                    } else if (err.errors.business_contact) {
-                                        res.json({ success: false, message: err.errors.business_contact.message});
-                                    } else {
-                                        res.json({success: false, message: err});
-                                    }
-                                }else if(err) {
-                                    res.json({success:false, message: err});
-                                }
+    //     User.find(req.params, function(err, mainUser) {
+    //         console.log(mainUser.username);
+    //         if (err) throw err;
+    //         if(!mainUser) {
+    //             res.json({ success: false, message: " No user found"});
+    //         } else { 
+    //              User.findOne({ _id: mainUser}, function(err, user) {
+    //                  console.log(user);
+    //                 if (err) throw err;
+    //                 if (!user) {
+    //                     res.json({ success: false, message: 'No user found'});
+    //                 } else {
+    //                     console.log(user._id);
+    //                     business.business_name = req.body.business_name;
+    //                     business.business_type = req.body.business_type;
+    //                     business.business_address = req.body.business_address;
+    //                     business.business_postcode = req.body.business_postcode;
+    //                     business.website = req.body.website;
+    //                     business.business_email = req.body.business_email;
+    //                     business.business_contact = req.body.business_contact;
+    //                     business.specialization = req.body.specialization;
+    //                     business.author = {
+    //                         id: user._id,
+    //                         username: user.username
+    //                     }
+    //             if (req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || req.body.business_address == null || req.body.business_address == '' || req.body.business_postcode == null || req.body.business_postcode == ''
+    //             || req.body.website == null || req.body.website == '' || req.body.business_email == null || req.body.business_email == '' || req.body.business_contact == null || req.body.business_contact == '' || req.body.specialization == null || req.body.specialization == '') {
+    //                 res.json({ success: false, message: 'Ensure Business details are provided'});
+    //                 } else {
+    //                     business.save(function(err) {
+    //                         if (err) {
+    //                             if (err.errors != null) {
+    //                                 if (err.errors.business_name) {
+    //                                     res.json({ success: false, message: err.errors.business_name.message});
+    //                                 } else if (err.errors.business_type) {
+    //                                     res.json({ success: false, message: err.errors.business_type.message});
+    //                                 } else if (err.errors.business_address) {
+    //                                     res.json({ success: false, message: err.errors.business_address.message});
+    //                                 } else if (err.errors.business_postcode) {
+    //                                     res.json({ success: false, message: err.errors.business_postcode.message});
+    //                                 } else if (err.errors.website) {
+    //                                     res.json({ success: false, message: err.errors.website.message});
+    //                                 } else if (err.errors.business_email) {
+    //                                     res.json({ success: false, message: err.errors.business_email.message});
+    //                                 } else if (err.errors.business_contact) {
+    //                                     res.json({ success: false, message: err.errors.business_contact.message});
+    //                                 } else {
+    //                                     res.json({success: false, message: err});
+    //                                 }
+    //                             }else if(err) {
+    //                                 res.json({success:false, message: err});
+    //                             }
 
-                            } else {
-                                res.json({ success: true, message: 'Business Posted', id: user._id});
-                            }
-            });
-                }   
-            }
-        })
+    //                         } else {
+    //                             res.json({ success: true, message: 'Business Posted', id: user._id});
+    //                         }
+    //         });
+    //             }   
+    //         }
+    //     })
         
-        }
-    })
+    //     }
+    // })
     
 
-    });
+    // });
     
 
     businessRouter.post('/businessPost', function(req,res) {
@@ -228,10 +235,7 @@ module.exports = function(businessRouter) {
 
 
 
-    //gets current user
-    businessRouter.post('/currentUser', function (req, res) {
-        res.send(req.decoded);
-    });
+   
 
     //GETS
     businessRouter.get('/permission', function(req, res) {

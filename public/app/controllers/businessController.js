@@ -54,7 +54,7 @@ angular.module('businessController', ['businessServices'])
         };
         function getBusinesses() {
             Business.getBusinesses().then(function(data) {
-                console.log(data); 
+                
                 if (data.data.success) {
                    
                     if (data.data.permission === 'admin' || data.data.permission === 'moderator'|| data.data.permission === 'user') {
