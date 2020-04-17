@@ -762,93 +762,95 @@ module.exports = function(router) {
     });
         //BusinessPost posted User as Author 
 
-            router.post('/businessPost', function(req,res) {
-                var businessPost = BusinessPost();
-                User.find({ username: req.decoded.username}, function(err, mainUser) {
-                    console.log(mainUser.username);
-                    if (err) throw err;
-                    if(!mainUser) {
-                        res.json({ success: false, message: " No user found"});
-                    } else { 
-                        User.findOne({ _id: mainUser}, function(err, user) {
-                            console.log(user);
-                            if (err) throw err;
-                            if (!user) {
-                                res.json({ success: false, message: 'No user found'});
-                            } else {
-                                businessPost.business_title = req.body.business_title;
-                                businessPost.business_name = req.body.business_name;
-                                businessPost.business_type = req.body.business_type;
-                                businessPost.website = req.body.website;
-                                businessPost.specialization = req.body.specialization;
-                                businessPost.post = req.body.post;
-                                businessPost.author = {
-                                    id: user._id,
-                                    username: user.username
-                            }
-            
-                    if (req.body.business_title == null || req.body.business_title == '' || req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || 
-                    req.body.website == null || req.body.website == '' || req.body.specialization == null || req.body.specialization == ''|| req.body.post == null || req.body.post == '' ) {
-                        res.json({ success: false, message: 'Ensure the offer details are provided'});
-                        
-                    } else {
-                        businessPost.save(function(err) {           
-                                if (err) {
-                                    if (err.errors != null) {
-                                        if (err.errors.business_title) {
-                                            res.json({ success: false, message: err.errors.business_title.message});
-                                        } else if (err.errors.business_name) {
-                                            res.json({ success: false, message: err.errors.business_name.message});
-                                        } else if (err.errors.business_type) {
-                                            res.json({ success: false, message: err.errors.business_type.message});
-                                        } else if (err.errors.website) {
-                                            res.json({ success: false, message: err.errors.website.message});
-                                        } else if (err.errors.specialization) {
-                                            res.json({ success: false, message: err.errors.specialization.message});
-                                        } else if (err.errors.post) {
-                                            res.json({ success: false, message: err.errors.post.message});
-                                        } else {
-                                            res.json({success: false, message: err});
-                                        }
-                                    }else if(err) {
-                                        res.json({success:false, message: err});
+          
+        router.post('/businessPost', function(req,res) {
+            var businessPost = BusinessPost();
+            User.find({ username: req.decoded.username}, function(err, mainUser) {
+                console.log(mainUser.username);
+                if (err) throw err;
+                if(!mainUser) {
+                    res.json({ success: false, message: " No user found"});
+                } else { 
+                    User.findOne({ _id: mainUser}, function(err, user) {
+                        console.log(user);
+                        if (err) throw err;
+                        if (!user) {
+                            res.json({ success: false, message: 'No user found'});
+                        } else {
+                            businessPost.business_title = req.body.business_title;
+                            businessPost.business_name = req.body.business_name;
+                            businessPost.business_type = req.body.business_type;
+                            businessPost.website = req.body.website;
+                            businessPost.specialization = req.body.specialization;
+                            businessPost.post = req.body.post;
+                            businessPost.author = {
+                                id: user._id,
+                                username: user.username
+                        }
+        
+                if (req.body.business_title == null || req.body.business_title == '' || req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || 
+                req.body.website == null || req.body.website == '' || req.body.specialization == null || req.body.specialization == ''|| req.body.post == null || req.body.post == '' ) {
+                    res.json({ success: false, message: 'Ensure the offer details are provided'});
+                    
+                } else {
+                    businessPost.save(function(err) {           
+                            if (err) {
+                                if (err.errors != null) {
+                                    if (err.errors.business_title) {
+                                        res.json({ success: false, message: err.errors.business_title.message});
+                                    } else if (err.errors.business_name) {
+                                        res.json({ success: false, message: err.errors.business_name.message});
+                                    } else if (err.errors.business_type) {
+                                        res.json({ success: false, message: err.errors.business_type.message});
+                                    } else if (err.errors.website) {
+                                        res.json({ success: false, message: err.errors.website.message});
+                                    } else if (err.errors.specialization) {
+                                        res.json({ success: false, message: err.errors.specialization.message});
+                                    } else if (err.errors.post) {
+                                        res.json({ success: false, message: err.errors.post.message});
+                                    } else {
+                                        res.json({success: false, message: err});
                                     }
-                                } else {
-                                Subscribe.find(req.params, function(err, subscribers) {
-                                    if (err) throw err;
-                                    Subscribe.findOne({ _id: subscribers}, function(err, sub) {
-                                        console.log(sub);
-                                        if (err) throw err;
-                                    var email = {
-                                        from: 'CVMA Staff, staff@CVMA.com',
-                                        to: sub.email,
-                                        subject: 'CVMA New Post Link',
-                                        text: 'Hello ' + sub.email + ', There has been a new post on Classic Solutions:' + businessPost.business_title+ '<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' ,
-                                        html: 'Hello ' + sub.email + ', <br>There has been a new post on Classic Solutions:<br><strong>'+ businessPost.business_title +'<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'</strong><br>Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' +  '">http://localhost:4200/login</a>'
-                                        
-                                        };
-                                    
-                                        client.sendMail(email, function(err, info){
-                                            if (err ){
-                                            console.log(err);
-                                            }
-                                            else {
-                                            console.log('Message sent: ' + info.response);
-                                            }
-                                        });
-                                    });
-                                    res.json({ success: true, message: 'Post Uploaded'});
-                                    })
+                                }else if(err) {
+                                    res.json({success:false, message: err});
                                 }
-                            
-                             });
-                            
-                            }   
-                         }
-                    })
-                }
-            });
+                            } else {
+                            Subscribe.find(req.params, function(err, subscribers) {
+                                if (err) throw err;
+                                Subscribe.findOne({ _id: subscribers}, function(err, sub) {
+                                    console.log(sub);
+                                    if (err) throw err;
+                                var email = {
+                                    from: 'CVMA Staff, staff@CVMA.com',
+                                    to: sub.email,
+                                    subject: 'CVMA New Post Link',
+                                    text: 'Hello ' + sub.email + ', There has been a new post on Classic Solutions:' + businessPost.business_title+ '<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' ,
+                                    html: 'Hello ' + sub.email + ', <br>There has been a new post on Classic Solutions:<br><strong>'+ businessPost.business_title +'<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'</strong><br>Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' +  '">http://localhost:4200/login</a>'
+                                    
+                                    };
+                                
+                                    client.sendMail(email, function(err, info){
+                                        if (err ){
+                                        console.log(err);
+                                        }
+                                        else {
+                                        console.log('Message sent: ' + info.response);
+                                        }
+                                    });
+                                });
+                                res.json({ success: true, message: 'Post Uploaded'});
+                                })
+                            }
+                        
+                         });
+                        
+                        }   
+                     }
+                })
+            }
         });
+    });
+
 
         router.post('/vehicle', function(req,res) {
             var vehicle = Vehicle();
