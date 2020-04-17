@@ -814,13 +814,16 @@ module.exports = function(router) {
                                         res.json({success:false, message: err});
                                     }
                                 } else {
-                                Subscribe.find(req.params.email, function(err, subscribers) {
+                                Subscribe.find(req.params, function(err, subscribers) {
                                     console.log(subscribers);
                                     
                                     if (err) throw err;
+                                    Subscribe.findOne({ _id: subscribers}, function(err, sub) {
+                                        console.log(sub);
+                                        if (err) throw err;
                                     var email = {
                                         from: 'CVMA Staff, staff@CVMA.com',
-                                        to: subscribers,
+                                        to: sub.email,
                                         subject: 'CVMA New Post Link',
                                         text: 'Hello' +  + ', Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' ,
                                         html: 'Hello' +  + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' +  '">http://localhost:4200/activate</a>'
@@ -836,9 +839,12 @@ module.exports = function(router) {
                                             }
                                         });
                                     });
-                                res.json({ success: true, message: 'Post Uploaded'});
+                                    res.json({ success: true, message: 'Post Uploaded'});
+                                    })
                                 }
+                            
                              });
+                            
                             }   
                          }
                     })
@@ -1020,8 +1026,9 @@ router.get('/businessPost', function(req,res) {
                         if (err) throw err;
                     if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
                         if (!posts) {
-                            res.json ({ success: false, message: 'Vehicles not found'});
+                            res.json ({ success: false, message: 'Post not found'});
                         } else { 
+                            
                             res.json({ success: true, posts: posts, permission: user.permission, id: user._id });
                         }
 
