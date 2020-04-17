@@ -815,8 +815,6 @@ module.exports = function(router) {
                                     }
                                 } else {
                                 Subscribe.find(req.params, function(err, subscribers) {
-                                    console.log(subscribers);
-                                    
                                     if (err) throw err;
                                     Subscribe.findOne({ _id: subscribers}, function(err, sub) {
                                         console.log(sub);
@@ -825,8 +823,8 @@ module.exports = function(router) {
                                         from: 'CVMA Staff, staff@CVMA.com',
                                         to: sub.email,
                                         subject: 'CVMA New Post Link',
-                                        text: 'Hello' +  + ', Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' ,
-                                        html: 'Hello' +  + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' +  '">http://localhost:4200/activate</a>'
+                                        text: 'Hello ' + sub.email + ', There has been a new post on Classic Solutions:' + businessPost.business_title+ '<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' ,
+                                        html: 'Hello ' + sub.email + ', <br>There has been a new post on Classic Solutions:<br><strong>'+ businessPost.business_title +'<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'</strong><br>Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' +  '">http://localhost:4200/login</a>'
                                         
                                         };
                                     
