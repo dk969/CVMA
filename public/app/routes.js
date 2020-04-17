@@ -24,27 +24,7 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         controllerAs: 'register',
         authenticated: false
     })
-    .when('/business', {
-        templateUrl: 'app/views/pages/business/business.html',
-        controller: 'businessController',
-        controllerAs: 'business',
-        authenticated: true
-    })
-    .when('/view_business/:id', {
-        templateUrl: 'app/views/pages/business/view_business.html',
-        controller: 'getController',
-        controllerAs: 'get',
-        
-        authenticated: true,
-        
-    })
-    .when('/edit_business/:id', {
-        templateUrl: 'app/views/pages/business/edit_business.html',
-        controller: 'editBusController',
-        controllerAs: 'editBusiness',
-        authenticated: true,
-        permission: ['admin', 'moderator']
-    })
+   
     .when('/vehicle', {
         templateUrl: 'app/views/pages/vehicle/vehicle.html',
         controller: 'vehicleController',
@@ -156,6 +136,7 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         controllerAs: 'reset',
         authenticated: false
     })
+    //Management routes
     .when('/management', {
         templateUrl: 'app/views/pages/management/management.html',
         controller: 'managementController',
@@ -177,12 +158,34 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         permission: ['admin', 'moderator']
     })
+    //Business routes
     .when('/searchBusiness', {
         templateUrl: 'app/views/pages/business/searchBusiness.html',
         controller: 'businessController',
         controllerAs: 'business',
         authenticated: true,
         
+    })
+    .when('/business', {
+        templateUrl: 'app/views/pages/business/business.html',
+        controller: 'businessController',
+        controllerAs: 'business',
+        authenticated: true
+    })
+    .when('/view_business/:id', {
+        templateUrl: 'app/views/pages/business/view_business.html',
+        controller: 'getController',
+        controllerAs: 'get',
+        
+        authenticated: true,
+        
+    })
+    .when('/edit_business/:id', {
+        templateUrl: 'app/views/pages/business/edit_business.html',
+        controller: 'editBusController',
+        controllerAs: 'editBusiness',
+        authenticated: true,
+        permission: ['admin', 'moderator']
     })
     .when('/post', {
         templateUrl: 'app/views/pages/business/post.html',

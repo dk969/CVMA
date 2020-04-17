@@ -249,52 +249,30 @@ module.exports = function(businessRouter) {
         });
     });
 
-    businessRouter.get('/business', function(req,res) {
-        Business.find({}, function(err, companies) {
-            if (err) throw err;
-            User.findOne({user: req.decoded }, function(err, mainUser) {
-                if (err) throw err;
-                if (!mainUser) {
-                    res.json({ success: false, message: ' No User found'});
-                } else {
-                    if (mainUser.permission ==='admin' || mainUser.permission === 'moderator' || mainUser.permission === 'user') {
-                        if (!companies) {
-                            res.json ({ success: false, message: 'Businesses not found'});
-                        } else { 
-                            res.json({ success: true, companies: companies, permission: mainUser.permission, _id: mainUser._id});
-                        }
+   
+    // businessRouter.get('/businessPost', function(req,res) {
+    //     BusinessPost.find({}, function(err, posts) {
+    //         if (err) throw err;
+    //         User.findOne({user: req.decoded }, function(err, mainUser) {
+    //             if (err) throw err;
+    //             if (!mainUser) {
+    //                 res.json({ success: false, message: ' No User found'});
+    //             } else {
+    //                 if (mainUser.permission ==='admin' || mainUser.permission === 'moderator' || mainUser.permission === 'user') {
+    //                     if (!posts) {
+    //                         res.json ({ success: false, message: 'Businesses not found'});
+    //                     } else { 
+    //                         res.json({ success: true, posts: posts, permission: mainUser.permission });
+    //                     }
 
 
-                    } else {
-                        res.json({ success: false, message: 'Insufficient Permission'});
-                    }
-                }
-            })
-        });
-    });
-    businessRouter.get('/businessPost', function(req,res) {
-        BusinessPost.find({}, function(err, posts) {
-            if (err) throw err;
-            User.findOne({user: req.decoded }, function(err, mainUser) {
-                if (err) throw err;
-                if (!mainUser) {
-                    res.json({ success: false, message: ' No User found'});
-                } else {
-                    if (mainUser.permission ==='admin' || mainUser.permission === 'moderator' || mainUser.permission === 'user') {
-                        if (!posts) {
-                            res.json ({ success: false, message: 'Businesses not found'});
-                        } else { 
-                            res.json({ success: true, posts: posts, permission: mainUser.permission });
-                        }
-
-
-                    } else {
-                        res.json({ success: false, message: 'Insufficient Permission'});
-                    }
-                }
-            })
-        });
-    });
+    //                 } else {
+    //                     res.json({ success: false, message: 'Insufficient Permission'});
+    //                 }
+    //             }
+    //         })
+    //     });
+    // });
 
     businessRouter.get('/get/:id', function(req,res) {
         var businessId = req.params.id;

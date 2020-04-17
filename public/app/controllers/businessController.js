@@ -7,8 +7,7 @@ angular.module('businessController', ['businessServices'])
         app.loading = true;
         app.accessDenied = true;
         app.errorMsg = false;
-        app.editAccess = false;
-        app.deleteAccess = false;
+        
         app.limit = 5;
         app.searchLimit = 0; 
         app.authorized = false;   
@@ -37,10 +36,11 @@ angular.module('businessController', ['businessServices'])
         };
         function getBusinesses() {
             Business.getBusinesses().then(function(data) {
-                
+                app.editAccess = false;
+                app.deleteAccess = false;
                 if (data.data.success) {
                    
-                    if (data.data.permission === 'admin' ) {
+                    if (data.data.permission === 'admin' || data.data.permission === 'moderator'|| data.data.permission === 'user') {
                         app.companies = data.data.companies;
                         app.loading = false;
                         app.accessDenied = false;
@@ -646,8 +646,8 @@ angular.module('businessController', ['businessServices'])
                         app.deleteAccess = true;
                         app.authorized = true;
                     } else if (data.data.permission === 'moderator') {
-                        app.editAccess = true;
-                        app.deleteAccess = true;
+                      
+                        app.deleteAccess = false;
                         app.authorized = true;
                     } else if (data.data.permission === 'user') {
                         app.editAccess = false;
