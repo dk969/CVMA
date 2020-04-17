@@ -3,7 +3,7 @@
 <form ng-submit="main.doLogin(loginData);">
 
     <label>Username</label>
-    <input ng-disabled="main.disabled || facebook.disabled || google.disabled" class="form-control" type="text" name="username" placeholder="Please Enter a Username" ng-model="main.loginData.username">
+    <input ng-disabled="facebook.disabled || google.disabled" class="form-control" type="text" name="username" placeholder="Please Enter a Username" ng-model="main.loginData.username">
     <br>
     <label>Password</label>
     <input ng-disabled="main.disabled || facebook.disabled || google.disabled"class="form-control" type="password" name="password" placeholder="Please Enter a Password" ng-model="main.loginData.password">

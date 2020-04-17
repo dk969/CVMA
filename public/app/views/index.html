@@ -82,7 +82,7 @@
               <a ng-show="main.isLoggedIn"class="dropdown-item" href="#!/profile">Profile</a>
               <a ng-show="main.isLoggedIn" class="dropdown-item" href="#!/add_vehicle">Add a vehicle</a>
               <a ng-show=" main.authorized" class="dropdown-item" href="#!/business">Post</a>
-              <a ng-show=" main.authorized" class="dropdown-item" href="#!/management"> User Management</a>
+              <a ng-show="main.manage && main.authorized" class="dropdown-item" href="#!/management"> User Management</a>
               <a ng-show=" main.authorized" class="dropdown-item" href="#!/post"> Post an Offer</a>
               <a class="dropdown-item" href="#!/about">About</a>
 

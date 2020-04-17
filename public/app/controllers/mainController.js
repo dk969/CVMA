@@ -110,16 +110,20 @@ angular.module('mainController', ['authServices', 'userServices'])
 
             Auth.getUser().then(function(data) { 
                 
-                app.name = data.data.name;
+                
                 app.username = data.data.username;
                 app.useremail = data.data.email;
-                app.userpermission = data.data.permission;
+                
 
                 User.getPermission().then(function(data){
                     
                     if (data.data.permission === 'admin' || data.data.permission == 'moderator') {
                         app.authorized = true;
                         app.loadme = true;// Shows main HTML now that data has been collected by angularJS
+                        if (data.data.permission === 'admin') {
+                           app.manage = true
+                            app.authorized = true;
+                        } 
                     } else {
                         app.loadme = true;
                         
