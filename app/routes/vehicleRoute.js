@@ -16,57 +16,8 @@ module.exports = function(vehicleRouter) {
         });
     });
 
-    // vehicleRouter.get('/vehicle', function(req,res) {
-    //         User.findOne({user: req.decoded}, function(err, user) {
-    //             if (err) throw err;
-    //             if (!user) {
-    //                 res.json({ success: false, message: ' No User found'});
-    //             } else {
-    //                 Vehicle.find({'author.id': user._id}, function(err, vehicles) {
-    //                     if (err) throw err;
-    //                 if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
-    //                     if (!vehicles) {
-    //                         res.json ({ success: false, message: 'Vehicles not found'});
-    //                     } else { 
-    //                         res.json({ success: true, vehicles: vehicles, permission: user.permission, id: user._id });
-    //                     }
+  
 
-
-    //                 } else {
-    //                     res.json({ success: false, message: 'Insufficient Permission'});
-    //                 }
-    //             });
-    //             }
-    //         })
-        
-    // });
-//     vehicleRouter.get('/vehicle/:id', function(req,res) {
-//         User.findOne( {user: req.decoded}, function(err, user) {
-            
-          
-//                if (err) throw err;
-//                if (!user) {
-//                    res.json({ success: false, message: ' No User found'});
-//                } else {
-                   
-//                    Vehicle.find({'author.id': req.user._id}, function(err, vehicles) {
-//                    if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
-//                        if (!vehicles) {
-//                            res.json ({ success: false, message: 'Vehicles not found'});
-//                        } else { 
-//                            console.log(user);
-//                            res.json({ success: true, vehicles: vehicles, permission: user.permission, user: req.user});
-//                        }
-
-
-//                    } else {
-//                        res.json({ success: false, message: 'Insufficient Permission'});
-//                    }
-//                })
-//                }
-          
-//        });
-//    });
 
     vehicleRouter.delete('/vehicle/:_id', function(req, res) {
         var deletedVehicle = req.params._id;

@@ -891,13 +891,7 @@ module.exports = function(router) {
                                         res.json({ success: false, message: err.errors.engine_size.message});
                                     } else if (err.errors.colour) {
                                         res.json({ success: false, message: err.errors.colour.message});
-                                    } else if (err.errors.MOT_date) {
-                                        res.json({ success: false, message: err.errors.MOT_date.message});
-                                    } else if (err.errors.tax_date) {
-                                        res.json({ success: false, message: err.errors.tax_date.message});
-                                    } else if (err.errors.service_date) {
-                                        res.json({ success: false, message: err.errors.service_date.message});
-                                    } else {
+                                    }  else {
                                         res.json({success: false, message: err});
                                     }
                                 }else if(err) {
@@ -945,6 +939,71 @@ module.exports = function(router) {
     })
 
 });
+router.get('/business', function(req,res) {
+    User.find({ username: req.decoded.username}, function(err, mainUser) {
+        if (err) throw err;
+        if(!mainUser) {
+            res.json({ success: false, message: " No user found"});
+        } else { 
+             User.findOne({ _id: mainUser}, function(err, user) {
+                 console.log(user);
+                if (err) throw err;
+                if (!user) {
+                    res.json({ success: false, message: 'No user found'});
+                } else {
+                    Business.find({'author.id': user._id}, function(err, companies) {
+                        if (err) throw err;
+                    if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
+                        if (!companies) {
+                            res.json ({ success: false, message: 'Vehicles not found'});
+                        } else { 
+                            res.json({ success: true, companies: companies, permission: user.permission, id: user._id });
+                        }
+
+
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                })
+            }
+        });
+        }
+    })
+
+});
+router.get('/businessPost', function(req,res) {
+    User.find({ username: req.decoded.username}, function(err, mainUser) {
+        if (err) throw err;
+        if(!mainUser) {
+            res.json({ success: false, message: " No user found"});
+        } else { 
+             User.findOne({ _id: mainUser}, function(err, user) {
+                 console.log(user);
+                if (err) throw err;
+                if (!user) {
+                    res.json({ success: false, message: 'No user found'});
+                } else {
+                    BusinessPost.find({'author.id': user._id}, function(err, posts) {
+                        if (err) throw err;
+                    if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
+                        if (!posts) {
+                            res.json ({ success: false, message: 'Vehicles not found'});
+                        } else { 
+                            res.json({ success: true, posts: posts, permission: user.permission, id: user._id });
+                        }
+
+
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                })
+            }
+        });
+        }
+    })
+
+});
+
     return router;
 
 }

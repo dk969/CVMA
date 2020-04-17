@@ -1,0 +1,59 @@
+<div class= "headers"> Manage your Posts</div>
+<br>
+<br>
+<div class="jumbotron text-center" ng-show="business.loading">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading...</p>
+</div>
+<br>
+<ul class="nav nav-tabs">
+    <li class="tablink" role="presentation" ng-click="author.businessPhase();" ng-class="businessTab"><a> Your Business</a></li>&nbsp;&nbsp;
+    <li class="tablink" role="presentation" ng-click="author.offerPhase();" ng-class="offerTab"><a> Your Offers</a></li>&nbsp;&nbsp;
+   
+</ul>
+<br>
+<div class="panel panel-primary" ng-show="author.phase1">
+    <div class="panel panel-default card" ng-controller="authorController" >
+      <div class="panel-body"  >
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="company in author.companies | filter: searchFilter | limitTo: business.limit">
+            <p><strong> {{ company.business_name}}</strong></p>
+            <p>Type: {{ company.business_type}}</p>
+            <p>Address: {{ company.business_address}}</p>
+            <p>Postcode: {{ company.business_postcode}}</p>
+            <p>Website: <a href="http://{{company.website}}">{{company.website}}</a></p>
+            <p>Email: {{ company.business_email}}</p>
+            <p>Contact Number: {{ company.business_contact}}</p>
+            <p>Specialization: {{ company.specialization}}</p>
+            
+            <a href="#!/edit_business/{{ company._id}}">
+                <button type="button" ng-show="author.editAccess && main.authorized " class="btn btn-primary">Edit</button>
+            </a>
+             <button type="button" ng-click="author.deleteBusiness(company._id);" ng-show="author.deleteAccess && main.authorized"class="btn btn-danger">Delete</button>
+            
+          </li>
+       </ul>
+     </div>
+   </div>
+</div>
+<br>
+<div class="panel panel-primary"ng-show="author.phase2">
+    <div class="panel panel-default card" ng-controller="authorController">
+      <div class="panel-body"  >
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="company in author.posts | filter: searchFilter | limitTo: business.limit">
+            <p><strong> {{ company.business_title}}</strong></p>
+            <p>Business: {{ company.business_name}}</p>
+            <p>Type: {{ company.business_type}}</p>
+            <p>Specialization: {{ company.specialization}}</p>
+            <p>Website: <a href="http://{{company.website}}">{{company.website}}</a></p>
+            <p>Offer: {{ company.post}}</p>
+            
+             <button type="button" ng-click="author.deletePost(company._id);" ng-show="author.deleteAccess && main.authorized"class="btn btn-danger">Remove Offer</button>
+            
+          </li>
+       </ul>
+     </div>
+   </div>
+</div>
+<br><br>

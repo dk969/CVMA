@@ -46,9 +46,9 @@ let Vehicle = new Schema({
       year: {type: Number, required: true, },
       engine_size: {type: String, required: true, validate: sizeValidator},
       colour: {type: String, required: true},
-      MOT_date: {type: Date, required: true, },
-      tax_date: {type: Date, required: true, },
-      service_date: {type: Date, required: true, },
+      MOT_date: {type: Date },
+      tax_date: {type: Date },
+      service_date: {type: Date },
       author:{ 
         id: {
           type: mongoose.Schema.Types.ObjectId,

@@ -14,23 +14,6 @@ angular.module('businessController', ['businessServices'])
         app.authorized = false;   
 
 
-        // Business.getCurrent($routeParams.username).then(function(data) {
-        //     if (data.data.success) {
-               
-        //                     $scope.user = data.data.user;
-        //                     app.loading = false;
-        //                     app.accessDenied = false;
-                            
-        //                     app.currentUser = data.data.user._id; 
-                            
-                              
-                       
-    
-        //     } else {
-        //         app.errorMsg = data.data.message;
-        //     }
-        // });
-
         app.conAdd = function(busData) {
             app.loading = true;
             app.errorMsg = false;
@@ -57,7 +40,7 @@ angular.module('businessController', ['businessServices'])
                 
                 if (data.data.success) {
                    
-                    if (data.data.permission === 'admin' || data.data.permission === 'moderator'|| data.data.permission === 'user') {
+                    if (data.data.permission === 'admin' ) {
                         app.companies = data.data.companies;
                         app.loading = false;
                         app.accessDenied = false;
@@ -66,9 +49,9 @@ angular.module('businessController', ['businessServices'])
                             app.deleteAccess = true;
                             app.authorized = true;
                         } else if (data.data.permission === 'moderator' ) {
-                            app.editAccess = true;
-                            app.deleteAccess = true;
-                            app.authorized = true;
+                            app.editAccess = false;
+                            app.deleteAccess = false;
+                            app.authorized = false;
                         } else if (data.data.permission === 'user') {
                             app.editAccess = false;
                             app.deleteAccess = false;
@@ -194,9 +177,9 @@ angular.module('businessController', ['businessServices'])
                             app.deleteAccess = true;
                             app.authorized = true;
                         } else if (data.data.permission === 'moderator') {
-                            app.editAccess = true;
-                            app.deleteAccess = true;
-                            app.authorized = true;
+                            app.editAccess = false;
+                            app.deleteAccess = false;
+                            app.authorized = false;
                         } else if (data.data.permission === 'user') {
                             app.editAccess = false;
                             app.deleteAccess = false;
@@ -214,7 +197,7 @@ angular.module('businessController', ['businessServices'])
     
 
 })
-
+//Update business controller
 .controller('editBusController', function($scope, $routeParams, Business, $timeout) {
     var app = this;
     $scope.business_nameTab = 'active';
@@ -842,4 +825,134 @@ angular.module('businessController', ['businessServices'])
             }
         });
     };
-});
+})
+//Controller to get Posts and uploadeds made by that user
+.controller('authorController', function($scope, $routeParams, Business, $timeout, BusinessPost) {
+    var app = this;
+    $scope.businessTab = 'active';
+    app.phase1 = true;
+
+   
+    
+
+    app.businessPhase = function() {
+        $scope.businessTab = 'active';
+        $scope.offerTab = 'default';
+        app.phase1 = true;
+        app.phase2 = false;
+        app.errorMsg = false;
+    };
+    app.offerPhase = function() {
+        $scope.businessTab = 'default';
+        $scope.offerTab = 'active';
+        app.phase1 = false;
+        app.phase2 = true;
+        app.errorMsg = false;
+    };
+        
+    app.loading = true;
+    app.accessDenied = true;
+    app.errorMsg = false;
+    app.editAccess = false;
+    app.deleteAccess = false;
+    app.authorized = false;
+
+
+        //Author Business control
+        function  getAuthBusinesses(){
+        Business.getAuthorBus().then(function(data) {
+            
+            if (data.data.success) {
+               
+                if (data.data.permission === 'admin' || data.data.permission === 'moderator'|| data.data.permission === 'user') {
+                    app.companies = data.data.companies;
+                    app.loading = false;
+                    app.accessDenied = false;
+                    if (data.data.permission === 'admin') {
+                        app.editAccess = true;
+                        app.deleteAccess = true;
+                        app.authorized = true;
+                    } else if (data.data.permission === 'moderator' ) {
+                        app.editAccess = true;
+                        app.deleteAccess = true;
+                        app.authorized = true;
+                    } else if (data.data.permission === 'user') {
+                        app.editAccess = false;
+                        app.deleteAccess = false;
+                        app.authorized = false;
+                    } 
+                } else {
+                    app.errorMsg = 'Insufficient Permissions';
+                    app.loading = false;
+                }
+            } else {
+                app.errorMsg = data.data.message;
+                app.loading = false;
+            }
+        });
+    }
+
+        getAuthBusinesses();
+
+        app.deleteBusiness = function(_id) {
+            Business.deleteBusiness(_id).then(function(data) {
+                if (data.data.success) {
+                    
+                        getAuthBusinesses();
+                        
+                    
+                } else {
+                    app.showMoreError = data.data.message;
+                }
+            });
+        };
+        //Author Post control
+        function getAuthPosts() {
+        BusinessPost.getAuthorPost().then(function(data) {
+            
+            if (data.data.success) {
+                if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
+                    app.posts = data.data.posts;
+                    app.loading = false;
+                    app.accessDenied = false;
+                    if (data.data.permission === 'admin') {
+                        app.editAccess = true;
+                        app.deleteAccess = true;
+                        app.authorized = true;
+                    } else if (data.data.permission === 'moderator') {
+                        app.editAccess = true;
+                        app.deleteAccess = true;
+                        app.authorized = true;
+                    } else if (data.data.permission === 'user') {
+                        app.editAccess = false;
+                        app.deleteAccess = false;
+                        app.authorized = false;
+                    } 
+                } else {
+                    app.errorMsg = 'Insufficient Permissions';
+                    app.loading = false;
+                }
+            } else {
+                app.errorMsg = data.data.message;
+                app.loading = false;
+            }
+        });
+    }
+
+        getAuthPosts();
+
+        app.deletePost = function(_id) {
+            BusinessPost.deletePost(_id).then(function(data) {
+                if (data.data.success) {
+                    
+                        getAuthPosts();
+                        
+                    
+                } else {
+                    app.showMoreError = data.data.message;
+                }
+            });
+        };
+    
+
+})

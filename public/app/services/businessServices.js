@@ -19,6 +19,10 @@ angular.module('businessServices', [])
     businessFactory.getBusinesses = function() {
         return $http.get('/businessRoute/business/')
     };
+    //Business.getAuthorBus();
+    businessFactory.getAuthorBus = function() {
+        return $http.get('/api/business/')
+    };
     businessFactory.getBusinessID = function(id) {
         return $http.get('/businessRoute/get/'+ id)
     };
@@ -49,6 +53,10 @@ angular.module('businessServices', [])
      //BusinessPost.getPosts();
     postingFactory.getPosts = function() {
         return $http.get('/businessRoute/businessPost/')
+    };
+      //BusinessPost.getPosts();
+      postingFactory.getAuthorPost = function() {
+        return $http.get('/api/businessPost/')
     };
     //Business.deleteVehicle();
     postingFactory.deletePost = function(id) {

@@ -20,7 +20,7 @@
         Current Business
     </div>
 
-<div class="panel panel-default card" >
+<div class="panel panel-default card" ng-contoller="getController">
     
       <div class="panel-body"  >
         <ul class="list-group">
@@ -35,12 +35,7 @@
             <p>Specialization: {{ company.specialization}}</p>
             <a href="#!/businesslist">
               <button type="button" class="btn btn-primary">Back</button>
-          </a>
-              <a href="#!/editBusiness/{{ company._id}}">
-                <button type="button" ng-show="business.editAccess && main.authorized " class="btn btn-primary">Edit</button>
-            </a>
-             <button type="button" ng-click="business.deleteBusiness(business._id);" ng-show="business.deleteAccess"class="btn btn-danger">Delete</button>
-            
+          
           </li>
        </ul>
      </div>

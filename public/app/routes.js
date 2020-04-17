@@ -32,8 +32,8 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
     })
     .when('/view_business/:id', {
         templateUrl: 'app/views/pages/business/view_business.html',
-        controller: 'businessController',
-        controllerAs: 'business',
+        controller: 'getController',
+        controllerAs: 'get',
         
         authenticated: true,
         
@@ -228,6 +228,12 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
     })
     .when('/redirect', {
         templateUrl: 'app/views/pages/users/redirect.html',
+        authenticated: true,
+    })
+    .when('/profile_details', {
+        templateUrl: 'app/views/pages/users/business_profile.html',
+        controller: 'authorController',
+        controllerAs: 'author',
         authenticated: true,
         
     })
