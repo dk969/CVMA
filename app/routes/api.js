@@ -766,13 +766,13 @@ module.exports = function(router) {
         router.post('/businessPost', function(req,res) {
             var businessPost = BusinessPost();
             User.find({ username: req.decoded.username}, function(err, mainUser) {
-                console.log(mainUser.username);
+                
                 if (err) throw err;
                 if(!mainUser) {
                     res.json({ success: false, message: " No user found"});
                 } else { 
                     User.findOne({ _id: mainUser}, function(err, user) {
-                        console.log(user);
+                       
                         if (err) throw err;
                         if (!user) {
                             res.json({ success: false, message: 'No user found'});
