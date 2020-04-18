@@ -8,10 +8,12 @@ main {
   
 }
 .img1{
-  max-width: 8%;
+  max-width: 17%;
   height: auto;
   border-radius: 8px;
-  justify-content: space-between;
+}
+.nav-right {
+  right: 0;
 }
 header .navbar {
  
@@ -208,6 +210,11 @@ body, html {
 
 * {
   box-sizing: border-box;
+}
+.center {
+  align-items: center;
+  position: relative;
+  height: 100px;
 }
 
 .bg-image {
