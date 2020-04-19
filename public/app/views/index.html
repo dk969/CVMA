@@ -15,8 +15,9 @@
         <script src="assets/js/angular.js"></script>
         <script src="assets/js/angular-route.js"></script>
         <script src="assets/js/angular-animate.js"></script>
+        
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAee9B7WpqGWmSQD6QT6WexgM8Iv0Vd2ls"></script>
+        
         
         <script src="app/app.js"></script>
         <script src="app/routes.js"></script>
@@ -34,6 +35,7 @@
         <script src="app/services/businessServices.js"></script>
         <script src="app/services/vehicleServices.js"></script>
         <script src="app/services/mapServices.js"></script>
+        
 
         <title>Classic Solutions</title>
         
@@ -43,7 +45,7 @@
     </head>
     <body ng-app="cvmaApp" ng-controller="mainController as main" ng-show="main.loadme" ng-cloak>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top nav-colour">
-          
+          <img src="https://i.postimg.cc/DmkHRCHq/Classic-Solutions-Logo.png" class="img1"> &nbsp;&nbsp;
       <a class="navbar-brand" href="/">Classic Solutions</a>
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -89,11 +91,7 @@
           
          
         </ul> 
-        <ul class="navbar-nav ">
-        <div class="center">
-          <img src="https://i.postimg.cc/DmkHRCHq/Classic-Solutions-Logo.png" class="img1">
-        </div>
-        </ul>
+        
 
         <ul class="navbar-nav  nav-right">
           <li class="nav-item">
@@ -115,7 +113,7 @@
     </nav>
     
     <main role="main">
-        <br><br><br>
+        <br><br><br><br>
      <div ng-view></div>
      
    

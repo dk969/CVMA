@@ -8,7 +8,7 @@ main {
   
 }
 .img1{
-  max-width: 17%;
+  max-width: 10%;
   height: auto;
   border-radius: 8px;
 }
@@ -211,11 +211,7 @@ body, html {
 * {
   box-sizing: border-box;
 }
-.center {
-  align-items: center;
-  position: relative;
-  height: 100px;
-}
+
 
 .bg-image {
   /* Full height */
