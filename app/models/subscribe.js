@@ -18,7 +18,11 @@ var emailValidator = [
 let Subscribe = new Schema({
 
 
-email: {type: String, required: true, lowercase: true, unique: true, validate: emailValidator},
+emails: [ {
+
+}
+
+],
 
 
 

@@ -770,7 +770,7 @@ angular.module('businessController', ['businessServices'])
                 app.successMsg = data.data.message + '...Redirecting';
 
                 $timeout(function() {
-                    $location.path('/');
+                    $location.path('/dashboard');
                 }, 2000)
             } else {
                 app.loading = false;

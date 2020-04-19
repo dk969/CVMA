@@ -262,9 +262,16 @@ body, html {
   top: 25%;
   left: 30%;
   z-index: 2;
-  width: 800px;
-  padding: 20px;
+
+  padding: 10px;
   text-align: left;
+}
+.log {
+  
+  color: black;
+  font-weight: 400;
+  font-size: 20px;
+
 }
 .nav-colour {
   background-color: rgb(160, 4, 4);

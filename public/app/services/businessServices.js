@@ -75,6 +75,10 @@ angular.module('businessServices', [])
     subFactory.create = function(subData) {
         return $http.post('/businessRoute/subscribe', subData);
     };
+    //Subscribe.create(subData);
+    subFactory.update = function(subData) {
+        return $http.put('/businessRoute/newSub', subData);
+    };
      //Subscribe.getSubscribers();
      subFactory.getSubscribers = function() {
         return $http.get('/businessRoute/subscribe/')

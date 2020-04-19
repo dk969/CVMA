@@ -822,10 +822,10 @@ module.exports = function(router) {
                                     if (err) throw err;
                                 var email = {
                                     from: 'CVMA Staff, staff@CVMA.com',
-                                    to: sub.email,
+                                    to: sub.emails,
                                     subject: 'CVMA New Post Link',
-                                    text: 'Hello ' + sub.email + ', There has been a new post on Classic Solutions:' + businessPost.business_title+ '<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' ,
-                                    html: 'Hello ' + sub.email + ', <br>There has been a new post on Classic Solutions:<br><strong>'+ businessPost.business_title +'<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'</strong><br>Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' +  '">http://localhost:4200/login</a>'
+                                    text: 'Hello Classic Solutions customers, There has been a new post on Classic Solutions:' + businessPost.business_title+ '<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' ,
+                                    html: 'Hello Classic Solutions customers, <br>There has been a new post on Classic Solutions:<br><strong>'+ businessPost.business_title +'<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'</strong><br>Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' +  '">http://localhost:4200/login</a>'
                                     
                                     };
                                 

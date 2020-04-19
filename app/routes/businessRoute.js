@@ -230,25 +230,70 @@ module.exports = function(businessRouter) {
             
     //     })
     // });
+    
+    // businessRouter.put('/newSub', function(req, res) {
+    //     Subscribe.findOne({_id: req.params._id,}).exec(function(err, subscribe) {
+    //         subscribe.email = req.body.email;
+    //         console.log(subscribe)
+    //         subscribe.email.push( arr[0]);
+    //         if (req.body.email == null || req.body.email == '' ) {
+    //             res.json({ success: false, message: 'Ensure Email is provided'});
+        
+    //             } else {
+    //         //subscribe.save(function(err) {
+    //             if (err) {
+    //                 res.json({ success: false, message: err});
+    //             } else {
+    //                 res.json({ success: true, message: 'Subscription Successful'});
+    //             }
+    //        // })
+    //         }
+    //     })
 
+        
+    // })
     //Post subscribers emails
-    businessRouter.post('/subscribe', function(req,res) {
-        var subscribe = Subscribe();
-        subscribe.email = req.body.email;
+    businessRouter.post('/subscribe', function(req,res, next) {
+        Subscribe.findOneAndUpdate( { },{"$push": { "emails": req.body.email,}}, 
+        { "upsert": true, "new": true },function(err, subscribers) {
+            if (err) throw err;
+            console.log(subscribers);
+       
 
-    if (req.body.email == null || req.body.email == '' ) {
-        res.json({ success: false, message: 'Ensure Email is provided'});
+            if (req.body.email == null || req.body.email == '' ) {
+                res.json({ success: false, message: 'Ensure Email is provided'});
 
-        } else {
-             subscribe.save(function(err) {
-                if (err) {
-                    res.json({ success: false, message: err});
                 } else {
-                    res.json({ success: true, message: 'Subscription Successful'});
-                }
-            });
-        }   
+                    
+                        if (err) {
+                            res.json({ success: false, message: err});
+                        } else {
+                            res.json({ success: true, message: 'Subscription Successful'});
+                        }
+                    };
 
+                })
+        //.catch(next);
+        // Subscribe.find({ },function(err, subscribe) {
+        //     console.log(subscribe);
+        // //     console.log(newSub);
+        //     if (err) throw err;
+            
+      
+        //     if (req.body.email == null || req.body.email == '' ) {
+        //         res.json({ success: false, message: 'Ensure Email is provided'});
+
+        //         } else {
+                    
+        //                 if (err) {
+        //                     res.json({ success: false, message: err});
+        //                 } else {
+        //                     res.json({ success: true, message: 'Subscription Successful'});
+        //                 }
+        //             };
+                
+        //     // })  
+        
     });
 
 
