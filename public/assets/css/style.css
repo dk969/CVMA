@@ -349,3 +349,8 @@ img {
     margin: auto;
   }
 }
+.mapBusiness {
+  height: 400px;
+  width: 300px;
+  float: right;
+}

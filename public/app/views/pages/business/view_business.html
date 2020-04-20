@@ -24,8 +24,9 @@
     
       <div class="panel-body"  >
         <ul class="list-group">
-          <li class="list-group-item" ng-model="company">
+          <li class="list-group-item" ng-model="company"><div id="map" class="mapBusiness" ></div>
             <p><strong> {{ company.business_name}}</strong></p>
+            <br>
             <p>Type: {{ company.business_type}}</p>
             <p>Address: {{ company.business_address}}</p>
             <p>Postcode: {{ company.business_postcode}}</p>
@@ -33,6 +34,7 @@
             <p>Email: {{ company.business_email}}</p>
             <p>Contact Number: {{ company.business_contact}}</p>
             <p>Specialization: {{ company.specialization}}</p>
+            <br>
             <a href="#!/businesslist">
               <button type="button" class="btn btn-primary">Back</button>
           
@@ -40,6 +42,11 @@
        </ul>
      </div>
      
+     <body ng-app="mapController">
+      <div ng-controller="mapController"ng-init="loadScript()">
+       </div>
+      </div>
+     </body>
    </div>
 </div>
 <br>
