@@ -351,6 +351,11 @@ img {
 }
 .mapBusiness {
   height: 400px;
-  width: 300px;
+  width: 400px;
   float: right;
+}
+.map {
+  height: 800px;
+  width: 90%;
+ left: 5%;
 }

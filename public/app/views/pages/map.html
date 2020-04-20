@@ -1,5 +1,4 @@
 
-
 <h1>Map</h1>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -7,16 +6,13 @@
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-      #map {
-        height: 600px;
-        width: 800px;
-      }
+      
       /* Optional: Makes the sample page fill the window. */
       
       #floating-panel {
         position: absolute;
-        top: 325px;
-        left: 30%;
+        top: 220px;
+        left: 40%;
         z-index: 5;
         background-color: #fff;
         padding: 5px;
@@ -27,27 +23,37 @@
         padding-left: 10px;
       }
     </style>
+    <div ng-controller="mapController">
+      <input ng-repeat="maps in map.companies" id="postcode" type="textbox" value={{maps.business_postcode}} ng-show="true">
+      
+    </div>
+    <br>
+    <div ng-controller="busMapController">
+      <input id="address" type="textbox" value= search>
+      <input type="button" value="Search for your location" click="search()">
+    </div>
+  
 
 
-    <div id="floating-panel">
+    <div id="floating-panel" ng-controller="mapController" >
     <b>Start: </b>
     <select id="start">
-      <option value="pos">Current location</option>
+      <option value=pos>Current location</option>
       <option value="leicester, uk">Leicester</option>
      
   
-    </select>
+    </select>&nbsp;
     <b>End: </b>
-    <select id="end">
+    <select id="end"  >
       <option value=" ">Please select</option>
-      <option value="london, uk">London</option>
-      <option value="154 Ave Rd Ext, Leicester LE23EJ">Jacksons Garage</option>
+      <option ng-repeat="maps in map.companies" value={{maps.business_postcode}}>{{ maps.business_name}}</option>
+      
       
      
     </select>
     
     </div>
-    <div id="map" class="map-container"></div>
+    <div id="map" class="map"></div>
     <body ng-app="mapController">
       <div ng-controller="mapController"ng-init="loadScript()">
      
@@ -57,5 +63,7 @@
       
       </div>
       </body>
+    
+      <br><br><br><br>
 
    

@@ -105,18 +105,11 @@ angular.module('mainController', ['authServices', 'userServices'])
 
 
         if (Auth.isLoggedIn()) {
-            console.log('Success: User is Logged in.');
             app.isLoggedIn = true;
-
             Auth.getUser().then(function(data) { 
-                
-                
                 app.username = data.data.username;
                 app.useremail = data.data.email;
-                
-
-                User.getPermission().then(function(data){
-                    
+                User.getPermission().then(function(data){ 
                     if (data.data.permission === 'admin' || data.data.permission == 'moderator') {
                         app.authorized = true;
                         app.loadme = true;// Shows main HTML now that data has been collected by angularJS
@@ -125,8 +118,7 @@ angular.module('mainController', ['authServices', 'userServices'])
                             app.authorized = true;
                         } 
                     } else {
-                        app.loadme = true;
-                        
+                        app.loadme = true; 
                     }
                 });
             });

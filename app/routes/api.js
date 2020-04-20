@@ -3,6 +3,7 @@ var Business = require('../models/business');
 var BusinessPost = require('../models/businessPost');
 var Vehicle = require('../models/vehicle');
 var Subscribe = require('../models/subscribe');
+var Address = require('../models/address');
 var jwt   = require('jsonwebtoken');
 var secret = 'cvmaapp';
 var nodemailer = require('nodemailer');
@@ -694,6 +695,7 @@ module.exports = function(router) {
      //Business posted User as Author 
     router.post('/business', function(req,res) {
         var business = Business();
+        
         User.find({ username: req.decoded.username}, function(err, mainUser) {
             console.log(mainUser.username);
             if (err) throw err;
@@ -719,6 +721,11 @@ module.exports = function(router) {
                             id: user._id,
                             username: user.username
                         }
+                        Address.findOneAndUpdate( { },{"$push": { "address": req.body.business_name && req.body.business_postcode}}, 
+                        { "upsert": true, "new": true },function(err, address) {
+                            if(err) throw err;
+                            console.log(address);
+                        })
                 if (req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || req.body.business_address == null || req.body.business_address == '' || req.body.business_postcode == null || req.body.business_postcode == ''
                 || req.body.website == null || req.body.website == '' || req.body.business_email == null || req.body.business_email == '' || req.body.business_contact == null || req.body.business_contact == '' || req.body.specialization == null || req.body.specialization == '') {
                     res.json({ success: false, message: 'Ensure Business details are provided'});

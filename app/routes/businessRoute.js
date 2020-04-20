@@ -2,6 +2,7 @@ var Business = require('../models/business');
 var BusinessPost = require('../models/businessPost');
 var Subscribe = require('../models/subscribe');
 var User = require('../models/user');
+var Address = require('../models/address');
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
 
@@ -258,8 +259,6 @@ module.exports = function(businessRouter) {
         { "upsert": true, "new": true },function(err, subscribers) {
             if (err) throw err;
             console.log(subscribers);
-       
-
             if (req.body.email == null || req.body.email == '' ) {
                 res.json({ success: false, message: 'Ensure Email is provided'});
 
@@ -341,6 +340,7 @@ module.exports = function(businessRouter) {
             })
         });
     });
+    //gets subscribers
     businessRouter.get('/subscribe', function(req,res) {
         Subscribe.find({}, function(err, subscribers) {
             if (err) throw err;
@@ -362,6 +362,17 @@ module.exports = function(businessRouter) {
                     }
                 }
             })
+        });
+    });
+    //gets addresses for maps
+    businessRouter.get('/address', function(req,res) {
+        Address.find({}, function(err, address) {
+            if (err) throw err;
+            if (!address) {
+                res.json ({ success: false, message: 'Addresses not found'});
+            } else { 
+                res.json({ success: true, address: address});
+            }
         });
     });
 

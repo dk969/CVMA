@@ -8,7 +8,7 @@ angular.module('businessController', ['businessServices'])
         app.accessDenied = true;
         app.errorMsg = false;
         
-        app.limit = 5;
+        app.limit = 10;
         app.searchLimit = 0; 
         app.authorized = false;   
 
