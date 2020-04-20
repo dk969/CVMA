@@ -24,7 +24,11 @@
     
       <div class="panel-body"  >
         <ul class="list-group">
-          <li class="list-group-item" ng-model="company"><div id="map" class="mapBusiness" ></div>
+          <li class="list-group-item" ng-model="company"> 
+            <div>
+              <input id="address" type="textbox" value={{company.business_postcode}} ng-show="false" >
+              
+            </div><div id="map" class="mapBusiness" ></div>
             <p><strong> {{ company.business_name}}</strong></p>
             <br>
             <p>Type: {{ company.business_type}}</p>
@@ -43,7 +47,7 @@
      </div>
      
      <body ng-app="mapController">
-      <div ng-controller="mapController"ng-init="loadScript()">
+      <div ng-controller="busMapController"ng-init="loadScript()">
        </div>
       </div>
      </body>
