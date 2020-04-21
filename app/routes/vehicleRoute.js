@@ -45,7 +45,7 @@ module.exports = function(vehicleRouter) {
             if (!mainUser) {
                 res.json({ success: false, message: 'No user found'});
             } else {
-                if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') {
                     Vehicle.findOne({ _id: editVehicle}, function(err,vehicle) {
                         if (err) throw err;
                         if (!vehicle) {
@@ -77,7 +77,7 @@ module.exports = function(vehicleRouter) {
                 res.json({ success: false, message: 'No user found'});
             } else {
                 if (newMake) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') {
                         Vehicle.findOne({ _id: editVehicle}, function(err, vehicle) {
                             if (err) throw err;
                             if (!vehicle) {
@@ -98,7 +98,7 @@ module.exports = function(vehicleRouter) {
                     }
                 } 
                 if (newModel) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') {
                         Vehicle.findOne({ _id: editVehicle}, function(err, vehicle) {
                             if (err) throw err;
                             if (!vehicle) {
@@ -119,7 +119,7 @@ module.exports = function(vehicleRouter) {
                     }
                 } 
                 if (newYear) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') {
                         Vehicle.findOne({ _id: editVehicle}, function(err, vehicle) {
                             if (err) throw err;
                             if (!vehicle) {
@@ -140,7 +140,7 @@ module.exports = function(vehicleRouter) {
                     }
                 } 
                 if (newEngine_size) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') {
                         Vehicle.findOne({ _id: editVehicle}, function(err, vehicle) {
                             if (err) throw err;
                             if (!vehicle) {
@@ -161,7 +161,7 @@ module.exports = function(vehicleRouter) {
                     }
                 } 
                 if (newColour) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') {
                         Vehicle.findOne({ _id: editVehicle}, function(err, vehicle) {
                             if (err) throw err;
                             if (!vehicle) {
@@ -182,7 +182,7 @@ module.exports = function(vehicleRouter) {
                     }
                 } 
                 if (newMOT) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') {
                         Vehicle.findOne({ _id: editVehicle}, function(err, vehicle) {
                             if (err) throw err;
                             if (!vehicle) {
@@ -204,7 +204,7 @@ module.exports = function(vehicleRouter) {
                 } 
 
                 if (newTax) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') {
                         Vehicle.findOne({ _id: editVehicle}, function(err, vehicle) {
                             if (err) throw err;
                             if (!vehicle) {
@@ -226,7 +226,7 @@ module.exports = function(vehicleRouter) {
                 } 
 
                 if (newService) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') {
                         Vehicle.findOne({ _id: editVehicle}, function(err, vehicle) {
                             if (err) throw err;
                             if (!vehicle) {

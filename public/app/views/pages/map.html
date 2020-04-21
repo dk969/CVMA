@@ -12,7 +12,7 @@
       #floating-panel {
         position: absolute;
         top: 220px;
-        left: 40%;
+        left: 30%;
         z-index: 5;
         background-color: #fff;
         padding: 5px;
@@ -28,10 +28,7 @@
       
     </div>
     <br>
-    <div ng-controller="busMapController">
-      <input id="address" type="textbox" value= search>
-      <input type="button" value="Search for your location" click="search()">
-    </div>
+    
   
 
 
@@ -51,7 +48,8 @@
       
      
     </select>
-    
+    <input id="address" type="textbox" value="Leicester, UK">
+    <input id="submit" type="button" value="Search">
     </div>
     <div id="map" class="map"></div>
     <body ng-app="mapController">

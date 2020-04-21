@@ -64,8 +64,8 @@ module.exports = function(router) {
                     from: 'CVMA Staff, staff@CVMA.com',
                     to: user.email,
                     subject: 'CVMA Activation Link',
-                    text: 'Hello' + user.name + ', Thank you for registering for CVMA. Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' + user.temporarytoken,
-                    html: 'Hello' + user.name + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' + user.temporarytoken + '">http://localhost:4200/activate</a>'
+                    text: 'Hello ' + user.name + ', Thank you for registering for CVMA. Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' + user.temporarytoken,
+                    html: 'Hello ' + user.name + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' + user.temporarytoken + '">http://localhost:4200/activate</a>'
                     
                     };
                 
