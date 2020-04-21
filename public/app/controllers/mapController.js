@@ -227,10 +227,6 @@ angular.module('mapController', ['businessServices'])
                     alert('Geocode was not successful for the following reason: ' + status);
                   }
                 });
-               
-                
-                
-            
               }
               function calculateAndDisplayRoute(directionsService, directionsRenderer) {
                 navigator.geolocation.getCurrentPosition(function (position) {

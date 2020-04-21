@@ -1,14 +1,10 @@
-<div class= "headers"> Latest Offers</div>
 
-<div class="jumbotron text-center" ng-show="businessPost.loading">
-    <span class="glyphicon glyphicon-repeat spinner"></span>
-    <p>Loading...</p>
-</div>
-<br>
-<div class="navbar-form">
-    <div class= "col-lg-6">
-        <p>Looking for something inperticular? Why not search for it!</p>
-        <div class="input-group">
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <div class= "headers"> Latest Offers</div>
+        <hr>
+        <p>Can't find what you are looking for? Why not search for it!</p>
+        <div class="input-group col-lg-6">
             <input type="text" class="form-control" name="search" placeholder="search for .." ng-model="searchKeyword">
             <button type="button" ng-click="businessPost.search(searchKeyword, number);" class="btn btn-success">Search</button>
             <button type="button" ng-click="businessPost.clear();"class="btn btn-default">Clear</button>
@@ -16,13 +12,14 @@
                 <button type="button" class="btn btn-warning">Advanced Search</button>
             </a>
         </div>
-        <br>
-        <a href="#!/subscribe">
-            <button type="button" class="btn btn-warning">Subscribe for notifcations</button>
-        </a>
     </div>
+  </div>
+
+<div class="jumbotron text-center" ng-show="businessPost.loading">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading...</p>
 </div>
-<br>
+
 <div ng-show="searchFilter !== undefined">
     <p>Total Results: {{( businessPost.posts | filter: searchFilter ).length }} </p>
 </div>
@@ -39,8 +36,8 @@
       <div class="panel-body"  >
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="company in businessPost.posts | filter: searchFilter | limitTo: business.limit">
-            <p><strong> {{ company.business_title}}</strong></p>
-            <p>Business: {{ company.business_name}}</p>
+            <h2><strong> {{ company.business_title}}</strong></h2>
+            <h3> {{ company.business_name}}</h3>
             <p>Type: {{ company.business_type}}</p>
             <p>Specialization: {{ company.specialization}}</p>
             <p>Offer: {{ company.post}}</p>
@@ -48,6 +45,9 @@
             
             <a href="http://{{company.website}}">
                 <button type="button"  class="btn btn-primary">Click here for more details</button>
+            </a>
+             <a href="#!/subscribe">
+                <button type="button" class="btn btn-warning">Subscribe for notifcations</button>
             </a>
             
              <button type="button" ng-click="businessPost.deletePost(company._id);" ng-show="businessPost.deleteAccess && main.authorized"class="btn btn-danger">Remove Offer</button>

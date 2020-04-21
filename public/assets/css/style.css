@@ -21,25 +21,7 @@ header .navbar {
 
 }
 
-#map_canvas {
-  height: 300px;
-  width: 100%;
-}
 
-
-#floating-panel {
-  position: absolute;
-  top: 325px;
-  left: 30%;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
-  text-align: center;
-  font-family: 'Roboto','sans-serif';
-  line-height: 30px;
-  padding-left: 10px;
-}
 .footer {
     position: absolute;
     position: fixed;
@@ -64,6 +46,20 @@ header .navbar {
     
   }
   .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+  .cardbus {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+    margin: 0 auto; 
+    float: none; 
+    margin-bottom: 10px; 
+    text-align: center;
+    
+  }
+  .cardbus:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   }
   .container {
@@ -359,3 +355,29 @@ img {
   width: 90%;
  left: 5%;
 }
+.button1 {
+  transition-duration: 0.4s;
+}
+.button1:hover {
+  background-color: rgb(235, 154, 32); 
+  color: white;
+}
+.button2 {
+ background-color: green;
+ color: white;
+ font-size: x-large;
+ width: 49.5%;
+ height: 150px;
+ 
+
+}
+.button3 {
+  background-color: red;
+  color: white;
+  font-size: x-large;
+  width: 49.5%;
+  height: 150px;
+  
+  
+ 
+ }

@@ -831,8 +831,8 @@ module.exports = function(router) {
                                     from: 'CVMA Staff, staff@CVMA.com',
                                     to: sub.emails,
                                     subject: 'CVMA New Post Link',
-                                    text: 'Hello Classic Solutions customers, There has been a new post on Classic Solutions:' + businessPost.business_title+ '<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' ,
-                                    html: 'Hello Classic Solutions customers, <br>There has been a new post on Classic Solutions:<br><strong>'+ businessPost.business_title +'<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'</strong><br>Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' +  '">http://localhost:4200/login</a>'
+                                    text: 'Hello Classic Solutions customer, There has been a new post on Classic Solutions:' + businessPost.business_title+ '<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' ,
+                                    html: 'Hello Classic Solutions customer, <br>There has been a new post on Classic Solutions:<br><strong>'+ businessPost.business_title +'<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'</strong><br>Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' +  '">http://localhost:4200/login</a>'
                                     
                                     };
                                 
@@ -886,7 +886,7 @@ module.exports = function(router) {
                         }
     
                 if (req.body.vehicle_make == null || req.body.vehicle_make == '' || req.body.vehicle_model == null || req.body.vehicle_model == '' || req.body.year == null || req.body.year == '' || req.body.engine_size == null || req.body.engine_size == ''
-                || req.body.colour == null || req.body.colour == '' || req.body.MOT_date == null || req.body.MOT_date == '' || req.body.tax_date == null || req.body.tax_date == '' || req.body.service_date == null || req.body.service_date == ''
+                || req.body.colour == null || req.body.colour == '' 
                 ) {
                     res.json({ success: false, message: 'Ensure all vehicle details are provided'});
             

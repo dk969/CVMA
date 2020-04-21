@@ -1,14 +1,9 @@
-<div class= "headers"> Businesses</div>
-<br>
-<br>
-<div class="jumbotron text-center" ng-show="management.loading">
-    <span class="glyphicon glyphicon-repeat spinner"></span>
-    <p>Loading...</p>
-</div>
-<br>
-<div class="navbar-form">
-    <div class= "col-lg-6">
-        <div class="input-group">
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <div class= "headers"> Businesses</div>
+        <hr>
+        <div class="input-group col-lg-6">
             <input type="text" class="form-control" name="search" placeholder="search for .." ng-model="searchKeyword">
             <button type="button" ng-click="business.search(searchKeyword, number);" class="btn btn-success">Search</button>
             <button type="button" ng-click="business.clear();"class="btn btn-default">Clear</button>
@@ -17,8 +12,14 @@
             </a>
         </div>
     </div>
+  </div>
+
+
+<div class="jumbotron text-center" ng-show="management.loading">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading...</p>
 </div>
-<br>
+
 <div ng-show="searchFilter !== undefined">
     <p>Total Results: {{( business.companies | filter: searchFilter ).length }} </p>
 </div>
@@ -31,11 +32,11 @@
 </div>
 <br>
 <div class="panel panel-primary">
-    <div class="panel panel-default card" ng-controller="businessController">
+    <div class="panel panel-default cardbus" ng-controller="businessController">
       <div class="panel-body"  >
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="company in business.companies | filter: searchFilter | limitTo: business.limit">
-            <p><strong> {{ company.business_name}}</strong></p>
+            <h2><strong> {{ company.business_name}}</strong></h2>
             <p>Type: {{ company.business_type}}</p>
             <p>Address: {{ company.business_address}}</p>
             <p>Postcode: {{ company.business_postcode}}</p>
@@ -75,5 +76,6 @@
 <div class='row show-hide-message'ng-show="business.errorMsg">
     <div class="alert alert-danger">{{business.errorMsg}}</div>
 </div>
+<br>
 <br>
 <br>
