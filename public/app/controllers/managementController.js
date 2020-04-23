@@ -211,7 +211,7 @@ angular.module('managementController', [])
             app.disabled = false;
         }
     };
-   app.updateUsername = function(newName, valid) {
+   app.updateUsername = function(newUsername, valid) {
             app.errorMsg = false;
             app.disabled = true;
             var userObject = {};

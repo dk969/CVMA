@@ -25,13 +25,17 @@
             <li>Musy be between 2 and 20 characters</li> 
         </ul>
     </div>
-    <br>   <br>
+    <br>   
     <button ng-disabled="edit.disabled" class="btn btn-primary" type="submit">Update </button>
-
+    <br>
+    <br>
+    <div> <a href="#!/management">
+        <button type="button"  class="btn button1">Back</button>
+    </a></div>
 </form>
 
 <!--Username-->
-<form name="edit.usernameForm" ng-show= "edit.phase2" ng-submit="edit.updateUsername(newUsername, edit.UsernameForm.username.$valid)" novalidate>
+<form name="edit.usernameForm" ng-show= "edit.phase2" ng-submit="edit.updateUsername(newUsername, edit.usernameForm.username.$valid)" novalidate>
     <div ng-class="{ 'has-success':(edit.usernameForm.username.$valid && !edit.usernameForm.username.$pristine ), 'has-error':(!edit.usernameForm.username.$valid && !edit.usernameForm.username.$pristine) || (!edit.usernameForm.username.$valid && 
     edit.usernameForm.$submitted) }">
         <label><strong>Username:</strong></label>
@@ -49,7 +53,7 @@
     <button ng-disabled="edit.disabled" class="btn btn-primary" type="submit">Update </button>
     <br>
     <br>
-    <div> <a href="#!/vehicle">
+    <div> <a href="#!/management">
       <button type="button"  class="btn button1">Back</button>
   </a></div>
 
@@ -77,7 +81,7 @@
     <button ng-disabled="edit.disabled" class="btn btn-primary" type="submit">Update </button>
     <br>
     <br>
-    <div> <a href="#!/vehicle">
+    <div> <a href="#!/management">
       <button type="button"  class="btn button1">Back</button>
   </a></div>
 
@@ -92,7 +96,14 @@
     <button ng-disabled="edit.disableUser" ng-click="edit.updatePermission('user');" type="button" class="btn btn-success">User</button>&nbsp
     <button ng-disabled="edit.disableModerator" ng-click="edit.updatePermission('moderator');"type="button" class="btn btn-info">Moderator</button>&nbsp
     <button ng-disabled="edit.disableAdmin" ng-click="edit.updatePermission('admin');"type="button" class="btn btn-warning">Admin</button>
+
+    <br>
+    <br>
+    <div> <a href="#!/management">
+        <button type="button"  class="btn button1">Back</button>
+    </a></div>
 </div>
+
 
 
 

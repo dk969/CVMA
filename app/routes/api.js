@@ -57,18 +57,14 @@ module.exports = function(router) {
                 } else {
                     res.json({ success: false, message: err });
                 } 
-
              } else {
-                
                 var email = {
                     from: 'CVMA Staff, staff@CVMA.com',
                     to: user.email,
                     subject: 'CVMA Activation Link',
                     text: 'Hello ' + user.name + ', Thank you for registering for CVMA. Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' + user.temporarytoken,
                     html: 'Hello ' + user.name + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' + user.temporarytoken + '">http://localhost:4200/activate</a>'
-                    
                     };
-                
                     client.sendMail(email, function(err, info){
                         if (err ){
                         console.log(error);
@@ -77,13 +73,10 @@ module.exports = function(router) {
                         console.log('Message sent: ' + info.response);
                         }
                     });
-
-
                 res.json({success: true, message: 'Account registered! Please check email for activation link.'});
             }
         });
       }
-        
     });
 
  

@@ -330,9 +330,9 @@ body, html {
 }
 
 img {
-  display: block;
+  max-width: 40%;
   height: auto;
-  max-width: 100%;
+  border-radius: 8px;
 }
 
 @media screen and (max-width: 1000px) {
