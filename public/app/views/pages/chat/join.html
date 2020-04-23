@@ -6,17 +6,17 @@
     </header>
     <main class="join-main">
         <form action="/#!/chat">
-            <div class="form-control">
-                <label for="username">Username</label><br>
-                <input
+            <div >
+                <label for="username">Welcome to your Chat Room {{main.username}}</label><br>
+                <input ng-show= false
                     type="text"
                     name="username"
                     id="username"
-                    placeholder="Enter username..."
+                    value={{main.username}}
                     required/>
-            </div><br><br><br>
-            <div class="form-control">
-                <label for="room">Room</label>
+            </div><br><br>
+            <div >
+                <label for="room">Please select a Room</label>
                 <br>
                 <select name="room" id="room">
                     <option value="">Please select...</option>
