@@ -155,7 +155,7 @@ angular.module('businessController', ['businessServices'])
 
 })
 
-.controller('getController', function($scope, $routeParams, Business) {
+.controller('getController', function($scope, $routeParams, Business, $timeout, $location) {
     var app = this;
 
         
@@ -170,6 +170,35 @@ angular.module('businessController', ['businessServices'])
         if (data.data.success) {
             if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
                         $scope.company = data.data.company;
+                        $scope.reviews = data.data.review;
+                       
+                       console.log($scope.reviews);
+                       var arr = [];
+                        // for (var i = 0; i < $scope.reviews.length; i++) {
+                        // var d = $scope.reviews[i].rating;
+                        // var sum = 0;
+                        // for (var j = 0; j < d.length; j++) {
+                        //     sum += parseInt(d[j]);
+                        // }
+                        // arr.push(sum / d.length);
+                        // }
+                        for (var i = 0; i < $scope.reviews.length; i++) {
+                            var d = $scope.reviews[i].rating;
+                            for (var j = 0; j < d.length; j++) {
+                              d[j] = parseInt(d[j]);
+                            }
+                            if (arr.length == 0)
+                             arr = d;
+                            else {
+                              for (var j = 0; j < d.length; j++) {
+                                arr[j] += d[j];
+                              }
+                             }
+                          }
+                          for (var i = 0; i < arr.length; i++) {
+                            arr[i] = arr[i] / $scope.reviews.length;
+                          }
+                        console.log(rating);
                         app.loading = false;
                         app.accessDenied = false;
                         if (data.data.permission === 'admin') {
@@ -195,6 +224,30 @@ angular.module('businessController', ['businessServices'])
         }
     });
     
+    app.revAdd = function(revData) {
+        app.loading = true;
+        app.errorMsg = false;
+        
+        
+        Business.createReview(app.revData).then(function(data) {
+            
+            if (data.data.success) {
+                app.loading = false;
+                app.successMsg = data.data.message + '...Redirecting';
+
+                $timeout(function() {
+                    $location.path('/businesslist');
+                }, 2000)
+            } else {
+                app.loading = false;
+                app.errorMsg = data.data.message;
+            }
+
+        });
+    };
+
+
+
 
 })
 //Update business controller

@@ -1,0 +1,78 @@
+<h1>Review a business</h1>
+<div class="panel panel-default card" ng-contoller="getController">
+    
+    <div class="panel-body"  >
+      <ul class="list-group">
+        <li class="list-group-item" ng-model="company"> 
+          
+          
+          <p><strong> {{ company.business_name}}</strong></p>
+          
+          <p>Type: {{ company.business_type}}</p>
+        
+    
+          <br>
+       
+        </li>
+     </ul>
+   </div>
+    </div>
+    
+
+<form class="panel  card"name="revForm" ng-submit="review.revAdd(revData, revForm.$valid);" novalidate>
+    
+    <div  class="list-group-item">
+    <input ng-model="review.revData.business_id" type="radio" name="business_id" value={{company._id}}> Please confirm you are happy for this review to be posted<br><br>
+    <input ng-model="review.revData.name" type="radio" name="name" value={{company.business_name}}> The Business which you are reviewing is: {{company.business_name}}?<br>
+    
+    <br>
+    <br>
+    <div >
+        <label>How would you rate this business?</label>
+         <br>
+        <input ng-model="review.revData.rating" type="radio" name="rating" value=5> Very Good<br>
+        <input ng-model="review.revData.rating" type="radio" name="rating" value=4> Good<br>
+        <input ng-model="review.revData.rating"type="radio" name="rating" value=3> Ok<br>
+        <input ng-model="review.revData.rating"type="radio" name="rating" value=2> Bad<br>
+        <input ng-model="review.revData.rating"type="radio" name="rating" value=1> Very Bad<br>
+    
+    </div>
+    <br>
+    <div >
+
+        <label>Comments</label>
+        <input ng-disabled="review.disabled" class="form-control" type="text" name="comments" placeholder="Please Enter Your Comments" ng-model="review.revData.comments"  
+        required>
+        <p class="help-block" ng-show="(!revForm.comments.$pristine && revForm.comments.$error.required) || (revForm.$submitted && revForm.comments.$error.required)">This field is required</p>
+        
+        
+       
+    </div>
+</div>
+
+    <br>
+    <button ng-disabled="review.disabled" class="btn btn-primary" type="submit">Upload your Review </button><br>
+    <a href="#!/businesslist">
+        <button type="button" class="btn btn-primary">Cancel</button>
+      </a>
+      <br>
+
+</form>
+
+<br>
+
+<div class="jumbotron text-center" ng-show="review.loading">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading...</p>
+</div>
+
+<br>
+<div class='row show-hide-message'ng-show="review.successMsg">
+    <div class="alert alert-success">{{review.successMsg}}</div>
+</div>
+
+<br>
+
+<div class='row show-hide-message' ng-show="review.errorMsg">
+    <div class="alert alert-danger">{{review.errorMsg}}</div>
+</div>

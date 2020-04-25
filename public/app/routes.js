@@ -208,6 +208,13 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         
     })
+    .when('/review/:id', {
+        templateUrl: 'app/views/pages/business/review.html',
+        controller: 'getController',
+        controllerAs: 'review',
+        authenticated: true,
+        
+    })
     .when('/subscribe', {
         templateUrl: 'app/views/pages/notifcations/subscribe.html',
         controller: 'subController',
@@ -240,6 +247,7 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         
     })
+    //Chat Rooms
     .when('/join', {
         templateUrl: 'app/views/pages/chat/join.html',
         
@@ -263,7 +271,7 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         enable: true,
         requireBase: false
     });
-    //fix routes
+    
 
 });
 

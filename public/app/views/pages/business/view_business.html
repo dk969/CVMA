@@ -1,6 +1,6 @@
 
 <br>
-<div class="jumbotron text-center" ng-show="management.loading">
+<div class="jumbotron text-center" ng-show="business.loading">
     <span class="glyphicon glyphicon-repeat spinner"></span>
     <p>Loading...</p>
 </div>
@@ -39,19 +39,46 @@
             <p>Email: {{ company.business_email}}</p>
             <p>Contact Number: {{ company.business_contact}}</p>
             <p>Specialization: {{ company.specialization}}</p>
+            
             <br>
             <a href="#!/businesslist">
               <button type="button" class="btn btn-primary">Back</button>
-          
+            </a>
+            <a href="#!/review/{{ company._id}}">
+              <button type="button" class="btn btn-primary">Write a review</button>
+            </a>
           </li>
        </ul>
      </div>
+    
+     
      
      <body ng-app="mapController">
       <div ng-controller="busMapController"ng-init="loadScript()">
        </div>
+
+
       </div>
      </body>
+     
+     <div class="panel-body cardbus"  >
+      <h1><strong>Reviews</strong></h1>
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="review in reviews"> 
+
+          <p><strong> {{ review.name}}</strong></p>
+          <br>
+          <p>Rating: {{ review.rating}} out of 5</p>
+          <p>Comments: {{review.comments}}</p>
+          <p>Posted By:{{review.author.username}}</p>
+         
+          
+          
+
+        </li>
+     </ul>
+   </div>
+   <br>
    </div>
 </div>
 <br>

@@ -4,6 +4,7 @@ var BusinessPost = require('../models/businessPost');
 var Vehicle = require('../models/vehicle');
 var Subscribe = require('../models/subscribe');
 var Address = require('../models/address');
+var Review = require('../models/review');
 var jwt   = require('jsonwebtoken');
 var secret = 'cvmaapp';
 var nodemailer = require('nodemailer');
@@ -850,8 +851,55 @@ module.exports = function(router) {
             }
         });
     });
-
-
+    router.post('/review', function(req,res) {
+        var review = Review();
+        
+        User.find({ username: req.decoded.username}, function(err, mainUser) {
+            if (err) throw err;
+            if(!mainUser) {
+                res.json({ success: false, message: " No user found"});
+            } else { 
+                 User.findOne({ _id: mainUser}, function(err, user) {
+                     console.log(user);
+                    if (err) throw err;
+                    if (!user) {
+                        res.json({ success: false, message: 'No user found'});
+                    } else {
+                        Business.find({ }, function(err, companies) {
+                            if (err) throw err;
+                       
+                        console.log(user._id);
+                        review.business_id = req.body.business_id;
+                        review.name = req.body.name;
+                        review.rating = req.body.rating;
+                        review.comments = req.body.comments;
+                        
+                        review.author = {
+                            id: user._id,
+                            username: user.username
+                        }
+                        
+                if (req.body.comments == null || req.body.comments == '' ) {
+                    res.json({ success: false, message: 'Ensure the Form is filled out correctly'});
+                    } else {
+                        review.save(function(err) {
+                            if (err) {
+                                if (err.errors != null) {
+                                }else if(err) {
+                                    res.json({success:false, message: err});
+                                }
+                            } else {
+                                res.json({ success: true, message: 'Review Posted', id: user._id});
+                            }
+                         });
+                         }  
+                     }) 
+                    }
+                 }) 
+             }
+         });
+    });
+        //post vehicle with author
         router.post('/vehicle', function(req,res) {
             var vehicle = Vehicle();
             User.find({ username: req.decoded.username}, function(err, mainUser) {
@@ -920,7 +968,6 @@ module.exports = function(router) {
             res.json({ success: false, message: " No user found"});
         } else { 
              User.findOne({ _id: mainUser}, function(err, user) {
-                 console.log(user);
                 if (err) throw err;
                 if (!user) {
                     res.json({ success: false, message: 'No user found'});
@@ -952,7 +999,6 @@ router.get('/business', function(req,res) {
             res.json({ success: false, message: " No user found"});
         } else { 
              User.findOne({ _id: mainUser}, function(err, user) {
-                 console.log(user);
                 if (err) throw err;
                 if (!user) {
                     res.json({ success: false, message: 'No user found'});
@@ -985,7 +1031,6 @@ router.get('/businessAll', function(req,res) {
             res.json({ success: false, message: " No user found"});
         } else { 
              User.findOne({ _id: mainUser}, function(err, user) {
-                 console.log(user);
                 if (err) throw err;
                 if (!user) {
                     res.json({ success: false, message: 'No user found'});
@@ -1050,7 +1095,6 @@ router.get('/businessPosts', function(req,res) {
             res.json({ success: false, message: " No user found"});
         } else { 
              User.findOne({ _id: mainUser}, function(err, user) {
-                 console.log(user);
                 if (err) throw err;
                 if (!user) {
                     res.json({ success: false, message: 'No user found'});

@@ -9,8 +9,6 @@ angular.module('businessServices', [])
     businessFactory.create = function(busData) {
         return $http.post('/api/business', busData );
     }
-    
-
     //Business.getPermission();
     businessFactory.getPermission = function() {
         return $http.get('/businessRoute/permission');
@@ -43,7 +41,10 @@ angular.module('businessServices', [])
      businessFactory.getAddress = function() {
         return $http.get('/businessRoute/address')
     };
-    
+    //Business.createReview();
+    businessFactory.createReview =function(revData) {
+        return $http.post('/api/review', revData);
+    };
     return businessFactory;
 
 })
