@@ -74,6 +74,7 @@ module.exports = function(businessRouter) {
             if (err) throw err;
             Review.find ({'business_id': company._id}, function(err, reviews) {
                 if (err) throw err;
+                
                 User.findOne({user: req.decoded }, function(err, mainUser) {
                     if (err) throw err;
                     if (!mainUser) {

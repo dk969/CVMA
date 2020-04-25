@@ -902,7 +902,7 @@ module.exports = function(router) {
     //Delete Review
     router.delete('/review/:_id', function(req, res) {
         var deletedReview = req.params._id;
-        User.findOne({ user: req.decoded}, function (err, mainUser) {
+        User.findOne({ user: req.decoded._id}, function (err, mainUser) {
             if (err) throw err;
             if (!mainUser) {
                 res.json({ success: false, message: 'No user found'});
@@ -910,7 +910,7 @@ module.exports = function(router) {
                 if (mainUser.permission !== 'admin') {
                     res.json({ success: false, message: 'Insufficant Permission'});
                 } else {
-                    Review.findOneAndRemove({ _id: deletedReview }, function(err, reviews) {
+                    Review.findOneAndRemove({ _id: deletedReview }, function(err, review) {
                         if (err) throw err;
                         res.json({success: true, });
                     });

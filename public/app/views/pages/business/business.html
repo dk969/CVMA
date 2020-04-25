@@ -16,7 +16,7 @@
                 <br> 
                 <div ng-class="{ 'has-success':(busForm.business_type.$valid && !busForm.business_type.$pristine), 'has-error':(!busForm.business_type.$valid && !busForm.business_type.$pristine) || (!busForm.business_type.$valid && 
                 busForm.$submitted)}">
-                    <label >Type </label>
+                    <label >Type of Business: </label>
                     <select ng-model="businessPost.busData.business_type" name="business_type" required>
                         <option value="">Please select...</option>
                         <option value=Garage>Garage</option>

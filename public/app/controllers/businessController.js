@@ -166,9 +166,10 @@ angular.module('businessController', ['businessServices'])
     app.deleteAccess = false;
     app.authorized = false;
 
+    function getBus() {
     Business.getBusinessID($routeParams.id).then(function(data) {
         if (data.data.success) {
-            if (data.data.permission === 'admin' || id === 'author.id' ) {
+            if (data.data.permission === 'admin' || data.data.permission === 'moderator'|| data.data.permission === 'user') {
                         $scope.company = data.data.company;
                         $scope.reviews = data.data.review;
                        
@@ -205,11 +206,13 @@ angular.module('businessController', ['businessServices'])
                            
                             app.deleteAccess = true;
                             app.authorized = true;
-                        } else if (id === 'author.id') {
-                            
+                        } else if (data.data.permission === 'moderator') {
+                            app.editAccess = true;
                             app.deleteAccess = true;
-                            app.authorized = true;
-                        } 
+                        } else if (data.data.permission === 'user') {
+                            app.editAccess = true;
+                            app.deleteAccess = true;
+                        }
                     } else {
                         app.errorMsg = 'Insufficient Permissions';
                         app.loading = false;
@@ -219,7 +222,9 @@ angular.module('businessController', ['businessServices'])
             app.errorMsg = data.data.message;
         }
     });
-    
+};
+    getBus();
+
     app.revAdd = function(revData) {
         app.loading = true;
         app.errorMsg = false;
@@ -246,7 +251,7 @@ angular.module('businessController', ['businessServices'])
         Business.deleteReview(_id).then(function(data) {
             if (data.data.success) {
                 
-                   
+                   getBus();
                     
                 
             } else {
@@ -1016,5 +1021,5 @@ angular.module('businessController', ['businessServices'])
             });
         };
     
-
+        
 })
