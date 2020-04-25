@@ -15,17 +15,7 @@ var nameValidator = [
       message: "Name should be between {ARGS[0]} amd {ARGS[1]} characters"
   })
 ];
-var typeValidator = [ 
-  validate({
-    validator: 'matches',
-    arguments: /garage|Garage|Parts Supplier|parts supplier|garage and parts supplier/,
-    message: "Please specify if you are a garage or part's supplier"
-}),
-  validate({
-      validator: 'isAlphanumeric',
-      message: "Type must contain numbers and letters only."
-  })
-];
+
 
 var addressValidator = [
   validate({
@@ -95,7 +85,7 @@ var contactValidator = [
 // Define collection and schema for Business
 var Business = new Schema({
   business_name: { type: String, required: true, validate: nameValidator },
-  business_type: { type: String, required: true, validate: typeValidator},
+  business_type: { type: String, required: true, },
   business_address: { type: String, required: true, validate:addressValidator},
   business_postcode: { type: String, required: true, validate:postcodeValidator},
   website: { type: String, required: true,  validate: websiteValidator},

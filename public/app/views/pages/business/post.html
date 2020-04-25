@@ -29,14 +29,18 @@
       <br> 
       <div ng-class="{ 'has-success':(postForm.business_type.$valid && !postForm.business_type.$pristine), 'has-error':(!postForm.business_type.$valid && !postForm.business_type.$pristine) || (!postForm.business_type.$valid && 
       postForm.$submitted)}">
-          <label >Type </label>
-          <input ng-disabled="businessPost.disabled" type="text" class="form-control" name="business_type" placeholder="Please enter business type" ng-model="businessPost.postData.business_type"ng-pattern="/garage|Garage|Parts Supplier|parts supplier|garage and parts supplier/" 
-           required>
-          <p class="help-block" ng-show="(!postForm.business_type.$pristine && postForm.business_type.$error.required) || (postForm.$submitted && postForm.business_type.$error.required)">This field is required</p>
-          <ul ng-show="(!postForm.business_type.$pristine && postForm.business_type.$error.pattern) || (!postForm.business_type.$pristine && postForm.business_type.$error.minlength) || (!postForm.business_type.$pristine && postForm.business_type.$error.maxlength)"class="help-block">
-              <li>Please enter your business type.</li>
-              <li>Example: Garage or Parts Supplier</li>
-          </ul>
+          <label >Type of Business:  </label>
+          <select ng-model="businessPost.postData.business_type" name="business_type" required>
+            <option value="">Please select...</option>
+            <option value=Garage>Garage</option>
+            <option value="Part's Supplier">Part's Supplier</option>
+            <option value="Garage and Parts Supplier">Garage and Parts Supplier</option>
+        </select>
+          <p class="help-block" ng-show="(postForm.business_type.$select && postForm.business_type.$error.required) || (postForm.$submitted && postForm.business_type.$error.required)">This field is required</p>
+         
+      </div>
+      <div>
+        
       </div>
       <br> 
       <div ng-class="{ 'has-success':(postForm.website.$valid && !postForm.website.$pristine), 'has-error':(!postForm.website.$valid && !postForm.website.$pristine) || (!postForm.website.$valid && 

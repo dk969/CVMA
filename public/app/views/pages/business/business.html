@@ -17,13 +17,14 @@
                 <div ng-class="{ 'has-success':(busForm.business_type.$valid && !busForm.business_type.$pristine), 'has-error':(!busForm.business_type.$valid && !busForm.business_type.$pristine) || (!busForm.business_type.$valid && 
                 busForm.$submitted)}">
                     <label >Type </label>
-                    <input ng-disabled="business.disabled" type="text" class="form-control" name="business_type" placeholder="Please enter business type" ng-model="business.busData.business_type"ng-pattern="/garage|Garage|Parts Supplier|parts supplier|garage and parts supplier/" 
-                     required>
-                    <p class="help-block" ng-show="(!busForm.business_type.$pristine && busForm.business_type.$error.required) || (busForm.$submitted && busForm.business_type.$error.required)">This field is required</p>
-                    <ul ng-show="(!busForm.business_type.$pristine && busForm.business_type.$error.pattern) || (!busForm.business_type.$pristine && busForm.business_type.$error.minlength) || (!busForm.business_type.$pristine && busForm.business_type.$error.maxlength)"class="help-block">
-                        <li>Please enter your business type.</li>
-                        <li>Example: Garage or Parts Supplier</li>
-                    </ul>
+                    <select ng-model="businessPost.busData.business_type" name="business_type" required>
+                        <option value="">Please select...</option>
+                        <option value=Garage>Garage</option>
+                        <option value="Part's Supplier">Part's Supplier</option>
+                        <option value="Garage and Parts Supplier">Garage and Parts Supplier</option>
+                    </select>
+                      <p class="help-block" ng-show="(busForm.business_type.$select && busForm.business_type.$error.required) || (busForm.$submitted && busForm.business_type.$error.required)">This field is required</p>
+                     
                 </div>
                 <br> 
                 <div ng-class="{ 'has-success':(busForm.business_address.$valid && !busForm.business_address.$pristine), 'has-error':(!busForm.business_address.$valid && !busForm.business_address.$pristine) || (!busForm.business_address.$valid && 

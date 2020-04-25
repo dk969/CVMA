@@ -789,7 +789,7 @@ module.exports = function(router) {
                                 username: user.username
                         }
         
-                if (req.body.business_title == null || req.body.business_title == '' || req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || 
+                if (req.body.business_title == null || req.body.business_title == '' || req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null||
                 req.body.website == null || req.body.website == '' || req.body.specialization == null || req.body.specialization == ''|| req.body.post == null || req.body.post == '' ) {
                     res.json({ success: false, message: 'Ensure the offer details are provided'});
                     
@@ -898,6 +898,25 @@ module.exports = function(router) {
                  }) 
              }
          });
+    });
+    //Delete Review
+    router.delete('/review/:_id', function(req, res) {
+        var deletedReview = req.params._id;
+        User.findOne({ user: req.decoded}, function (err, mainUser) {
+            if (err) throw err;
+            if (!mainUser) {
+                res.json({ success: false, message: 'No user found'});
+            } else {
+                if (mainUser.permission !== 'admin') {
+                    res.json({ success: false, message: 'Insufficant Permission'});
+                } else {
+                    Review.findOneAndRemove({ _id: deletedReview }, function(err, reviews) {
+                        if (err) throw err;
+                        res.json({success: true, });
+                    });
+                }
+            }
+        });
     });
         //post vehicle with author
         router.post('/vehicle', function(req,res) {

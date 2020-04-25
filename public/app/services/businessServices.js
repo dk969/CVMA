@@ -45,6 +45,10 @@ angular.module('businessServices', [])
     businessFactory.createReview =function(revData) {
         return $http.post('/api/review', revData);
     };
+     //Business.deleteReview();
+     businessFactory.deleteReview = function(id) {
+        return $http.delete('/api/review/' + id);
+    };
     return businessFactory;
 
 })

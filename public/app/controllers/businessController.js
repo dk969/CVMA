@@ -8,7 +8,7 @@ angular.module('businessController', ['businessServices'])
         app.accessDenied = true;
         app.errorMsg = false;
         
-        app.limit = 10;
+        app.limit = 50
         app.searchLimit = 0; 
         app.authorized = false;   
 
@@ -168,7 +168,7 @@ angular.module('businessController', ['businessServices'])
 
     Business.getBusinessID($routeParams.id).then(function(data) {
         if (data.data.success) {
-            if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
+            if (data.data.permission === 'admin' || id === 'author.id' ) {
                         $scope.company = data.data.company;
                         $scope.reviews = data.data.review;
                        
@@ -198,22 +198,18 @@ angular.module('businessController', ['businessServices'])
                           for (var i = 0; i < arr.length; i++) {
                             arr[i] = arr[i] / $scope.reviews.length;
                           }
-                        console.log(rating);
+                        console.log(arr);
                         app.loading = false;
                         app.accessDenied = false;
                         if (data.data.permission === 'admin') {
-                            app.editAccess = true;
+                           
                             app.deleteAccess = true;
                             app.authorized = true;
-                        } else if (data.data.permission === 'moderator') {
-                            app.editAccess = false;
-                            app.deleteAccess = false;
-                            app.authorized = false;
-                        } else if (data.data.permission === 'user') {
-                            app.editAccess = false;
-                            app.deleteAccess = false;
-                            app.authorized = false;
-                        }
+                        } else if (id === 'author.id') {
+                            
+                            app.deleteAccess = true;
+                            app.authorized = true;
+                        } 
                     } else {
                         app.errorMsg = 'Insufficient Permissions';
                         app.loading = false;
@@ -243,6 +239,19 @@ angular.module('businessController', ['businessServices'])
                 app.errorMsg = data.data.message;
             }
 
+        });
+    };
+
+    app.deleteReview = function(_id) {
+        Business.deleteReview(_id).then(function(data) {
+            if (data.data.success) {
+                
+                   
+                    
+                
+            } else {
+                app.showMoreError = data.data.message;
+            }
         });
     };
 
