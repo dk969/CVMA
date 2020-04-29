@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
-
-
 // Define collection and schema for Review
 var Review = new Schema({
   business_id: { type: String, required: true},
@@ -19,8 +16,6 @@ var Review = new Schema({
   },
 
   
- 
-
 });
 
 module.exports = mongoose.model('Review', Review);

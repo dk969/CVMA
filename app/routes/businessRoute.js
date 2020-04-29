@@ -172,6 +172,25 @@ module.exports = function(businessRouter) {
             }
         });
     });
+     //Delete Review
+  businessRouter.delete('/review/:_id', function(req, res) {
+    var deletedReview = req.params._id;
+    User.findOne({ user: req.decoded}, function (err, mainUser) {
+        if (err) throw err;
+        if (!mainUser) {
+            res.json({ success: false, message: 'No user found'});
+        } else {
+            if (mainUser.permission !== 'admin') {
+                res.json({ success: false, message: 'Insufficant Permission'});
+            } else {
+                Review.findOneAndRemove({ _id: deletedReview }, function(err, review) {
+                    if (err) throw err;
+                    res.json({success: true, });
+                });
+            }
+        }
+    });
+});
     businessRouter.delete('/subscribe/:_id', function(req, res) {
         var deletedSub = req.params._id;
         User.findOne({ user: req.decoded}, function (err, mainUser) {

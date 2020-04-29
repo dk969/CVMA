@@ -4,6 +4,7 @@ const users = [];
 
 function userJoin(id, username, room) {
     const user = { id, username, room};
+    
 
     users.push(user);
 
@@ -28,7 +29,7 @@ function getRoomUsers(room) {
 
 module.exports = {
     userJoin,
-
+    
     getCurrentUser, 
     userLeave,
     getRoomUsers

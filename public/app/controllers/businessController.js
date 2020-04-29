@@ -163,7 +163,7 @@ angular.module('businessController', ['businessServices'])
     app.accessDenied = true;
     app.errorMsg = false;
     app.editAccess = false;
-    app.deleteAccess = false;
+    app.removeAccess = false;
     app.authorized = false;
 
     function getBus() {
@@ -173,46 +173,39 @@ angular.module('businessController', ['businessServices'])
                         $scope.company = data.data.company;
                         $scope.reviews = data.data.review;
                        
-                       console.log($scope.reviews);
-                       var arr = [];
-                        // for (var i = 0; i < $scope.reviews.length; i++) {
-                        // var d = $scope.reviews[i].rating;
-                        // var sum = 0;
-                        // for (var j = 0; j < d.length; j++) {
-                        //     sum += parseInt(d[j]);
-                        // }
-                        // arr.push(sum / d.length);
-                        // }
-                        for (var i = 0; i < $scope.reviews.length; i++) {
-                            var d = $scope.reviews[i].rating;
-                            for (var j = 0; j < d.length; j++) {
-                              d[j] = parseInt(d[j]);
-                            }
-                            if (arr.length == 0)
-                             arr = d;
-                            else {
-                              for (var j = 0; j < d.length; j++) {
-                                arr[j] += d[j];
-                              }
-                             }
-                          }
-                          for (var i = 0; i < arr.length; i++) {
-                            arr[i] = arr[i] / $scope.reviews.length;
-                          }
-                        console.log(arr);
+                    //    console.log($scope.reviews);
+                    //    var arr = [];
+                    //     // for (var i = 0; i < $scope.reviews.length; i++) {
+                    //     // var d = $scope.reviews[i].rating;
+                    //     // var sum = 0;
+                    //     // for (var j = 0; j < d.length; j++) {
+                    //     //     sum += parseInt(d[j]);
+                    //     // }
+                    //     // arr.push(sum / d.length);
+                    //     // }
+                    //     for (var i = 0; i < $scope.reviews.length; i++) {
+                    //         var d = $scope.reviews[i].rating;
+                    //         for (var j = 0; j < d.length; j++) {
+                    //           d[j] = parseInt(d[j]);
+                    //         }
+                    //         if (arr.length == 0)
+                    //          arr = d;
+                    //         else {
+                    //           for (var j = 0; j < d.length; j++) {
+                    //             arr[j] += d[j];
+                    //           }
+                    //          }
+                    //       }
+                    //       for (var i = 0; i < arr.length; i++) {
+                    //         arr[i] = arr[i] / $scope.reviews.length;
+                    //       }
+                    //     console.log(arr);
                         app.loading = false;
                         app.accessDenied = false;
                         if (data.data.permission === 'admin') {
-                           
-                            app.deleteAccess = true;
+                            app.removeAccess = true;
                             app.authorized = true;
-                        } else if (data.data.permission === 'moderator') {
-                            app.editAccess = true;
-                            app.deleteAccess = true;
-                        } else if (data.data.permission === 'user') {
-                            app.editAccess = true;
-                            app.deleteAccess = true;
-                        }
+                        } 
                     } else {
                         app.errorMsg = 'Insufficient Permissions';
                         app.loading = false;
@@ -894,7 +887,7 @@ angular.module('businessController', ['businessServices'])
     };
 })
 //Controller to get Posts and uploadeds made by that user
-.controller('authorController', function($scope, $routeParams, Business, $timeout, BusinessPost) {
+.controller('authorController', function($scope, $routeParams, Business, $timeout, BusinessPost,) {
     var app = this;
     $scope.businessTab = 'active';
     app.phase1 = true;
@@ -1021,5 +1014,51 @@ angular.module('businessController', ['businessServices'])
             });
         };
     
-        
+          //Author review control
+          function getAuthRev() {
+            Business.getAuthorReview().then(function(data) {
+                
+                if (data.data.success) {
+                    if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
+                        app.review = data.data.reviews;
+                        console.log(data.data.reviews);
+                        app.loading = false;
+                        app.accessDenied = false;
+                        if (data.data.permission === 'admin') {
+                            app.editAccess = true;
+                            app.deleteAccess = true;
+                            app.authorized = true;
+                        } else if (data.data.permission === 'moderator') {
+                            app.editAccess = true;
+                            app.deleteAccess = true;
+                            app.authorized = true;
+                        } else if (data.data.permission === 'user') {
+                            app.deleteAccess = false;
+                            app.authorized = false;
+                        } 
+                    } else {
+                        app.errorMsg = 'Insufficient Permissions';
+                        app.loading = false;
+                    }
+                } else {
+                    app.errorMsg = data.data.message;
+                    app.loading = false;
+                }
+            });
+        }
+    
+            getAuthRev();
+    
+            app.deleteReview = function(_id) {
+                Business.deleteReview(_id).then(function(data) {
+                    if (data.data.success) {
+                        
+                            getAuthRev();
+                            
+                        
+                    } else {
+                        app.showMoreError = data.data.message;
+                    }
+                });
+            };
 })

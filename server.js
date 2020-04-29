@@ -30,6 +30,7 @@ app.use(express.static(path.join(__dirname + '/public')));// set static folder
 
 //Run when client connects 
 io.on('connection', socket => {
+
   socket.on('joinRoom', ({ username, room}) => {
     const user = userJoin(socket.id, username, room);
     socket.join(user.room);

@@ -1,26 +1,28 @@
-<h1 class="headers">{{ main.username }}'s Profile</h1> 
+ <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <div class= "headers">Your Profile</div>
+        <hr>
+        
+        <br>
+        
+    
 
 <div class="pannel pannel-info">
-    <div class="panel-heading" style="text-align: center;"><strong>User Profile</strong></div>
-    <table class="table">
-        <tr>
-            
-            <td><strong>Username</strong></td> 
-            <td><strong>Email</strong></td>
-            <td><strong>Password</strong></td> 
-            
-        </tr>
-        <tr>
-          
-            <td>{{ main.username}}</td>
-            <td>{{ main.useremail }}</td>
-            <td>***********</td>
-            
-        </tr>
-    </table> 
+   
+    <p><strong>Username:</strong> {{ main.username}} </p>
+    <p><strong>Email:</strong> {{ main.useremail}} </p>
+    <p><strong>Password:</strong> *********** </p>
+  
+<br>
+</div>
+<div> <a href="#!/reviews">
+    <button type="button"  class="btn btn-success">Manage your Reviews</button>
+</a></div>
+<br>
+<div> <a href="#!/profile_details">
+    <button type="button"  class="btn btn-success" ng-show="main.authorized">Manage your posts</button>
+</a></div>
 
 
 </div>
-<div> <a href="#!/profile_details">
-    <button type="button"  class="btn btn-success">Manage Your posts</button>
-</a></div>
+</div>

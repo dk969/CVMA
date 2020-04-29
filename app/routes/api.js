@@ -852,8 +852,7 @@ module.exports = function(router) {
         });
     });
     router.post('/review', function(req,res) {
-        var review = Review();
-        
+        var review = Review();  
         User.find({ username: req.decoded.username}, function(err, mainUser) {
             if (err) throw err;
             if(!mainUser) {
@@ -867,20 +866,17 @@ module.exports = function(router) {
                     } else {
                         Business.find({ }, function(err, companies) {
                             if (err) throw err;
-                       
                         console.log(user._id);
                         review.business_id = req.body.business_id;
                         review.name = req.body.name;
                         review.rating = req.body.rating;
                         review.comments = req.body.comments;
-                        
                         review.author = {
                             id: user._id,
                             username: user.username
                         }
-                        
                 if (req.body.comments == null || req.body.comments == '' ) {
-                    res.json({ success: false, message: 'Ensure the Form is filled out correctly'});
+                    res.json({ success: false, message: 'Ensure the form is filled out correctly'});
                     } else {
                         review.save(function(err) {
                             if (err) {
@@ -889,7 +885,7 @@ module.exports = function(router) {
                                     res.json({success:false, message: err});
                                 }
                             } else {
-                                res.json({ success: true, message: 'Review Posted', id: user._id});
+                                res.json({ success: true, message: 'Your Review Has Been Posted', id: user._id});
                             }
                          });
                          }  
@@ -899,25 +895,7 @@ module.exports = function(router) {
              }
          });
     });
-    //Delete Review
-    router.delete('/review/:_id', function(req, res) {
-        var deletedReview = req.params._id;
-        User.findOne({ user: req.decoded._id}, function (err, mainUser) {
-            if (err) throw err;
-            if (!mainUser) {
-                res.json({ success: false, message: 'No user found'});
-            } else {
-                if (mainUser.permission !== 'admin') {
-                    res.json({ success: false, message: 'Insufficant Permission'});
-                } else {
-                    Review.findOneAndRemove({ _id: deletedReview }, function(err, review) {
-                        if (err) throw err;
-                        res.json({success: true, });
-                    });
-                }
-            }
-        });
-    });
+  
         //post vehicle with author
         router.post('/vehicle', function(req,res) {
             var vehicle = Vehicle();
@@ -1011,6 +989,7 @@ module.exports = function(router) {
     })
 
 });
+//Get businesses posted by a certain user
 router.get('/business', function(req,res) {
     User.find({ username: req.decoded.username}, function(err, mainUser) {
         if (err) throw err;
@@ -1042,7 +1021,7 @@ router.get('/business', function(req,res) {
     })
 
 });
-// find all businesses
+// Get all businesses uploaded
 router.get('/businessAll', function(req,res) {
     User.find({ username: req.decoded.username}, function(err, mainUser) {
         if (err) throw err;
@@ -1074,6 +1053,7 @@ router.get('/businessAll', function(req,res) {
     })
 
 });
+// Get the offers by a certain user
 router.get('/businessPost', function(req,res) {
     User.find({ username: req.decoded.username}, function(err, mainUser) {
         if (err) throw err;
@@ -1138,6 +1118,40 @@ router.get('/businessPosts', function(req,res) {
     })
 
 });
+//Get all of the reviews made by a certain user
+router.get('/review', function(req,res) {
+    User.find({ username: req.decoded.username}, function(err, mainUser) {
+        if (err) throw err;
+        if(!mainUser) {
+            res.json({ success: false, message: " No user found"});
+        } else { 
+             User.findOne({ _id: mainUser}, function(err, user) {
+                if (err) throw err;
+                if (!user) {
+                    res.json({ success: false, message: 'No user found'});
+                } else {
+                    Review.find({'author.id': user._id}, function(err, reviews) {
+                        if (err) throw err;
+                    if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
+                        if (!reviews) {
+                            res.json ({ success: false, message: 'Vehicles not found'});
+                        } else { 
+                            res.json({ success: true, reviews: reviews, permission: user.permission, id: user._id });
+                            
+                        }
+
+
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                })
+            }
+        });
+        }
+    })
+
+});
+ 
 
     return router;
 

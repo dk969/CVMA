@@ -247,6 +247,13 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         
     })
+    .when('/reviews', {
+        templateUrl: 'app/views/pages/users/review.html',
+        controller: 'authorController',
+        controllerAs: 'author',
+        authenticated: true,
+        
+    })
     //Chat Rooms
     .when('/join', {
         templateUrl: 'app/views/pages/chat/join.html',
