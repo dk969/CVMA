@@ -58,13 +58,6 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         templateUrl: 'app/views/pages/users/logout.html',
         authenticated: true 
     })
-
-    .when('/profile', {
-        templateUrl: 'app/views/pages/users/profile.html',
-        
-        authenticated: true
-    })
-
     .when('/facebook/:token', {
         templateUrl: 'app/views/pages/users/social/social.html',
         controller: 'facebookController',
@@ -150,6 +143,13 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         controllerAs: 'edit',
         authenticated: true,
         permission: ['admin', 'moderator']
+    })
+    .when('/userprofile/:username', {
+        templateUrl: 'app/views/pages/users/userprofile.html',
+        controller: 'editCurrentController',
+        controllerAs: 'edit',
+        authenticated: true,
+      
     })
     .when('/search', {
         templateUrl: 'app/views/pages/management/search.html',

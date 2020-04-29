@@ -70,6 +70,10 @@ angular.module('userServices', [])
     userFactory.editUser = function(id) {
         return $http.put('/api/edit', id);
     };
+    //User.editUser(username);
+    userFactory.editCurrentUser = function(username) {
+        return $http.put('/api/editCurrent', username);
+    };
     //User.upgradeUser(id);
     userFactory.upgradeUser = function(username) {
         return $http.put('/api/upgrade', username);

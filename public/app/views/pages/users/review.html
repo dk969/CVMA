@@ -8,7 +8,7 @@
             <p><strong> {{ company.name}}</strong></p>
             <p>Name: {{ company.rating}} out of 5</p>
             <p>Comments: {{ company.comments}}</p>
-            <p>Comments: {{ company._id}}</p>
+           
             
             
              <button type="button" ng-click="author.deleteReview(company._id);" ng-show="author.deleteAccess && main.authorized"class="btn btn-danger">Remove Review</button>

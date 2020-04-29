@@ -494,6 +494,7 @@ module.exports = function(router) {
             }
         });
     });
+    //Admin to edit all of the users
     router.put('/edit', function(req,res) {
         var editUser = req.body._id;
         if (req.body.name) var newName = req.body.name;
@@ -651,6 +652,85 @@ module.exports = function(router) {
             }
         })
     });
+    //Current user to edit details
+    router.put('/editCurrent', function(req,res) {
+        var currentUser = req.body._id;
+        if (req.body.name) var newName = req.body.name;
+        if (req.body.username) var newUsername = req.body.username;
+        if (req.body.email) var newEmail = req.body.email;
+       
+        User.findOne({username: req.decoded.username }, function(err, mainUser) {
+            if (err) throw err;
+            if(!mainUser) {
+                res.json({ success: false, message: " No user found"});
+            } else { 
+                if (newName) {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                        User.findOne({ _id: currentUser}, function(err, user) {
+                            if (err) throw err;
+                            if (!user) {
+                                res.json({ success: false, message: 'No user found'});
+                            } else {
+                                user.name = newName;
+                                user.save(function(err) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        res.json({ success: true, message: "Name has been updated."})
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        res.json({ success: false, message: "Insufficient Permission"});
+                    }
+                }
+                if (newUsername) {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') { 
+                        User.findOne({ _id: currentUser}, function(err, user) {
+                            if (err) throw err;
+                            if (!user) {
+                                res.json({ success: false, message: 'No user found'});
+                            } else {
+                                user.username = newUsername;
+                                user.save(function(err) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        res.json({ success: true, message: "Username has been updated."})
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                }
+                if (newEmail) {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') { 
+                        User.findOne({ _id: currentUser}, function(err, user) {
+                            if (err) throw err;
+                            if (!user) {
+                                res.json({ success: false, message: 'No user found'});
+                            } else {
+                                user.email = newEmail;
+                                user.save(function(err) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        res.json({ success: true, message: "Email  has been updated."})
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        res.json({ success: false, message: 'Insufficient Permission'});
+                    }
+                }
+            }
+        })
+    });
+    //Allow users to upgrade to moderator for business purposes
     router.put('/upgrade', function(req,res) {
         var upgradeUser = req.body._id;
         if (req.body.permission) var newPermission = req.body.permission;

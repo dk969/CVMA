@@ -82,7 +82,7 @@
           <li class="nav-item dropdown" ng-show="main.isLoggedIn">
             <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a ng-show="main.isLoggedIn"class="dropdown-item" href="#!/profile">Profile</a>
+              <a ng-show="main.isLoggedIn"class="dropdown-item" href="#!/userprofile/{{main.username}}">Profile</a>
               <a ng-show="main.isLoggedIn" class="dropdown-item" href="#!/add_vehicle">Add Your Vehicle</a>
               <a ng-show=" main.authorized" class="dropdown-item" href="#!/business">Add Your Business</a>
               <a ng-show="main.manage && main.authorized" class="dropdown-item" href="#!/management"> User Management</a>
@@ -108,7 +108,7 @@
           <li class="nav-item">
             <a ng-show="!main.isLoggedIn" class="nav-link" href="#!/about">About Us</a>
           </li>
-        <li><a ng-show="main.isLoggedIn" class ="nav-link" href="#!/profile"> Hello, {{ main.username}} </a></li> &nbsp
+        <li><a ng-show="main.isLoggedIn" class ="nav-link" href="#!/userprofile/{{main.username}}"> Hello, {{ main.username}} </a></li> &nbsp
         <li class="nav-item">
           <a ng-show="main.isLoggedIn" class="nav-link" href="#" ng-click="main.logout();">Logout</a>
         </li>
