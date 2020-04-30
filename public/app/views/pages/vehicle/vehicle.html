@@ -1,33 +1,27 @@
-<div class= "headers"> Your Vehicles</div>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <div class= "headers"> Your Vehicles</div>
+        <hr>
+            <div class="showmore">
+                    <div class= "col-lg-6">
+                            <div class="input-group">      
+                                <span class="input-group-addon">Results to display:  </span>&nbsp;
+                                <input type="text" class="form-control" ng-model="number">&nbsp;
+                                <button type="button" ng-click="vehicle.showMore(number);" class="btn btn-success">Apply Filter</button> &nbsp;
+                                <button type="button" ng-click="vehicle.showAll();" class="btn btn-warning">Show All</button>
+                            </div>
+                    </div>
+            </div>
+        </div>
+  </div>
 <br>
 <div class="jumbotron text-center" ng-show="vehicle.loading">
     <span class="glyphicon glyphicon-repeat spinner"></span>
     <p>Loading...</p>
 </div>
-
-<br>
-
-<br>
-<br>
-<div class="showmore">
-    <div class= "col-lg-6">
-        <div class="input-group">      
-            <span class="input-group-addon">Results to display:  </span>&nbsp;
-            <input type="text" class="form-control" ng-model="number">&nbsp;
-            <button type="button" ng-click="vehicle.showMore(number);" class="btn btn-success">Apply Filter</button> &nbsp;
-            <button type="button" ng-click="vehicle.showAll();" class="btn btn-warning">Show All</button>
-        </div>
-        
-    </div>
-
-</div>
-<br>
-<br>
-
 <div class='row show-hide-message' ng-show="vehicle.showMoreError">
     <div class="alert alert-danger">{{vehicle.showMoreError}}</div>
 </div>
-<br>
 <br>
 
 <div class="panel panel-primary">

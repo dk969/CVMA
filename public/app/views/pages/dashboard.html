@@ -8,9 +8,6 @@
             <input type="text" class="form-control" name="search" placeholder="search for .." ng-model="searchKeyword">
             <button type="button" ng-click="businessPost.search(searchKeyword, number);" class="btn btn-success">Search</button>
             <button type="button" ng-click="businessPost.clear();"class="btn btn-default">Clear</button>
-            <a href="#!/searchPosts">
-                <button type="button" class="btn btn-warning">Advanced Search</button>
-            </a>
         </div>
     </div>
   </div>
@@ -26,11 +23,9 @@
 <div ng-show="searchFilter !== undefined">
     <p>Showing: {{( businessPost.posts | filter: searchFilter | limitTo: businessPost.limit).length }} </p>
 </div>
-<br>
 <div class='row show-hide-message' ng-show="businessPost.showMoreError">
     <div class="alert alert-danger">{{businessPost.showMoreError}}</div>
 </div>
-<br>
 <div class="panel panel-primary">
     <div class="panel panel-default card" ng-controller="postController">
       <div class="panel-body"  >
@@ -78,6 +73,5 @@
 <div class='row show-hide-message'ng-show="businessPost.errorMsg">
     <div class="alert alert-danger">{{businessPost.errorMsg}}</div>
 </div>
-<br>
-<br>
+<br><br><br>
 

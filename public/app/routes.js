@@ -222,13 +222,6 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         
     })
-    .when('/subscribers', {
-        templateUrl: 'app/views/pages/notifcations/subscribers.html',
-        controller: 'subController',
-        controllerAs: 'subscribe',
-        authenticated: true,
-        
-    })
     .when('/upgrade/:username', {
         templateUrl: 'app/views/pages/users/upgrade.html',
         controller: 'upgradeController',

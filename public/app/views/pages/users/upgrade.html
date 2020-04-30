@@ -2,28 +2,24 @@
 
 
 
-<div class="panel panel-default card" >
-    
+<div class="panel panel-default cardbus" >
     <div class="panel-body"  >
       <ul class="list-group">
         <li class="list-group-item" ng-model="user">
-          <p><strong> Hi, {{ user.name}}</strong></p>
-          <p>_id: {{ user._id}}</p>
-          <p>Username: {{ user.username}}</p>
-          <p>Permission: {{ user.permission}}</p>
+          <p><strong> Hi, {{user.name}}</strong></p>
+          <p>Username: {{user.username}}</p>
+          <p>Permission: {{user.permission}}</p>
         </li>
      </ul>
    </div>
-   
- </div>
- <div>
-   <p> Please click on the link below to become a business</p>
- </div>
- <label><strong>Permission: &nbsp &nbsp</strong> </label> {{ newPermission }}
-
-<button  ng-disabled="upgrade.disableModerator" ng-click="upgrade.upgradePermission('moderator');"type="button" class="btn btn-info">Moderator</button>&nbsp
-
-
+  <div>
+      <br>
+      <p> Please click on the link below to become a business</p>
+  </div>
+  <label><strong>Permission: &nbsp &nbsp</strong> </label> {{ newPermission }} &nbsp;
+  <button  ng-disabled="upgrade.disableModerator" ng-click="upgrade.upgradePermission('moderator');"type="button" class="btn btn-info">Moderator</button>
+  <br>
+</div>
 
 <br>
 <div class='row show-hide-message'ng-show="upgrade.successMsg">

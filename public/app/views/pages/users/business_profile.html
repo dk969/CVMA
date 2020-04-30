@@ -1,6 +1,12 @@
-<div class= "headers"> Manage your Posts</div>
-<br>
-<br>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <div class= "headers"> Manage your Posts</div>
+      <hr>
+      
+      </div>
+  
+
+
 <div class="jumbotron text-center" ng-show="business.loading">
     <span class="glyphicon glyphicon-repeat spinner"></span>
     <p>Loading...</p>
@@ -11,6 +17,7 @@
     <li class="tablink" role="presentation" ng-click="author.offerPhase();" ng-class="offerTab"><a> Your Offers</a></li>&nbsp;&nbsp;
    
 </ul>
+</div>
 <br>
 <div class="panel panel-primary" ng-show="author.phase1">
     <div class="panel panel-default card" ng-controller="authorController" >

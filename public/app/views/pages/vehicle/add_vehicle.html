@@ -1,4 +1,10 @@
-<div class= "headers"> Add Your Vehicle</div>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <div class= "headers"> Add Your Vehicle</div>
+      <hr>
+      
+     </div>
+</div>
 
 <div class="card">
     <div class="card-body">
@@ -57,7 +63,7 @@
           <br>
           <div ng-class="{ 'has-success':(vehForm.MOT_date.$valid && !vehForm.MOT_date.$pristine), 'has-error':(!vehForm.MOT_date.$valid && !vehForm.MOT_date.$pristine) || (!vehForm.MOT_date.$valid && 
           vehForm.$submitted)}">
-          <label >MOT Date</label>
+          <label >MOT Date (Not required)</label>
           <input type="date" class="form-control" name="MOT_date" placeholder="Please enter vehicle MOT date" ng-model="vehicle.vehData.MOT_date">
           <p class="help-block" ng-show="(!vehForm.MOT_date.$pristine && vehForm.MOT_date.$error.required) || (vehForm.$submitted && vehForm.MOT_date.$error.required)">This field is required</p>
           <ul ng-show="(!vehForm.MOT_date.$pristine)"class="help-block">
@@ -67,7 +73,7 @@
           <br>
           <div ng-class="{ 'has-success':(vehForm.tax_date.$valid && !vehForm.tax_date.$pristine), 'has-error':(!vehForm.tax_date.$valid && !vehForm.tax_date.$pristine) || (!vehForm.tax_date.$valid && 
           vehForm.$submitted)}">
-          <label >Tax Date</label>
+          <label >Tax Date (Not required)</label>
           <input type="date" class="form-control" name="tax_date" placeholder="Please enter vehicle TAX date" ng-model="vehicle.vehData.tax_date">
           <p class="help-block" ng-show="(!vehForm.tax_date.$pristine && vehForm.tax_date.$error.required) || (vehForm.$submitted && vehForm.tax_date.$error.required)">This field is required</p>
           <ul ng-show="(!vehForm.tax_date.$pristine)"class="help-block">
@@ -77,7 +83,7 @@
           <br>
           <div ng-class="{ 'has-success':(vehForm.service_date.$valid && !vehForm.service_date.$pristine), 'has-error':(!vehForm.service_date.$valid && !vehForm.service_date.$pristine) || (!vehForm.service_date.$valid && 
           vehForm.$submitted)}">
-          <label >Service Date</label>
+          <label >Service Date (Not required)</label>
           <input type="date" class="form-control" name="service_date" placeholder="Please enter service date" ng-model="vehicle.vehData.service_date">
           <p class="help-block" ng-show="(!vehForm.service_date.$pristine && vehForm.service_date.$error.required) || (vehForm.$submitted && vehForm.service_date.$error.required)">This field is required</p>
           <ul ng-show="(!vehForm.service_date.$pristine)"class="help-block">

@@ -5,21 +5,10 @@
     <p>Loading...</p>
 </div>
 
-
-
-<br>
-
 <div class='row show-hide-message' ng-show="get.showMoreError">
     <div class="alert alert-danger">{{get.showMoreError}}</div>
 </div>
 <br>
-
-
-<div class="panel panel-primary">
-    <div class="headers">
-        Current Business
-    </div>
-
 <div class="panel panel-default card" ng-contoller="getController">
     
       <div class="panel-body"  >
@@ -67,20 +56,15 @@
         <li class="list-group-item" ng-repeat="review in reviews"> 
 
           <p><strong> {{ review.name}}</strong></p>
-          <br>
           <p>Rating: {{ review.rating}} out of 5</p>
           <p>Comments: {{review.comments}}</p>
           <p>Posted By:{{review.author.username}}</p>  
-          
-         
-          
-          
 
         </li>
      </ul>
    </div>
    <br>
-   </div>
+   
 </div>
 <br>
 <br>

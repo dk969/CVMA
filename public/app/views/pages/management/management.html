@@ -1,28 +1,27 @@
-<div class= "headers"> User Management </div>
-<br>
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <div class= "headers"> User Management </div>
+        <hr>
+        <div class= "col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="search for .." ng-model="searchKeyword">&nbsp;
+                <button type="button" ng-click="management.search(searchKeyword, number);" class="btn btn-success">Search</button>&nbsp;
+                <button type="button" ng-click="management.clear();"class="btn btn-default">Clear</button>&nbsp;
+                <a href="#!/search">
+                    <button type="button" class="btn btn-warning">Advanced Search</button>
+                </a>
+            </div>
+        </div>
+        
+        </div>
+</div>
+
 <div class="jumbotron text-center" ng-show="management.loading">
     <span class="glyphicon glyphicon-repeat spinner"></span>
     <p>Loading...</p>
 </div>
 
-
-<br>
-<br>
-
-
-<div class="navbar-form">
-    <div class= "col-lg-6">
-        <div class="input-group">
-            <input type="text" class="form-control" name="search" placeholder="search for .." ng-model="searchKeyword">
-            <button type="button" ng-click="management.search(searchKeyword, number);" class="btn btn-success">Search</button>
-            <button type="button" ng-click="management.clear();"class="btn btn-default">Clear</button>
-            <a href="#!/search">
-                <button type="button" class="btn btn-warning">Advanced Search</button>
-            </a>
-        </div>
-    </div>
-</div>
-<br>
 
 <div ng-show="searchFilter !== undefined">
     <p>Total Results: {{( management.users | filter: searchFilter ).length }} </p>
@@ -34,8 +33,7 @@
 <div class='row show-hide-message' ng-show="management.showMoreError">
     <div class="alert alert-danger">{{management.showMoreError}}</div>
 </div>
-<br>
-<br>
+
 
 <div class="panel panel-primary">
     <div class="panel-heading">

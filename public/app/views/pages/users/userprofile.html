@@ -1,4 +1,4 @@
-<div class="panel panel-default card" >
+<br><div class="panel panel-default cardbus" >
     
     <div class="panel-body"  >
       <ul class="list-group">
@@ -24,7 +24,7 @@
 
 <br>
 <br>
-<h1>Edit your details</h1>
+<div class="headers">Edit your details</div>
 <ul class="nav nav-tabs">
     <li class="tablink" role="presentation" ng-click="edit.namePhase();" ng-class="nameTab"><a >Name</a></li>&nbsp;&nbsp;
     <li class="tablink" role="presentation" ng-click="edit.usernamePhase();" ng-class="usernameTab"><a >Username</a></li>&nbsp;&nbsp;
@@ -34,7 +34,9 @@
 
 <!--Name-->
 <br>
-<form name="edit.nameForm" ng-show= "edit.phase1" ng-submit="edit.updateName(newName, edit.nameForm.name.$valid)" novalidate>
+<div class="card">
+    <div class="card-body">
+<form  name="edit.nameForm" ng-show= "edit.phase1" ng-submit="edit.updateName(newName, edit.nameForm.name.$valid)" novalidate>
     <div ng-class="{ 'has-success':(edit.nameForm.name.$valid && !edit.nameForm.name.$pristine), 'has-error':(!edit.nameForm.name.$valid && !edit.nameForm.name.$pristine) || (!edit.nameForm.name.$valid && 
     edit.nameForm.$submitted)}">
         <label><strong>Name:</strong></label> 
@@ -150,7 +152,8 @@
     </a></div>
   
 </form>
-
+</div>
+</div>
 
 <br>
 <div class='row show-hide-message'ng-show="edit.successMsg">
