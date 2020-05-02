@@ -32,8 +32,8 @@
 </div>
 <br>
 <div class="panel panel-primary">
-    <div class="panel panel-default cardbus" ng-controller="businessController">
-      <div class="panel-body"  >
+    <div class="panel panel-default cardbus">
+      <div class="panel-body"  ng-controller="businessController" >
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="company in business.companies | filter: searchFilter | limitTo: business.limit">
             <h2><strong> {{ company.business_name}}</strong></h2>
@@ -41,6 +41,7 @@
             <p>Address: {{ company.business_address}}</p>
             <p>Postcode: {{ company.business_postcode}}</p>
             <p>Specialization: {{ company.specialization}}</p>
+           
             
             <a href="#!/view_business/{{ company._id}}">
                 <button type="button"  class="btn btn-primary">More Information</button>

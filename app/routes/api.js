@@ -665,7 +665,7 @@ module.exports = function(router) {
                 res.json({ success: false, message: " No user found"});
             } else { 
                 if (newName) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') {
                         User.findOne({ _id: currentUser}, function(err, user) {
                             if (err) throw err;
                             if (!user) {
@@ -686,7 +686,7 @@ module.exports = function(router) {
                     }
                 }
                 if (newUsername) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') { 
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') { 
                         User.findOne({ _id: currentUser}, function(err, user) {
                             if (err) throw err;
                             if (!user) {
@@ -707,7 +707,7 @@ module.exports = function(router) {
                     }
                 }
                 if (newEmail) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') { 
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') { 
                         User.findOne({ _id: currentUser}, function(err, user) {
                             if (err) throw err;
                             if (!user) {
@@ -1103,32 +1103,33 @@ router.get('/business', function(req,res) {
 });
 // Get all businesses uploaded
 router.get('/businessAll', function(req,res) {
+   
     User.find({ username: req.decoded.username}, function(err, mainUser) {
-        if (err) throw err;
-        if(!mainUser) {
-            res.json({ success: false, message: " No user found"});
-        } else { 
-             User.findOne({ _id: mainUser}, function(err, user) {
-                if (err) throw err;
-                if (!user) {
-                    res.json({ success: false, message: 'No user found'});
-                } else {
-                    Business.find({ }, function(err, companies) {
+            if (err) throw err;
+            if(!mainUser) {
+                res.json({ success: false, message: " No user found"});
+            } else { 
+                    User.findOne({ _id: mainUser}, function(err, user) {
                         if (err) throw err;
-                    if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
-                        if (!companies) {
-                            res.json ({ success: false, message: 'Vehicles not found'});
-                        } else { 
-                            res.json({ success: true, companies: companies, permission: user.permission, id: user._id });
-                        }
-
-
-                    } else {
-                        res.json({ success: false, message: 'Insufficient Permission'});
-                    }
-                })
-            }
-        });
+                        if (!user) {
+                            res.json({ success: false, message: 'No user found'});
+                        } else {
+                            Business.find({ }, function(err, companies) {
+                                if (err) throw err;
+                              
+                            if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
+                                if (!companies) {
+                                    res.json ({ success: false, message: 'Vehicles not found'});
+                                } else { 
+                                    res.json({ success: true, companies: companies, permission: user.permission, id: user._id,});
+                                   
+                                }
+                            } else {
+                                res.json({ success: false, message: 'Insufficient Permission'});
+                            }
+                        })
+                }
+            });
         }
     })
 

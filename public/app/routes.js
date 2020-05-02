@@ -42,7 +42,7 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         controller: 'editVehController',
         controllerAs: 'editVehicle',
         authenticated: true,
-        permission: ['admin', 'moderator']
+       
     })
    
    

@@ -172,34 +172,14 @@ angular.module('businessController', ['businessServices'])
             if (data.data.permission === 'admin' || data.data.permission === 'moderator'|| data.data.permission === 'user') {
                         $scope.company = data.data.company;
                         $scope.reviews = data.data.review;
-                       
-                    //    console.log($scope.reviews);
-                    //    var arr = [];
-                    //     // for (var i = 0; i < $scope.reviews.length; i++) {
-                    //     // var d = $scope.reviews[i].rating;
-                    //     // var sum = 0;
-                    //     // for (var j = 0; j < d.length; j++) {
-                    //     //     sum += parseInt(d[j]);
-                    //     // }
-                    //     // arr.push(sum / d.length);
-                    //     // }
-                    //     for (var i = 0; i < $scope.reviews.length; i++) {
-                    //         var d = $scope.reviews[i].rating;
-                    //         for (var j = 0; j < d.length; j++) {
-                    //           d[j] = parseInt(d[j]);
-                    //         }
-                    //         if (arr.length == 0)
-                    //          arr = d;
-                    //         else {
-                    //           for (var j = 0; j < d.length; j++) {
-                    //             arr[j] += d[j];
-                    //           }
-                    //          }
-                    //       }
-                    //       for (var i = 0; i < arr.length; i++) {
-                    //         arr[i] = arr[i] / $scope.reviews.length;
-                    //       }
-                    //     console.log(arr);
+                       // Find average of the ratings:
+                        var sum = 0;
+                        for (var i = 0; i < $scope.reviews.length; i++) {
+                            sum += $scope.reviews[i].rating;
+                        }
+                        var average = sum / $scope.reviews.length;
+                        var rounded = Math.round(average * 10) / 10
+                        $scope.rate = rounded;
                         app.loading = false;
                         app.accessDenied = false;
                         if (data.data.permission === 'admin') {
@@ -1060,5 +1040,31 @@ angular.module('businessController', ['businessServices'])
                         app.showMoreError = data.data.message;
                     }
                 });
+            };
+            app.search = function(searchKeyword, number) {
+
+                if (searchKeyword) {
+                    if (searchKeyword.length > 0) {
+                        app.limit = 0;
+                        $scope.searchFilter = searchKeyword;
+                        app.limit = number;
+        
+                    } else {
+                        $scope.searchFilter = undefined;
+                        app.limit = 0;
+                    }
+                } else {
+                    $scope.searchFilter = undefined;
+                    app.limit = 0;
+                }
+        
+            };
+        
+            app.clear = function() {
+                $scope.number = 'Clear';
+                app.limit = 0;
+                $scope.searchFilter = undefined;
+                $scope.searchKeyword = undefined;
+                app.showMoreError = false;
             };
 })
