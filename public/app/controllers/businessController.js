@@ -178,6 +178,7 @@ angular.module('businessController', ['businessServices'])
                             sum += $scope.reviews[i].rating;
                         }
                         var average = sum / $scope.reviews.length;
+                        //rounds up to one decimal place
                         var rounded = Math.round(average * 10) / 10
                         $scope.rate = rounded;
                         app.loading = false;

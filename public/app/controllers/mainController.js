@@ -25,16 +25,12 @@ angular.module('mainController', ['authServices', 'userServices'])
                     }
                     var expireTime = self.parseJwt(token);
                     var timeStamp = Math.floor(Date.now() / 1000);
-                    // console.log(expireTime.exp);
-                    // console.log(timeStamp);
-                    var timeCheck = expireTime.exp - timeStamp;
-                    //console.log('timecheck: ' + timeCheck);
-                    if (timeCheck <= 25) {
-                        // console.log('token has expired');
+                    var timeCheck = expireTime.exp - timeStamp; // Checks how long the user has been logged in
+                    if (timeCheck <= 60) {
                         showModal(1);
                         $interval.cancel(interval);
                     } else {
-                        // console.log('token not yet expired');
+                        
                     }
                 }
             }, 2000);
@@ -48,8 +44,7 @@ angular.module('mainController', ['authServices', 'userServices'])
         app.modalHeader = undefined;
         app.modalBody = undefined;
         app.hideButton = false;
-
-        
+        //Gives the user 5 minute warning to when their session will time out
         if (option == 1) {
             app.modalHeader = 'Timeout Warning';
             app.modalBody = 'Your session will expire in 5 minutes. Would you like to renew your session?';
@@ -114,7 +109,7 @@ angular.module('mainController', ['authServices', 'userServices'])
                         app.authorized = true;
                         app.loadme = true;// Shows main HTML now that data has been collected by angularJS
                         if (data.data.permission === 'admin') {
-                           app.manage = true
+                            app.manage = true
                             app.authorized = true;
                         } 
                     } else {

@@ -74,7 +74,7 @@ module.exports = function(router) {
                         console.log('Message sent: ' + info.response);
                         }
                     });
-                res.json({success: true, message: 'Account registered! Please check email for activation link.'});
+                res.json({success: true, message: 'Account registered! Please check your email for activation link.'});
             }
         });
       }
@@ -125,7 +125,7 @@ module.exports = function(router) {
                 } else if (!user.active) {
                     res.json({ success: false, message: 'Account has not yet been Activated. Please check your emails.', expired: true })
                 } else {
-                    var token = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '30m' } );
+                    var token = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '1h' } );//User session lasts for 1 hour before user is loged out
                     res.json({ success: true, message: 'User authenticated ', token: token }); 
                 }
             }
@@ -289,8 +289,7 @@ module.exports = function(router) {
                             };
                         
                             client.sendMail(email, function(err, info){
-                                if (err )console.log(error); // if error in sending email
-                                
+                                if (err )console.log(error); 
                             });
 
                         res.json({ success: true, message: 'Please check your email for password reset link'});
