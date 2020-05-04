@@ -85,7 +85,8 @@ mongoose.connect('mongodb+srv://dk215:King1995!@vma-database-z52b4.mongodb.net/t
 })
  
 app.get('*', function(req, res){
-    res.sendFile(path.join(__dirname + '/public/app/views/index.html'))
+    res.status(200).sendFile(path.join(__dirname + '/public/app/views/index.html'))
+   
 })
 
 server.listen(port, function(){
