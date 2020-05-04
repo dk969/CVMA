@@ -7,8 +7,9 @@
 
 //Basic test to ensure it is set up correctly
 describe('Basic test', function () {
-    it('Ensuring the testing is working', function () {
+    it('Ensuring the testing is working', function (done) {
         expect(true).to.be.true;
+        done();
     });
 });
 //Ensuring that the application can load the application
