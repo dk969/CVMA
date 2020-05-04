@@ -1,5 +1,10 @@
-<div class= "headers"> Post your business offers</div>
-
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <div class= "headers"> Post an Offer</div>
+        <hr>
+        
+       </div>
+  </div>
 <div class="card">
     <div class="card-body">
       
@@ -30,7 +35,7 @@
       <div ng-class="{ 'has-success':(postForm.business_type.$valid && !postForm.business_type.$pristine), 'has-error':(!postForm.business_type.$valid && !postForm.business_type.$pristine) || (!postForm.business_type.$valid && 
       postForm.$submitted)}">
           <label >Type of Business:  </label>
-          <select ng-model="businessPost.postData.business_type" name="business_type" required>
+          <select ng-model="businessPost.postData.business_type" name="business_type"  class="custom-select"required>
             <option value="">Please select...</option>
             <option value=Garage>Garage</option>
             <option value="Part's Supplier">Part's Supplier</option>

@@ -428,24 +428,11 @@ table.Table thead th {
 .custom-select {
   position: relative;
   display: block;
-  max-width: 400px;
-  min-width: 180px;
-  margin: 0 auto;
-  
-  z-index: 10
+  background-color: rgb(236, 236, 236);
+  margin: auto;
+  display: block;
+  width: 100%;
+  z-index: 20;
+  border: 1px;
 }
-  select{
-    border: 1px;
-    outline: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
   
-    border-radius: 1px;
-    margin: auto;
-    display: block;
-    width: 100%;
-    padding: 12px 55px 15px 15px;
-    font-size: 14px;
-    color: rgb(18, 18, 19);
-    background-color: rgb(228, 228, 228);
-  }
