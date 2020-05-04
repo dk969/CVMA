@@ -126,7 +126,7 @@ angular.module('userController', ['userServices'])
     app.errorMsg = false;
     app.disable = true;
 
-    if($window.$location.pathname == '/googleerror') {
+    if($window.$location.pathname == '#!/googleerror') {
         app.errorMsg = 'Google email not found';
     }else if ($window.$location.pathname == '/google/inactive/error') {
         app.expired = true;

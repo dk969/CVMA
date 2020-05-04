@@ -459,30 +459,33 @@ angular.module('managementController', [])
                 app.disabled = false;
             }
         };
-        app.savePassword = function(regData, valid, confirmed) {
+        
+        
+        app.sendPassword = function(resetData, valid) {
             app.errorMsg = false;
+            app.loading = true;
             app.disabled = true;
-            app.loading = false;
-            
 
-            if (valid && confirmed) {
-                app.regData.username = $scope.newUsername;
-                User.savePassword(app.regData).then(function(data) {
+            if (valid) {
+
+                User.sendPassword(app.resetData).then(function(data) {
                     app.loading = false;
+                    
                     if (data.data.success) {
-                        app.successMsg = data.data.message ;
+                        app.successMsg = data.data.message;
                     } else {
-                        app.loading = false;
                         app.disabled = false;
                         app.errorMsg = data.data.message;
                     }
                 });
             } else {
-                app.loading = false;
                 app.disabled = false;
-                app.errorMsg ='Please ensure form is filled out properly';
+                app.loading = false;
+                app.errorMsg = "Please enter valid Username!";
             }
-        }  
+            
+
+        };
 
       
 

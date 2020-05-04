@@ -3,8 +3,8 @@
     <div class="container">
         <div class= "headers"> Latest Offers</div>
         <hr>
-        <p>Can't find what you are looking for? Why not search for it!</p>
-        <div class="input-group col-lg-6">
+        <div class="col-lg-6">
+            <p>Can't find what you are looking for? Why not search for it!</p>
             <input type="text" class="form-control" name="search" placeholder="search for .." ng-model="searchKeyword">
             <button type="button" ng-click="businessPost.search(searchKeyword, number);" class="btn btn-success">Search</button>
             <button type="button" ng-click="businessPost.clear();"class="btn btn-default">Clear</button>

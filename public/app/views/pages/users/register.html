@@ -1,5 +1,5 @@
 
-
+<br>
 
 <form name="regForm" ng-submit="register.regUser(regData, regForm.$valid);" novalidate>
   
@@ -29,14 +29,15 @@
     regForm.$submitted) || register.emailInvalid }">
         <label class="log">Email</label>
         <input ng-disabled="register.disabled" class="form-control" type="text" name="email" placeholder="Please Enter Email" ng-model="register.regData.email" ng-pattern="/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/" 
-        ng-blur="register.checkEmail(regData);"ng-minlength="3" ng-maxlength="25" required>
+        ng-blur="register.checkEmail(regData);"ng-minlength="3" ng-maxlength="40" required>
         <p class="help-block" ng-show="(!regForm.email.$pristine && regForm.email.$error.required) || (regForm.$submitted && regForm.email.$error.required)">This field is required</p>
         
         <p class="help-block" ng-show="register.emailMsg && !regForm.email.$error.required && regForm.email.$valid">{{register.emailMsg}}</p>
         <ul ng-show="(!regForm.email.$pristine && regForm.email.$error.pattern) || (!regForm.email.$pristine && regForm.email.$error.minlength) || (!regForm.email.$pristine && regForm.email.$error.maxlength)"class="help-block">
             <li>Must contain"@"</li>
             <li>Must not contain any special characters e.g.(@£$)</li>
-            <li>Musy be between 3 and 25 characters</li> 
+            <li>Musy be between 3 and 40 characters</li> 
+            <li>Example: jonsmith@smithmail.com</li>
         </ul>
     </div>
     <br>

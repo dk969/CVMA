@@ -16,8 +16,8 @@
     
     <button ng-disabled="main.disabled || facebook.disabled || google.disabled" class="registerbtn" type="submit">Login </button>
     <br>
-    <button ng-disabled="main.disabled || facebook.disabled || google.disabled" type="button" class="btn btn-danger" ng-click="main.facebook();">Facebook</button>&nbsp;
-    <button ng-disabled="main.disabled || facebook.disabled || google.disabled" type="button" class="btn btn-warning" ng-click="main.google();">Google</button>&nbsp;       
+    <button ng-disabled=true type="button" class="btn btn-danger" ng-click="main.facebook();">Facebook</button>&nbsp;
+    <button ng-disabled=true type="button" class="btn btn-warning" ng-click="main.google();">Google</button>&nbsp;       
 </div>
  <div class="container signin">   
      <p>Forgot Password? <a href="#!/resetpassword"> Reset Password</a>.</p>
@@ -48,11 +48,11 @@
 </div>
 
 <div class="row show-hide-message" ng-show="facebook.errorMsg">
-    <div class="alert alert-danger"> {{ facebook .errorMsg}}&nbsp<a ng-show="facebook.expired" href="#!/resend"><button type="button" class="btn btn-success" >Resend Activation Email</button>&nbsp;</a></div>
+    <div class="alert alert-danger"> {{facebook.errorMsg}}&nbsp<a ng-show="facebook.expired" href="#!/resend"><button type="button" class="btn btn-success" >Resend Activation Email</button>&nbsp;</a></div>
 </div>
 
 <div class="row show-hide-message" ng-show="google.errorMsg">
-    <div class="alert alert-danger"> {{ google.errorMsg}}&nbsp<a ng-show="google.expired" href="#!/resend"><button type="button" class="btn btn-success" >Resend Activation Email</button>&nbsp;</a></div>
+    <div class="alert alert-danger"> {{google.errorMsg}}&nbsp<a ng-show="google.expired" href="#!/resend"><button type="button" class="btn btn-success" >Resend Activation Email</button>&nbsp;</a></div>
 </div>
 
 <br>

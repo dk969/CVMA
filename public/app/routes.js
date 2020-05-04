@@ -41,8 +41,7 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         templateUrl: 'app/views/pages/vehicle/edit_vehicle.html',
         controller: 'editVehController',
         controllerAs: 'editVehicle',
-        authenticated: true,
-        permission: ['admin', 'moderator']
+        authenticated: true
     })
    
    
@@ -127,7 +126,6 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         templateUrl: 'app/views/pages/users/reset/newpassword.html',
         controller: 'resetController',
         controllerAs: 'reset',
-        authenticated: false
     })
     //Management routes
     .when('/management', {

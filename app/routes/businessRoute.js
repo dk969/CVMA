@@ -209,7 +209,7 @@ module.exports = function(businessRouter) {
             }
         });
     });
-
+    //Edit business via ID
     businessRouter.get('/editBusiness/:id', function(req,res) {
         var editBusiness = req.params.id;
         User.findOne({user: req.decoded}, function (err, mainUser) {
@@ -232,7 +232,7 @@ module.exports = function(businessRouter) {
             }
         });
     })
-    //EDIT
+    //EDIT Business
     businessRouter.put('/editBusiness', function(req,res) {
         var editBusiness = req.body._id;
         if (req.body.business_name) var newName = req.body.business_name;

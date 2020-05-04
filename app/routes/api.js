@@ -74,7 +74,7 @@ module.exports = function(router) {
                         console.log('Message sent: ' + info.response);
                         }
                     });
-                res.json({success: true, message: 'Account registered! Please check email for activation link.'});
+                res.json({success: true, message: 'Account registered! Please check your email for activation link.'});
             }
         });
       }
@@ -125,7 +125,7 @@ module.exports = function(router) {
                 } else if (!user.active) {
                     res.json({ success: false, message: 'Account has not yet been Activated. Please check your emails.', expired: true })
                 } else {
-                    var token = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '30m' } );
+                    var token = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '1h' } );//User session lasts for 1 hour before user is loged out
                     res.json({ success: true, message: 'User authenticated ', token: token }); 
                 }
             }
@@ -289,8 +289,7 @@ module.exports = function(router) {
                             };
                         
                             client.sendMail(email, function(err, info){
-                                if (err )console.log(error); // if error in sending email
-                                
+                                if (err )console.log(error); 
                             });
 
                         res.json({ success: true, message: 'Please check your email for password reset link'});
@@ -665,7 +664,7 @@ module.exports = function(router) {
                 res.json({ success: false, message: " No user found"});
             } else { 
                 if (newName) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') {
                         User.findOne({ _id: currentUser}, function(err, user) {
                             if (err) throw err;
                             if (!user) {
@@ -686,7 +685,7 @@ module.exports = function(router) {
                     }
                 }
                 if (newUsername) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') { 
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') { 
                         User.findOne({ _id: currentUser}, function(err, user) {
                             if (err) throw err;
                             if (!user) {
@@ -707,7 +706,7 @@ module.exports = function(router) {
                     }
                 }
                 if (newEmail) {
-                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator') { 
+                    if ( mainUser.permission === 'admin' || mainUser.permission === 'moderator'|| mainUser.permission === 'user') { 
                         User.findOne({ _id: currentUser}, function(err, user) {
                             if (err) throw err;
                             if (!user) {
@@ -1103,32 +1102,33 @@ router.get('/business', function(req,res) {
 });
 // Get all businesses uploaded
 router.get('/businessAll', function(req,res) {
+   
     User.find({ username: req.decoded.username}, function(err, mainUser) {
-        if (err) throw err;
-        if(!mainUser) {
-            res.json({ success: false, message: " No user found"});
-        } else { 
-             User.findOne({ _id: mainUser}, function(err, user) {
-                if (err) throw err;
-                if (!user) {
-                    res.json({ success: false, message: 'No user found'});
-                } else {
-                    Business.find({ }, function(err, companies) {
+            if (err) throw err;
+            if(!mainUser) {
+                res.json({ success: false, message: " No user found"});
+            } else { 
+                    User.findOne({ _id: mainUser}, function(err, user) {
                         if (err) throw err;
-                    if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
-                        if (!companies) {
-                            res.json ({ success: false, message: 'Vehicles not found'});
-                        } else { 
-                            res.json({ success: true, companies: companies, permission: user.permission, id: user._id });
-                        }
-
-
-                    } else {
-                        res.json({ success: false, message: 'Insufficient Permission'});
-                    }
-                })
-            }
-        });
+                        if (!user) {
+                            res.json({ success: false, message: 'No user found'});
+                        } else {
+                            Business.find({ }, function(err, companies) {
+                                if (err) throw err;
+                              
+                            if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
+                                if (!companies) {
+                                    res.json ({ success: false, message: 'Vehicles not found'});
+                                } else { 
+                                    res.json({ success: true, companies: companies, permission: user.permission, id: user._id,});
+                                   
+                                }
+                            } else {
+                                res.json({ success: false, message: 'Insufficient Permission'});
+                            }
+                        })
+                }
+            });
         }
     })
 

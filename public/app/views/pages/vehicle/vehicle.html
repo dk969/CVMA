@@ -3,9 +3,9 @@
         <div class= "headers"> Your Vehicles</div>
         <hr>
             <div class="showmore">
-                    <div class= "col-lg-6">
-                            <div class="input-group">      
-                                <span class="input-group-addon">Results to display:  </span>&nbsp;
+                    <div class= "col-lg-9">
+                            <div >      
+                                <label class="input-group-addon">Results to display:</label><br>
                                 <input type="text" class="form-control" ng-model="number">&nbsp;
                                 <button type="button" ng-click="vehicle.showMore(number);" class="btn btn-success">Apply Filter</button> &nbsp;
                                 <button type="button" ng-click="vehicle.showAll();" class="btn btn-warning">Show All</button>
@@ -25,10 +25,8 @@
 <br>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">
-        <strong>Your vehicle</strong>
-    </div>
-    <table class="table">
+    <table class="Table" >
+        <thead>
         <tr>
             <th>Vehicle Make</th>
             <th>Model</th>
@@ -38,7 +36,9 @@
             <th>MOT Date</th>
             <th>Tax Date</th>
             <th>Serice Date</th>
+            <th></th>
         </tr>
+        </thead>
         <tr ng-repeat="car in vehicle.vehicles | limitTo: vehicle.limit">
             <td>{{ car.vehicle_make}}</td>
             <td>{{ car.vehicle_model}}</td>
@@ -49,10 +49,10 @@
             <td>{{ car.tax_date}}</td>
             <td>{{ car.service_date}}</td>
             
-            <td>
+            <td>&nbsp;
                 <a href="#!/edit_vehicle/{{ car._id}}">
                     <button type="button" ng-show="vehicle.editAccess" class="btn btn-primary">Edit</button>
-                </a>
+                </a>&nbsp;
                  <button type="button" ng-click="vehicle.deleteVehicle(car._id);" ng-show="vehicle.deleteAccess"class="btn btn-danger">Delete</button>
                 
             </td>

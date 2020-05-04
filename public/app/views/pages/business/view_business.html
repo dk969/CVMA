@@ -19,7 +19,7 @@
               
             </div>
             <div id="map" class="mapBusiness" ></div>
-            <p><strong> {{ company.business_name}}</strong></p>
+            <h3><strong> {{ company.business_name}}</strong></h3>
             <br>
             <p>Type: {{ company.business_type}}</p>
             <p>Address: {{ company.business_address}}</p>
@@ -28,6 +28,7 @@
             <p>Email: {{ company.business_email}}</p>
             <p>Contact Number: {{ company.business_contact}}</p>
             <p>Specialization: {{ company.specialization}}</p>
+            <p><strong> Rating: {{rate}} out of 5 </strong></p>
             
             <br>
             <a href="#!/businesslist">
@@ -58,7 +59,8 @@
           <p><strong> {{ review.name}}</strong></p>
           <p>Rating: {{ review.rating}} out of 5</p>
           <p>Comments: {{review.comments}}</p>
-          <p>Posted By:{{review.author.username}}</p>  
+          <p>Posted By: {{review.author.username}}</p>  
+          
 
         </li>
      </ul>
