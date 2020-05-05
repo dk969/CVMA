@@ -1,11 +1,43 @@
-# CVMA
+# Classic Solutions
 
+## Prerequisites
+
+* 
+* [mongod](https://docs.mongodb.com/manual/administration/install-community/)
 
 Navigate to the file directory in terminal.
 
-<strong>DEVELOPMENT SERVER:</strong>
+## Setting up
 
-Run <strong>nodemon server.js or NPM run dev </strong>in terminal for a dev server. Navigate to http://localhost:4200. The app will automatically reload if you change any of the source files.
+* Install all node elements
 
-<strong>NPM INSTALL</strong>
+    ```
+    npm install
+    ```
 
+## Usage
+
+There's a couple of methods to getting the server running
+
+* Run Server 
+
+    ```
+    npm run dev
+    ```
+
+    
+
+* Run standard 
+
+    ```
+  node server
+    ```
+ ## Testing
+  To running automated tested 
+  * Run testing
+
+    ```
+    npm test
+    ```
+
+    Follow the [**https**://localhost:4200](https://localhost:4200/#!/) link
