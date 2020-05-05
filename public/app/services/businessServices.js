@@ -22,7 +22,7 @@ angular.module('businessServices', [])
         return $http.get('/api/business/')
     };
     businessFactory.getBusinessID = function(id) {
-        return $http.get('/businessRoute/get/'+ id)
+        return $http.get('/api/get/'+ id)
     };
     businessFactory.getBusiness = function(id) {
         return $http.get('/businessRoute/editBusiness/'+ id)

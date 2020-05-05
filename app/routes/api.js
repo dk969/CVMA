@@ -1100,6 +1100,43 @@ router.get('/business', function(req,res) {
     })
 
 });
+router.get('/get/:id', function(req,res) {
+    var businessId = req.params.id;
+            Business.findOne({ _id: businessId}, function(err, company) {
+                if (err) throw err;
+                    User.findOne({username: req.decoded.username }, function(err, mainUser) {
+                        if (err) throw err;
+                        if (!mainUser) {
+                            res.json({ success: false, message: ' No User found'});
+                        } else {
+                            User.findOne({ _id: mainUser}, function(err, user) {
+                                if (err) throw err;
+                                if (!user) {
+                                    res.json({ success: false, message: 'No user found'});
+                                } else {
+                            
+                            Review.find ({'business_id': company._id}, function(err, reviews) {
+                                if (err) throw err;
+                                
+                            if (mainUser.permission ==='admin' || mainUser.permission === 'moderator' || mainUser.permission === 'user') {
+                                if (!company) {
+                                    res.json ({ success: false, message: 'Businesses not found'});
+                                } else { 
+                                    res.json({ success: true, company: company, permission: mainUser.permission, review: reviews });
+                                
+                                }
+
+
+                            } else {
+                                res.json({ success: false, message: 'Insufficient Permission'});
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    });
+});
 // Get all businesses uploaded
 router.get('/businessAll', function(req,res) {
    

@@ -67,37 +67,7 @@ module.exports = function(businessRouter) {
 
   
 
-    businessRouter.get('/get/:id', function(req,res) {
-        var businessId = req.params.id;
-        
-        Business.findOne({ _id: businessId}, function(err, company) {
-            if (err) throw err;
-            Review.find ({'business_id': company._id}, function(err, reviews) {
-                if (err) throw err;
-                
-                User.findOne({user: req.decoded }, function(err, mainUser) {
-                    if (err) throw err;
-                    if (!mainUser) {
-                        res.json({ success: false, message: ' No User found'});
-                    } else {
-                        if (mainUser.permission ==='admin' || mainUser.permission === 'moderator' || mainUser.permission === 'user') {
-                            if (!company) {
-                                res.json ({ success: false, message: 'Businesses not found'});
-                            } else { 
-                                res.json({ success: true, company: company, permission: mainUser.permission, review: reviews });
-                            
-                            }
-
-
-                        } else {
-                            res.json({ success: false, message: 'Insufficient Permission'});
-                        }
-                
-                }
-            })
-            })
-        });
-    });
+    
     //gets subscribers
     businessRouter.get('/subscribe', function(req,res) {
         Subscribe.find({}, function(err, subscribers) {
