@@ -248,7 +248,8 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
     //Chat Rooms
     .when('/join', {
         templateUrl: 'app/views/pages/chat/join.html',
-        
+        controller: 'vehicleController',
+        controllerAs: 'vehicle',
         authenticated: true,
         
     })
