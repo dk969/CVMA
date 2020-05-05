@@ -1122,7 +1122,7 @@ router.get('/get/:id', function(req,res) {
                                 if (!company) {
                                     res.json ({ success: false, message: 'Businesses not found'});
                                 } else { 
-                                    res.json({ success: true, company: company, permission: mainUser.permission, review: reviews });
+                                    res.json({ success: true, company: company, permission: mainUser.permission, review: reviews, user: user});
                                 
                                 }
 

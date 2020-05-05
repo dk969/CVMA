@@ -154,7 +154,7 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         controller: 'managementController',
         controllerAs: 'management',
         authenticated: true,
-        permission: ['admin', 'moderator']
+        permission: ['admin']
     })
     //Business routes
     .when('/searchBusiness', {
@@ -168,7 +168,8 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         templateUrl: 'app/views/pages/business/business.html',
         controller: 'businessController',
         controllerAs: 'business',
-        authenticated: true
+        authenticated: true,
+        permission: ['admin', 'moderator']
     })
     .when('/view_business/:id', {
         templateUrl: 'app/views/pages/business/view_business.html',
@@ -190,6 +191,7 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         controller: 'postController',
         controllerAs: 'businessPost',
         authenticated: true,
+        permission: ['admin', 'moderator']
         
     })
     .when('/businesslist', {
