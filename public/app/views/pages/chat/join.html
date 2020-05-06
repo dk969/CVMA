@@ -15,12 +15,17 @@
                     value={{main.username}}
                     required/>
             </div>
-            <div >
+
+           
                 <label for="room">Please select a Room</label>
                 
-                <select name="room" id="room">
-                    <option value="">Please select...</option>
-                    <option value="General">General</option>
+                 
+               
+                <select name="room" id="room" >
+                    <option selected disabled>Recomended Chat Rooms from your Vehicles</option> 
+                    <option  ng-repeat="car in vehicle.vehicles"value="{{ car.vehicle_make}}">{{ car.vehicle_make}}</option>
+                    <option selected disabled>Please select...</option> 
+                    <option value="General">General</option> 
                     <option value="Volkswagen">Volkswagen</option>
                     <option value="BMW">BMW</option>
                     <option value="Bentley">Bentley</option>
@@ -28,7 +33,8 @@
                     <option value="Ford">Ford</option>
                     
                 </select>
-            </div>
+         
+      
             <br>
             <br>
             <hr>

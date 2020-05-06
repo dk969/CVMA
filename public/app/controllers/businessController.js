@@ -162,16 +162,16 @@ angular.module('businessController', ['businessServices'])
     app.loading = true;
     app.accessDenied = true;
     app.errorMsg = false;
-    app.editAccess = false;
-    app.removeAccess = false;
     app.authorized = false;
 
     function getBus() {
     Business.getBusinessID($routeParams.id).then(function(data) {
         if (data.data.success) {
+            app.removeAccess = false;
             if (data.data.permission === 'admin' || data.data.permission === 'moderator'|| data.data.permission === 'user') {
                         $scope.company = data.data.company;
                         $scope.reviews = data.data.review;
+                        $scope.user = data.data.user;
                        // Find average of the ratings:
                         var sum = 0;
                         for (var i = 0; i < $scope.reviews.length; i++) {
@@ -186,7 +186,10 @@ angular.module('businessController', ['businessServices'])
                         if (data.data.permission === 'admin') {
                             app.removeAccess = true;
                             app.authorized = true;
-                        } 
+                        }  else if ($scope.company.author.id === $scope.user._id){
+                            app.removeAccess = true;
+                            app.authorized = true;
+                        }  
                     } else {
                         app.errorMsg = 'Insufficient Permissions';
                         app.loading = false;
