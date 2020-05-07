@@ -256,33 +256,7 @@ angular.module('mapController', ['businessServices'])
     
         
         
-    // function initialize() {
-    //     geocoder = new google.maps.Geocoder();
-    //     var latlng = new google.maps.LatLng(52.6369, 1.1398);
-    //     navigator.geolocation.getCurrentPosition((position) => {
-    //     this.latitude = position.coords.latitude;
-    //     this.longitude = position.coords.longitude;
-    //     this.zoom = 15;
-    //      });
-    //      var address = document.getElementById('address').value;
-    //     geocoder.geocode( { 'address': address}, function(results, status) {
-    //     if (status == 'OK') {
-    //         map.setCenter(results[0].geometry.location);
-    //         var marker = new google.maps.Marker({
-    //             map: map,
-    //             position: results[0].geometry.location
-                
-    //         });
-    //     } else {
-    //         alert('Geocode was not successful for the following reason: ' + status);
-    //     }
-    //     });
-    //     var mapOptions = {
-    //     zoom: 15,
-    //     center: latlng
-    //     }
-    //     map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    // }
+    
         
     
         $scope.loadScript = function() {
@@ -428,24 +402,7 @@ angular.module('mapController', ['businessServices'])
                 
                  infoWindow = new google.maps.InfoWindow;
                     
-                    // if (navigator.geolocation) {
-                    //     navigator.geolocation.getCurrentPosition(function (position) {
-                    //         var pos = {
-                    //             lat: position.coords.latitude,
-                    //             lng: position.coords.longitude
-                    //         };
-                            
-                    //         infoWindow.setPosition(pos);
-                    //         infoWindow.setContent('Your current location.');
-                    //         infoWindow.open(map);
-                    //         map.setCenter(pos);
-                    //     }, function () {
-                    //         handleLocationError(true, infoWindow, map.getCenter());
-                    //     });
-                    // } else {
-                    //     // Browser doesn't support Geolocation
-                    //     handleLocationError(false, infoWindow, map.getCenter());
-                    // }
+                   
                     var address = document.getElementById('address').value;
                     geocoder.geocode( { 'address': address}, function(results, status) {
                     if (status == 'OK') {
@@ -464,33 +421,6 @@ angular.module('mapController', ['businessServices'])
               }
               
            
-            //   $scope.search = function() {
-            //     geocoder = new google.maps.Geocoder();
-            //     var latlng = new google.maps.LatLng(52.6369, 1.1398);
-            //     navigator.geolocation.getCurrentPosition((position) => {
-            //     this.latitude = position.coords.latitude;
-            //     this.longitude = position.coords.longitude;
-            //     this.zoom = 15;
-            //      });
-            //      var address = document.getElementById('address').value;
-            //     geocoder.geocode( { 'address': address}, function(results, status) {
-            //     if (status == 'OK') {
-            //         map.setCenter(results[0].geometry.location);
-            //         var marker = new google.maps.Marker({
-            //             map: map,
-            //             position: results[0].geometry.location
-                        
-            //         });
-            //     } else {
-            //         alert('Geocode was not successful for the following reason: ' + status);
-            //     }
-            //     });
-            //     var mapOptions = {
-            //     zoom: 15,
-            //     center: latlng
-            //     }
-            //     map = new google.maps.Map(document.getElementById('map'), mapOptions);
-            // }
         
         
     

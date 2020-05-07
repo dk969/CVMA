@@ -37,10 +37,7 @@ angular.module('businessServices', [])
     businessFactory.editedBusiness = function(id) {
         return $http.put('/businessRoute/editBusiness', id);
     };
-     //Business.getAuthorBus();
-     businessFactory.getAddress = function() {
-        return $http.get('/businessRoute/address')
-    };
+    
     //Business.createReview();
     businessFactory.createReview =function(revData) {
         return $http.post('/api/review', revData);

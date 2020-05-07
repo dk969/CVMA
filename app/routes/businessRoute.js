@@ -2,7 +2,7 @@ var Business = require('../models/business');
 var BusinessPost = require('../models/businessPost');
 var Subscribe = require('../models/subscribe');
 var User = require('../models/user');
-var Address = require('../models/address');
+
 var Review = require('../models/review');
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
@@ -92,17 +92,7 @@ module.exports = function(businessRouter) {
             })
         });
     });
-    //gets addresses for maps
-    businessRouter.get('/address', function(req,res) {
-        Address.find({}, function(err, address) {
-            if (err) throw err;
-            if (!address) {
-                res.json ({ success: false, message: 'Addresses not found'});
-            } else { 
-                res.json({ success: true, address: address});
-            }
-        });
-    });
+    
 
     //DELETES
    
