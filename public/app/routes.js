@@ -175,7 +175,6 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         templateUrl: 'app/views/pages/business/view_business.html',
         controller: 'getController',
         controllerAs: 'get',
-        
         authenticated: true,
         
     })

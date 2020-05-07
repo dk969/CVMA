@@ -11,26 +11,23 @@
                 <button type="button" class="btn btn-warning">Advanced Search</button>
             </a>
         </div>
+        <br>
+        <div ng-show="searchFilter !== undefined">
+            <p>Total Results: {{( business.companies | filter: searchFilter ).length }} </p>
+        </div>
+        <div ng-show="searchFilter !== undefined">
+            <p>Showing: {{( business.companies | filter: searchFilter | limitTo: business.limit).length }} </p>
+        </div>
     </div>
   </div>
-
-
 <div class="jumbotron text-center" ng-show="management.loading">
     <span class="glyphicon glyphicon-repeat spinner"></span>
     <p>Loading...</p>
 </div>
-
-<div ng-show="searchFilter !== undefined">
-    <p>Total Results: {{( business.companies | filter: searchFilter ).length }} </p>
-</div>
-<div ng-show="searchFilter !== undefined">
-    <p>Showing: {{( business.companies | filter: searchFilter | limitTo: business.limit).length }} </p>
-</div>
-<br>
 <div class='row show-hide-message' ng-show="business.showMoreError">
     <div class="alert alert-danger">{{business.showMoreError}}</div>
 </div>
-<br>
+
 <div class="panel panel-primary">
     <div class="panel panel-default cardbus">
       <div class="panel-body"  ng-controller="businessController" >

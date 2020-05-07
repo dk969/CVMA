@@ -80,7 +80,7 @@ module.exports = function(router) {
       }
     });
 
- 
+    //Checks the database for the username, to make sure it hasnt already been used
     router.post('/checkusername', function(req, res) {
         User.findOne({ username: req.body.username }).select('username').exec(function(err, user) {
             if (err) throw err;
@@ -92,7 +92,7 @@ module.exports = function(router) {
         }
         });    
     });
-
+    //Checks the database for that email, to make sure it hasnt already been used
     router.post('/checkemail', function(req, res) {
         User.findOne({ email: req.body.email }).select('email').exec(function(err, user) {
             if (err) throw err;
@@ -131,7 +131,7 @@ module.exports = function(router) {
             }
         });
     });
-
+    //Checks the activation token, to see if it has expired or not, if not sends email saying that the account has been activated
     router.put('/activate/:token', function(req,res) {
         User.findOne({ temporarytoken: req.params.token }, function(err,user) {
             if (err) throw err;
@@ -173,8 +173,7 @@ module.exports = function(router) {
             });
         });
     });
-
-   
+    // 
     router.post('/resend', function(req, res) {
         User.findOne({ username: req.body.username }).select('username password active').exec(function(err, user) {
             if (err) throw err;
@@ -197,7 +196,7 @@ module.exports = function(router) {
             }
         });
     });
-
+    // Resends activation email, with a new temporary token which gives them 24Hrs
     router.put('/resend', function(req, res) {
         User.findOne({ username: req.body.username }).select('username name email temporarytoken').exec( function(err,user) {
             if (err) throw err;
@@ -211,10 +210,8 @@ module.exports = function(router) {
                         to: user.email,
                         subject: 'CVMA Activation Link Request',
                         text: 'Hello ' + user.name + ', You recently requested a new account activation link. Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' + user.temporarytoken,
-                        html: 'Hello ' + user.name + ', <br><br>You recently requested a new account activation link.  Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' + user.temporarytoken + '">http://localhost:4200/activate</a>'
-                        
+                        html: 'Hello ' + user.name + ', <br><br>You recently requested a new account activation link.  Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' + user.temporarytoken + '">http://localhost:4200/activate. This link will expire 24 hours after it is requested </a>'
                         };
-                    
                         client.sendMail(email, function(err, info){
                             if (err ){
                             console.log(error); // if error in sending email
@@ -224,13 +221,11 @@ module.exports = function(router) {
                             }
                         });
                         res.json({ success: true, message: ' Activation link has been sent to ' + user.email + '!'});
-
-                    }   
+                 }   
             });
-
         })
     });
-
+    //Gets username from users email and sends out an email reminding them of what it is.
     router.get('/resetusername/:email', function(req, res) {
         User.findOne({ email: req.params.email }).select(' email name username').exec(function(err, user) {
             if (err) {
@@ -248,24 +243,17 @@ module.exports = function(router) {
                             subject: 'CVMA Username Request',
                             text: 'Hello ' + user.name + ', You recently requested your username.  Please save it in your files :' + user.username,
                             html: 'Hello ' + user.name + ', <br><br>You recently requested your username.  Please save it in your files :' + user.username
-                            
                             };
-                        
                             client.sendMail(email, function(err, info){
-                                if (err )console.log(error); // if error in sending email
-                                
+                                if (err )console.log(error); // if error in sending email 
                             });
-    
                         res.json({ success: true, message: 'Username has been sent to email' });
                     }
-
                 }
-
-               
             }
         });
     });
-
+    //gets the user details checks account has been activated and sends email to reset password with the reset token
     router.put('/resetpassword', function(req, res) {
         User.findOne({ username: req.body.username }).select('username email resettoken name active').exec(function(err, user) {
             if (err) throw err;
@@ -274,7 +262,7 @@ module.exports = function(router) {
             } else if (!user.active) {
                 res.json({ success: false, message: ' Account has not yet been activated'});
             } else {
-                user.resettoken = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '24h' } );
+                user.resettoken = jwt.sign({ username: user.username, email: user.email}, secret, { expiresIn: '24h' } );//Token lasts for 24hrs
                 user.save(function(err) {
                     if (err) {
                         res.json({ success: false, message: err});
@@ -285,9 +273,7 @@ module.exports = function(router) {
                             subject: 'CVMA Password Reset Request',
                             text: 'Hello ' + user.name + ', You recently requested a password reset link. Please click on the link below to reset you password: http://localhost:4200/reset/' + user.resettoken,
                             html: 'Hello ' + user.name + ', <br><br>You recently requested a password reset link. Please click on the link below to reset you password:br><br> <a href="http://localhost:4200/#!/reset/' + user.resettoken + '">http://localhost:4200/reset</a>'
-                            
                             };
-                        
                             client.sendMail(email, function(err, info){
                                 if (err )console.log(error); 
                             });
@@ -299,11 +285,10 @@ module.exports = function(router) {
         });
 
     });
-
+    //Checks the users token to ensure it is still valid
     router.get('/resetpassword/:token', function(req, res) {
         User.findOne({ resettoken: req.params.token }).select().exec(function(err, user) {
             if (err) throw err;
-
             var token = req.params.token;
              //verify token
              jwt.verify(token, secret, function(err, decoded) {
@@ -321,7 +306,7 @@ module.exports = function(router) {
         });
 
     });
-
+    //Update users password
     router.put('/savepassword', function(req, res) {
         User.findOne({username: req.body.username }).select('username name password resettoken email').exec(function(err, user) {
             if (err) throw err;
@@ -334,37 +319,26 @@ module.exports = function(router) {
                     if (err) {
                         res.json({ success: false, message: err});
                     } else {
-
+                        //Password Reset email
                         var email = { 
                             from: 'CVMA Staff, staff@CVMA.com',
                             to: user.email,
                             subject: 'CVMA Password Reset',
                             text: 'Hello ' + user.name + ', This email is to notify you that you password for CVMA has now been reset.',
                             html: 'Hello ' + user.name + ', <br><br>This email is to notify you that you password for CVMA has now been reset.'
-                            
                             };
-                        
                             client.sendMail(email, function(err, info){
                                 if (err )console.log(error); // if error in sending email
-                                
                             });
                         res.json({ success: true, message: 'Password has been reset.'})
-                    }
-
-                });
-                
-            }
-            
-            
+                        }
+                });   
+            }  
         });
     });
-
-
     //Middleware for routes, checks for token
     router.use(function(req, res, next) {
-
         var token = req.body.token || req.body.query || req.headers['x-access-token'];
-
         if (token) {
             //verify token
             jwt.verify(token, secret, function(err, decoded) {
@@ -382,9 +356,8 @@ module.exports = function(router) {
     //gets current user
     router.get('/currentUser', function (req, res) {
         res.send(req.decoded);
-        
     });
-
+    //Creates a New token for users to activte their accounts if expired
     router.get('/renewToken/:username', function(req, res) {
         User.findOne({ username: req.params.username }).select().exec(function(err, user) {
             if (err) throw err;
@@ -397,7 +370,7 @@ module.exports = function(router) {
             }
         });
     });
-
+    //Get current users Permission
     router.get('/permission', function(req, res) {
         User.findOne({ username: req.decoded.username}, function(err, user) {
             if (err) throw err;
@@ -408,7 +381,7 @@ module.exports = function(router) {
             }
         });
     });
-
+    //Find all users of the application (Admin Only)
     router.get('/management', function(req,res) {
         User.find({}, function(err, users) {
             if (err) throw err;
@@ -417,7 +390,7 @@ module.exports = function(router) {
                 if (!mainUser) {
                     res.json({ success: false, message: ' No User found'});
                 } else {
-                    if (mainUser.permission ==='admin' || mainUser.permission === 'moderator') {
+                    if (mainUser.permission ==='admin' ) {
                         if (!users) {
                             res.json ({ success: false, message: 'Users not found'});
                         } else { 
@@ -432,8 +405,7 @@ module.exports = function(router) {
             })
         });
     });
-
-
+    //Delete user by username
     router.delete('/management/:username', function(req, res) {
         var deletedUser = req.params.username;
         User.findOne({ username: req.decoded.username}, function (err, mainUser) {
@@ -452,6 +424,7 @@ module.exports = function(router) {
             }
         });
     });
+    //Get user by username
     router.get('/user/:username', function(req,res) {
         var user = req.params.username;
         User.findOne({username: req.decoded.username}, function (err, mainUser) {
@@ -460,17 +433,17 @@ module.exports = function(router) {
                 res.json({ success: false, message: 'No user found'});
             } else {
                 User.findOne({ username: user}, function(err,user) {
-                        if (err) throw err;
-                        if (!user) {
-                            res.json({ success: false, message: 'No user found'});
-                        } else {
-                            res.json({ success: true, user: user});
-                        }
-                    });
-                
+                    if (err) throw err;
+                    if (!user) {
+                        res.json({ success: false, message: 'No user found'});
+                    } else {
+                        res.json({ success: true, user: user});
+                    }
+                });   
             }
         });
     });
+    //Get user by ID for Admin to edit
     router.get('/edit/:id', function(req,res) {
         var editUser = req.params.id;
         User.findOne({username: req.decoded.username}, function (err, mainUser) {
@@ -739,26 +712,23 @@ module.exports = function(router) {
                 res.json({ success: false, message: " No user found"});
             } else { 
                 if (newPermission) {
-                    
-                        User.findOne({ _id: upgradeUser}, function(err, user) {
-                            if (err) throw err;
+                   User.findOne({ _id: upgradeUser}, function(err, user) {
+                        if (err) throw err;
                             if (!user) {
                                 res.json({ success: false, message: 'No user found'});
                             } else {
                                 if (newPermission === 'moderator') {
-                                            user.permission = newPermission;
-                                            user.save(function(err) {
-                                                if (err) {
-                                                    console.log(err);
-                                                } else {
-                                                    res.json({ success: true, message: ' Permission updated'})
-                                                }
-                                            });
-                                        } 
-                                     
-                                
-                                    }
-                                });
+                                    user.permission = newPermission;
+                                    user.save(function(err) {
+                                        if (err) {
+                                             console.log(err);
+                                       } else {
+                                            res.json({ success: true, message: ' Permission updated'})   
+                                      }      
+                                 });
+                             }                         
+                         }
+                    });
                     
                 }
             }
@@ -768,7 +738,6 @@ module.exports = function(router) {
      //Business posted User as Author 
     router.post('/business', function(req,res) {
         var business = Business();
-        
         User.find({ username: req.decoded.username}, function(err, mainUser) {
             console.log(mainUser.username);
             if (err) throw err;
@@ -794,11 +763,11 @@ module.exports = function(router) {
                             id: user._id,
                             username: user.username
                         }
-                        Address.findOneAndUpdate( { },{"$push": { "address": req.body.business_name && req.body.business_postcode}}, 
-                        { "upsert": true, "new": true },function(err, address) {
-                            if(err) throw err;
-                            console.log(address);
-                        })
+                        // Address.findOneAndUpdate( { },{"$push": { "address": req.body.business_name && req.body.business_postcode}}, 
+                        // { "upsert": true, "new": true },function(err, address) {
+                        //     if(err) throw err;
+                        //     console.log(address);
+                        // })
                 if (req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null || req.body.business_type == '' || req.body.business_address == null || req.body.business_address == '' || req.body.business_postcode == null || req.body.business_postcode == ''
                 || req.body.website == null || req.body.website == '' || req.body.business_email == null || req.body.business_email == '' || req.body.business_contact == null || req.body.business_contact == '' || req.body.specialization == null || req.body.specialization == '') {
                     res.json({ success: false, message: 'Ensure Business details are provided'});
@@ -841,8 +810,6 @@ module.exports = function(router) {
 
     });
         //BusinessPost posted User as Author 
-
-          
         router.post('/businessPost', function(req,res) {
             var businessPost = BusinessPost();
             User.find({ username: req.decoded.username}, function(err, mainUser) {
@@ -867,7 +834,6 @@ module.exports = function(router) {
                                 id: user._id,
                                 username: user.username
                         }
-        
                 if (req.body.business_title == null || req.body.business_title == '' || req.body.business_name == null || req.body.business_name == '' || req.body.business_type == null||
                 req.body.website == null || req.body.website == '' || req.body.specialization == null || req.body.specialization == ''|| req.body.post == null || req.body.post == '' ) {
                     res.json({ success: false, message: 'Ensure the offer details are provided'});
@@ -921,15 +887,14 @@ module.exports = function(router) {
                                 res.json({ success: true, message: 'Post Uploaded'});
                                 })
                             }
-                        
                          });
-                        
                         }   
                      }
                 })
             }
         });
     });
+    // Posts the users review with the business ID and user as Author
     router.post('/review', function(req,res) {
         var review = Review();  
         User.find({ username: req.decoded.username}, function(err, mainUser) {
@@ -1037,6 +1002,7 @@ module.exports = function(router) {
            }
        });
    });
+   //Get vehicles posted by current user
    router.get('/vehicle', function(req,res) {
     User.find({ username: req.decoded.username}, function(err, mainUser) {
         if (err) throw err;
@@ -1100,6 +1066,7 @@ router.get('/business', function(req,res) {
     })
 
 });
+//Gets the Individual business and the reviews with the same ID.
 router.get('/get/:id', function(req,res) {
     var businessId = req.params.id;
             Business.findOne({ _id: businessId}, function(err, company) {
