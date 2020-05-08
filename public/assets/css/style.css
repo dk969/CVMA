@@ -12,6 +12,11 @@ main {
   height: auto;
   border-radius: 8px;
 }
+.imgabout{
+  max-width: 450px;
+  height: 250px;
+  border-radius: 8px;
+}
 .nav-right {
   right: 0;
 }
@@ -451,7 +456,7 @@ table.Table thead th {
   text-decoration: none; /* remove underline from anchors */
 }
 
-.fa {
+.fa1 {
  
   font-size: 20px;
   width: 50px;
@@ -470,12 +475,12 @@ table.Table thead th {
   color: white;
 }
 
-.fa-facebook {
+.fa1-facebook {
   background: #3B5998;
   color: white;
 }
 
-.fa-google {
+.fa1-google {
   background: #dd4b39;
   color: white;
 }

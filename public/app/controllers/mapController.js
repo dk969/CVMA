@@ -5,25 +5,7 @@ angular.module('mapController', ['businessServices'])
     
 
     .controller('mapController', function( $scope, Business) {
-        var app = this;
-        function getAddress() {
-        Business.getAddress().then(function(data) {
-            if (data.data.success) {
-                app.address = data.data.address;
-                app.loading = false;
-                console.log(app.address);
-                    
-            } else {
-                app.errorMsg = data.data.message;
-                app.loading = false;
-            
-        }
-    })
-}
-    getAddress()
-
-
-        
+        var app = this;   
         function getBusinesses() {
             Business.getBusinesses().then(function(data) {
                 app.editAccess = false;
