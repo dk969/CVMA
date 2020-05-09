@@ -13,17 +13,19 @@
 </div>
 <br>
 <ul class="nav nav-tabs">
-    <li class="tablink" role="presentation" ng-click="author.businessPhase();" ng-class="businessTab"><a> Your Business</a></li>&nbsp;&nbsp;
-    <li class="tablink" role="presentation" ng-click="author.offerPhase();" ng-class="offerTab"><a> Your Offers</a></li>&nbsp;&nbsp;
+    <li class="tablink2" role="presentation" ng-click="author.businessPhase();" ng-class="businessTab"><a> Your Business</a></li>&nbsp;&nbsp;
+    <li class="tablink2" role="presentation" ng-click="author.offerPhase();" ng-class="offerTab"><a> Your Offers</a></li>&nbsp;&nbsp;
    
 </ul>
 </div>
 <br>
 <div class="panel panel-primary" ng-show="author.phase1">
     <div class="panel panel-default card" ng-controller="authorController" >
-      <div class="panel-body"  >
+      <div class="panel-body">
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="company in author.companies | filter: searchFilter | limitTo: business.limit">
+            <input id="address" type="textbox" value={{company.business_postcode}} ng-show="false" >
+            <div id="map" class="mapBusiness" ></div>
             <p><strong> {{ company.business_name}}</strong></p>
             <p>Type: {{ company.business_type}}</p>
             <p>Address: {{ company.business_address}}</p>
@@ -64,3 +66,10 @@
    </div>
 </div>
 <br><br>
+<body ng-app="mapController">
+  <div ng-controller="busMapController"ng-init="loadScript()">
+   </div>
+
+
+  </div>
+ </body>
