@@ -43,6 +43,7 @@ body {
     border: none;
     cursor: pointer;
     width: 100%;
+    border-radius: 4px;
     opacity: 0.9;
   }
   
@@ -52,13 +53,50 @@ body {
   
   /* Add a blue text color to links */
   a {
-    color: dodgerblue;
+    color: rgb(13, 62, 187);
   }
+  .col {
+    float: left;
+    width: 50%;
+    margin: auto;
+    padding: 0 50px;
+   
+  }
+  .col1 {
+    float: right;
+    width: 50%;
+    margin: auto;
+    padding: 0 50px;
+   
+  }
+  .vl {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    border: 2px solid #ddd;
+    height: 290px;
+  }
+  
+  /* text inside the vertical line */
+  .vl-innertext {
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    padding: 8px 10px;
+  }
+  
+  
   
   /* Set a grey background color and center the text of the "sign in" section */
   .signin {
     background-color: #bd0404;
     text-align: center;
     color: #FFFFFF;
+    border-radius: 0px 0px 4px 4px;
   }
   

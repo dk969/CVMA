@@ -12,6 +12,11 @@ main {
   height: auto;
   border-radius: 8px;
 }
+.imgabout{
+  max-width: 450px;
+  height: 250px;
+  border-radius: 8px;
+}
 .nav-right {
   right: 0;
 }
@@ -301,6 +306,24 @@ body, html {
 .tablink:hover {
   background-color: #777;
 }
+.tablink2 {
+  background-color: rgb(190, 4, 4);
+  color: white;
+  text-align: center;
+  position: relative; 
+  margin-left: auto; 
+  margin-right: auto;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 24%;
+}
+
+.tablink2:hover {
+  background-color: #777;
+}
 
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
@@ -436,3 +459,60 @@ table.Table thead th {
   border: 1px;
 }
   
+.logbtn {
+  width: 45%;
+  height: 55px;
+  border: none;
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 8px 0;
+  opacity: 0.85;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 20px;
+  
+  text-decoration: none; /* remove underline from anchors */
+}
+
+.fa1 {
+ 
+  font-size: 20px;
+  width: 50px;
+  height: 35px;
+  text-align: center;
+  text-decoration: none;
+  
+}
+
+.fb {
+  background-color: #3B5998;
+  color: white;
+}
+.google {
+  background-color: #dd4b39;
+  color: white;
+}
+
+.fa1-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa1-google {
+  background: #dd4b39;
+  color: white;
+}
+.col-25 {
+  margin-left: 50px;
+  width: 90%;
+  margin-top: 6px;
+  
+}
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
