@@ -105,7 +105,7 @@
                 <label >Business Specialization </label>
                 <input  ng-disabled="business.disabled" type="text" style="width: 45%;"class="form-control" name="specialization" placeholder="Please enter business specialization" ng-model="business.busData.specialization" required>
                 <p class="help-block" ng-show="(!busForm.specialization.$pristine && busForm.specialization.$error.required) || (busForm.$submitted && busForm.specialization.$error.required)">This field is required</p>
-                <ul ng-show="(busForm.specialization.$pristine)"class="help-block">
+                <ul ng-show="(!busForm.specialization.$pristine)"class="help-block">
                     <li>What does your business specialize in? e.g.Volkswagen</li>
                 </ul>
             </div>

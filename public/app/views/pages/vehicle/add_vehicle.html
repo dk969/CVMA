@@ -6,10 +6,14 @@
      </div>
 </div>
 
-<div class="card">
-    <div class="card-body">
+
         <form name="vehForm" ng-submit="vehicle.vehAdd(vehData, vehForm.$valid);" novalidate>
-      
+          <div class="card">
+            <div class="card-body">
+              <div class= "headers">Please enter your vehicle details!</div>
+        <hr>
+        <div class="col">
+        <br>
         <div ng-class="{ 'has-success':(vehForm.vehicle_make.$valid && !vehForm.vehicle_make.$pristine), 'has-error':(!vehForm.vehicle_make.$valid && !vehForm.vehicle_make.$pristine) || (!vehForm.vehicle_make.$valid && 
         vehForm.$submitted)}">
           <label >Vehicle Make</label>
@@ -44,17 +48,18 @@
           <div ng-class="{ 'has-success':(vehForm.engine_size.$valid && !vehForm.engine_size.$pristine), 'has-error':(!vehForm.engine_size.$valid && !vehForm.engine_size.$pristine) || (!vehForm.engine_size.$valid && 
           vehForm.$submitted)}">
           <label >Engine Size</label>
-          <input type="text" class="form-control" name="engine_size" placeholder="Please enter vehicle engine size" ng-model="vehicle.vehData.engine_size"required>
+          <input type="text" class="form-control"  name="engine_size" placeholder="Please enter vehicle engine size" ng-model="vehicle.vehData.engine_size"required>
           <p class="help-block" ng-show="(!vehForm.engine_size.$pristine && vehForm.engine_size.$error.required) || (vehForm.$submitted && vehForm.engine_size.$error.required)">This field is required</p>
           <ul ng-show="(!vehForm.engine_size.$pristine)"class="help-block">
             <li>Please enter the Engine Size of your vehicle. e.g. 1.3</li>
         </ul>
         </div>
+        </div>
           <br>
           <div ng-class="{ 'has-success':(vehForm.colour.$valid && !vehForm.colour.$pristine), 'has-error':(!vehForm.colour.$valid && !vehForm.colour.$pristine) || (!vehForm.colour.$valid && 
           vehForm.$submitted)}">
           <label >Colour </label>
-          <input type="text" class="form-control" name="colour" placeholder="Please enter vehicle colour" ng-model="vehicle.vehData.colour"required>
+          <input type="text" class="form-control" style="width: 45%;" name="colour" placeholder="Please enter vehicle colour" ng-model="vehicle.vehData.colour"required>
           <p class="help-block" ng-show="(!vehForm.colour.$pristine && vehForm.colour.$error.required) || (vehForm.$submitted && vehForm.colour.$error.required)">This field is required</p>
           <ul ng-show="(!vehForm.colour.$pristine)"class="help-block">
             <li>Please enter the colour of your vehicle. e.g. Black</li>
@@ -64,40 +69,41 @@
           <div ng-class="{ 'has-success':(vehForm.MOT_date.$valid && !vehForm.MOT_date.$pristine), 'has-error':(!vehForm.MOT_date.$valid && !vehForm.MOT_date.$pristine) || (!vehForm.MOT_date.$valid && 
           vehForm.$submitted)}">
           <label >MOT Date (Not required)</label>
-          <input type="date" class="form-control" name="MOT_date" placeholder="Please enter vehicle MOT date" ng-model="vehicle.vehData.MOT_date">
+          <input type="date" class="form-control" style="width: 45%;" name="MOT_date" placeholder="Please enter vehicle MOT date" ng-model="vehicle.vehData.MOT_date">
           <p class="help-block" ng-show="(!vehForm.MOT_date.$pristine && vehForm.MOT_date.$error.required) || (vehForm.$submitted && vehForm.MOT_date.$error.required)">This field is required</p>
           <ul ng-show="(!vehForm.MOT_date.$pristine)"class="help-block">
             <li>Please enter the date of your MOT of your vehicle. e.g. 22/04/2019</li>
         </ul>
         </div>
-          <br>
+          <br><br>
           <div ng-class="{ 'has-success':(vehForm.tax_date.$valid && !vehForm.tax_date.$pristine), 'has-error':(!vehForm.tax_date.$valid && !vehForm.tax_date.$pristine) || (!vehForm.tax_date.$valid && 
           vehForm.$submitted)}">
           <label >Tax Date (Not required)</label>
-          <input type="date" class="form-control" name="tax_date" placeholder="Please enter vehicle TAX date" ng-model="vehicle.vehData.tax_date">
+          <input type="date" class="form-control"  style="width: 45%;" name="tax_date" placeholder="Please enter vehicle TAX date" ng-model="vehicle.vehData.tax_date">
           <p class="help-block" ng-show="(!vehForm.tax_date.$pristine && vehForm.tax_date.$error.required) || (vehForm.$submitted && vehForm.tax_date.$error.required)">This field is required</p>
           <ul ng-show="(!vehForm.tax_date.$pristine)"class="help-block">
             <li>Please enter the date of your Tax of your vehicle. e.g. 22/04/2019</li>
         </ul>
         </div>
-          <br>
+          <br><br>
           <div ng-class="{ 'has-success':(vehForm.service_date.$valid && !vehForm.service_date.$pristine), 'has-error':(!vehForm.service_date.$valid && !vehForm.service_date.$pristine) || (!vehForm.service_date.$valid && 
           vehForm.$submitted)}">
           <label >Service Date (Not required)</label>
-          <input type="date" class="form-control" name="service_date" placeholder="Please enter service date" ng-model="vehicle.vehData.service_date">
+          <input type="date" class="form-control" style="width: 45%;" name="service_date" placeholder="Please enter service date" ng-model="vehicle.vehData.service_date">
           <p class="help-block" ng-show="(!vehForm.service_date.$pristine && vehForm.service_date.$error.required) || (vehForm.$submitted && vehForm.service_date.$error.required)">This field is required</p>
           <ul ng-show="(!vehForm.service_date.$pristine)"class="help-block">
             <li>Please enter the date of your Service of your vehicle. e.g. 22/04/2019</li>
         </ul>
         </div>
         <br>
-        
-        
-          <button type="submit" class="btn btn-primary">Add Vehicle</button>
-        
+      </div>
+   
+        <div class="container signin">
+          <button type="submit" class="btn btn-primary" style="width: 45%;">Add Your Vehicle</button>
+        </div>
+      </div>
       </form>
-    </div>
-  </div>
+    
 <br>
 
 <div class="jumbotron text-center" ng-show="vehicle.loading">
