@@ -14,18 +14,10 @@ var emailValidator = [
         message: "Email should be between {ARGS[0]} amd {ARGS[1]} characters"
     })
 ];
-
+// The array for email subscriptions
 let Subscribe = new Schema({
-
-
-emails: [ {
-
-}
-
-],
-
-
-
+emails: [ { validate: emailValidator
+}],
 
 },{
     collection: 'subscribe'

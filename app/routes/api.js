@@ -1027,7 +1027,6 @@ module.exports = function(router) {
         });
         }
     })
-
 });
 //Get businesses posted by a certain user
 router.get('/business', function(req,res) {
@@ -1166,6 +1165,7 @@ router.get('/businessPost', function(req,res) {
     })
 
 });
+//Collects all of the Offers which have been posted
 router.get('/businessPosts', function(req,res) {
     User.find({ username: req.decoded.username}, function(err, mainUser) {
         if (err) throw err;
@@ -1183,7 +1183,7 @@ router.get('/businessPosts', function(req,res) {
                         if (!posts) {
                             res.json ({ success: false, message: 'Vehicles not found'});
                         } else { 
-                            res.json({ success: true, posts: posts, permission: user.permission, id: user._id });
+                            res.json({ success: true, posts: posts, permission: user.permission, user: user});
                         }
 
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 var validate = require('mongoose-validator');
 
-
+//Offers backend validation
 var nameValidator = [ 
   validate({
       validator: 'matches',
@@ -15,7 +15,6 @@ var nameValidator = [
       message: "Name should be between {ARGS[0]} amd {ARGS[1]} characters"
   })
 ];
-
 
 var websiteValidator = [
   validate({

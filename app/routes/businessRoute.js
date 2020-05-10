@@ -10,22 +10,9 @@ var sgTransport = require('nodemailer-sendgrid-transport');
 
 module.exports = function(businessRouter) {
 
-    var options = {
-        auth: {
-            api_user: 'dking215',
-            api_key: 'King1995!'
-        }
-        }
-    
-        var client = nodemailer.createTransport(sgTransport(options));
-
-         //gets current user
-    businessRouter.post('/currentUser', function (req, res) {
-        res.send(req.decoded);
-    });
     
   
-    //Post subscribers emails
+    //Allows users to subscribe for general subscriptions
     businessRouter.post('/subscribe', function(req,res, next) {
         Subscribe.findOneAndUpdate( { },{"$push": { "emails": req.body.email,}}, 
         { "upsert": true, "new": true },function(err, subscribers) {
@@ -33,20 +20,15 @@ module.exports = function(businessRouter) {
             console.log(subscribers);
             if (req.body.email == null || req.body.email == '' ) {
                 res.json({ success: false, message: 'Ensure Email is provided'});
-
                 } else {
-                    
                         if (err) {
                             res.json({ success: false, message: err});
                         } else {
                             res.json({ success: true, message: 'Subscription Successful'});
                         }
                     };
-
-                })
-        
-        
-    });
+                })     
+         });
 
 
 
@@ -95,18 +77,17 @@ module.exports = function(businessRouter) {
     
 
     //DELETES
-   
     businessRouter.delete('/business/:_id', function(req, res) {
-        var deletedBusiness = req.params._id;
-        User.findOne({ user: req.decoded}, function (err, mainUser) {
+        var deletedBusiness = req.params._id;//Gets business ID
+        User.findOne({ user: req.decoded}, function (err, mainUser) {//Finds the user and permission
             if (err) throw err;
             if (!mainUser) {
-                res.json({ success: false, message: 'No user found'});
+                res.json({ success: false, message: 'No user found'});// error message if user noot found
             } else {
-                if (mainUser.permission !== 'admin') {
+                if (mainUser.permission !== 'admin') {//If not admin permission cannot delete business
                     res.json({ success: false, message: 'Insufficant Permission'});
                 } else {
-                    Business.findOneAndRemove({ _id: deletedBusiness }, function(err, business) {
+                    Business.findOneAndRemove({ _id: deletedBusiness }, function(err, business) {//deletes the business using the business ID
                         if (err) throw err;
                         res.json({success: true, });
                     });
@@ -169,7 +150,8 @@ module.exports = function(businessRouter) {
             }
         });
     });
-    //Edit business via ID
+   
+    //Gets business details using the ID 
     businessRouter.get('/editBusiness/:id', function(req,res) {
         var editBusiness = req.params.id;
         User.findOne({user: req.decoded}, function (err, mainUser) {
@@ -194,7 +176,7 @@ module.exports = function(businessRouter) {
     })
     //EDIT Business
     businessRouter.put('/editBusiness', function(req,res) {
-        var editBusiness = req.body._id;
+        var editBusiness = req.body._id;//Gets business ID
         if (req.body.business_name) var newName = req.body.business_name;
         if (req.body.business_type) var newType = req.body.business_type;
         if (req.body.business_address) var newAddress = req.body.business_address;

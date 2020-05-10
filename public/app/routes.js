@@ -44,7 +44,7 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true
     })
    
-   
+   //User Authenication
     .when('/login', {
         templateUrl: 'app/views/pages/users/login.html',
         authenticated: false
@@ -185,7 +185,7 @@ var app = angular.module('cvmaRoutes', ['ngRoute'])
         authenticated: true,
         permission: ['admin', 'moderator']
     })
-    .when('/post', {
+    .when('/post/:id', {
         templateUrl: 'app/views/pages/business/post.html',
         controller: 'postController',
         controllerAs: 'businessPost',

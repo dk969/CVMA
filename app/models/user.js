@@ -54,7 +54,7 @@ var passwordValidator = [
     })
 ];
 
-
+//Schema
 var UserSchema = new Schema({
 
     name: {type: String, required: true, validate: nameValidator},

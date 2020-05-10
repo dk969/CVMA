@@ -2,28 +2,19 @@ angular.module('businessController', ['businessServices'])
 
     .controller('businessController', function( $location, $timeout, Business, User, $scope, $routeParams) {
         var app = this;
-
-        
         app.loading = true;
         app.accessDenied = true;
         app.errorMsg = false;
-        
         app.limit = 50
         app.searchLimit = 0; 
         app.authorized = false;   
-
-
         app.conAdd = function(busData) {
             app.loading = true;
             app.errorMsg = false;
-            
-            
-            Business.create(app.busData).then(function(data) {
-                
+            Business.create(app.busData).then(function(data) {   
                 if (data.data.success) {
                     app.loading = false;
                     app.successMsg = data.data.message + '...Redirecting';
-
                     $timeout(function() {
                         $location.path('/businesslist');
                     }, 2000)
@@ -31,7 +22,6 @@ angular.module('businessController', ['businessServices'])
                     app.loading = false;
                     app.errorMsg = data.data.message;
                 }
-
             });
         };
         function getBusinesses() {
@@ -39,7 +29,6 @@ angular.module('businessController', ['businessServices'])
                 app.editAccess = false;
                 app.deleteAccess = false;
                 if (data.data.success) {
-                   
                     if (data.data.permission === 'admin' || data.data.permission === 'moderator'|| data.data.permission === 'user') {
                         app.companies = data.data.companies;
                         app.loading = false;
@@ -72,7 +61,6 @@ angular.module('businessController', ['businessServices'])
 
     app.showMore = function(number) {
         app.showMoreError = false;
-
         if (number > 0) {
             app.limit = number;
         } else {
@@ -83,7 +71,6 @@ angular.module('businessController', ['businessServices'])
     app.showAll = function() {
         app.limit = undefined;
         showMoreError = false;
-
     };
     
 
@@ -423,7 +410,6 @@ angular.module('businessController', ['businessServices'])
         app.errorMsg = false;
         app.disabled = true;
         var businessObject = {};
-
         if (valid) {
             businessObject._id = app.currentBusiness;
             businessObject.business_name = $scope.newName;
@@ -441,8 +427,7 @@ angular.module('businessController', ['businessServices'])
                     app.disabled = false;
                 }
             });
-
-        }else {
+        } else {
             app.errorMsg = "Please fill out correctly"
             app.disabled = false;
         }
@@ -451,7 +436,6 @@ angular.module('businessController', ['businessServices'])
         app.errorMsg = false;
         app.disabled = true;
         var businessObject = {};
-
         if (valid) {
             businessObject._id = app.currentBusiness;
             businessObject.business_type = $scope.newType;
@@ -479,7 +463,6 @@ angular.module('businessController', ['businessServices'])
         app.errorMsg = false;
         app.disabled = true;
         var businessObject = {};
-
         if (valid) {
             businessObject._id = app.currentBusiness;
             businessObject.business_address = $scope.newAddress;
@@ -497,8 +480,7 @@ angular.module('businessController', ['businessServices'])
                     app.disabled = false;
                 }
             });
-
-        }else {
+        } else {
             app.errorMsg = "Please fill out correctly"
             app.disabled = false;
         }
@@ -507,7 +489,6 @@ angular.module('businessController', ['businessServices'])
         app.errorMsg = false;
         app.disabled = true;
         var businessObject = {};
-
         if (valid) {
             businessObject._id = app.currentBusiness;
             businessObject.business_postcode = $scope.newPostcode;
@@ -525,8 +506,7 @@ angular.module('businessController', ['businessServices'])
                     app.disabled = false;
                 }
             });
-
-        }else {
+        } else {
             app.errorMsg = "Please fill out correctly"
             app.disabled = false;
         }
@@ -535,7 +515,6 @@ angular.module('businessController', ['businessServices'])
         app.errorMsg = false;
         app.disabled = true;
         var businessObject = {};
-
         if (valid) {
             businessObject._id = app.currentBusiness;
             businessObject.website = $scope.newWebsite;
@@ -553,8 +532,7 @@ angular.module('businessController', ['businessServices'])
                     app.disabled = false;
                 }
             });
-
-        }else {
+        } else {
             app.errorMsg = "Please fill out correctly"
             app.disabled = false;
         }
@@ -563,7 +541,6 @@ angular.module('businessController', ['businessServices'])
         app.errorMsg = false;
         app.disabled = true;
         var businessObject = {};
-
         if (valid) {
             businessObject._id = app.currentBusiness;
             businessObject.business_email = $scope.newEmail;
@@ -581,8 +558,7 @@ angular.module('businessController', ['businessServices'])
                     app.disabled = false;
                 }
             });
-
-        }else {
+        } else {
             app.errorMsg = "Please fill out correctly"
             app.disabled = false;
         }
@@ -591,7 +567,6 @@ angular.module('businessController', ['businessServices'])
         app.errorMsg = false;
         app.disabled = true;
         var businessObject = {};
-
         if (valid) {
             businessObject._id = app.currentBusiness;
             businessObject.business_contact = $scope.newContact;
@@ -609,8 +584,7 @@ angular.module('businessController', ['businessServices'])
                     app.disabled = false;
                 }
             });
-
-        }else {
+        } else {
             app.errorMsg = "Please fill out correctly"
             app.disabled = false;
         }
@@ -619,7 +593,6 @@ angular.module('businessController', ['businessServices'])
         app.errorMsg = false;
         app.disabled = true;
         var businessObject = {};
-
         if (valid) {
             businessObject._id = app.currentBusiness;
             businessObject.specialization = $scope.newSpecialization;
@@ -637,17 +610,14 @@ angular.module('businessController', ['businessServices'])
                     app.disabled = false;
                 }
             });
-
-        }else {
+        } else {
             app.errorMsg = "Please fill out correctly"
             app.disabled = false;
         }
     };
-   
 })
-.controller('postController', function( $location, $timeout, BusinessPost, User, $scope, Subscribe) {
+.controller('postController', function( $location, $timeout, BusinessPost,  $scope, ) {
     var app = this;
-
     app.loading = true;
     app.accessDenied = true;
     app.errorMsg = false;
@@ -656,6 +626,7 @@ angular.module('businessController', ['businessServices'])
     app.limit = 5;
     app.searchLimit = 0; 
     app.authorized = false;
+    
 
     app.postAdd = function(postData) {
         app.loading = true;
@@ -679,25 +650,15 @@ angular.module('businessController', ['businessServices'])
     };
     function getPosts() {
         BusinessPost.getPosts().then(function(data) {
-            
             if (data.data.success) {
                 if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
                     app.posts = data.data.posts;
                     app.loading = false;
                     app.accessDenied = false;
                     if (data.data.permission === 'admin') {
-                        app.editAccess = true;
                         app.deleteAccess = true;
                         app.authorized = true;
-                    } else if (data.data.permission === 'moderator') {
-                      
-                        app.deleteAccess = false;
-                        app.authorized = true;
-                    } else if (data.data.permission === 'user') {
-                        app.editAccess = false;
-                        app.deleteAccess = false;
-                        app.authorized = false;
-                    } 
+                    }
                 } else {
                     app.errorMsg = 'Insufficient Permissions';
                     app.loading = false;
@@ -713,7 +674,6 @@ angular.module('businessController', ['businessServices'])
 
         app.showMore = function(number) {
             app.showMoreError = false;
-
             if (number > 0) {
                 app.limit = number;
             } else {
@@ -729,10 +689,7 @@ angular.module('businessController', ['businessServices'])
         app.deletePost = function(_id) {
             BusinessPost.deletePost(_id).then(function(data) {
                 if (data.data.success) {
-                    
                         getPosts();
-                        
-                    
                 } else {
                     app.showMoreError = data.data.message;
                 }
@@ -905,9 +862,7 @@ angular.module('businessController', ['businessServices'])
         //Author Business control
         function  getAuthBusinesses(){
         Business.getAuthorBus().then(function(data) {
-            
             if (data.data.success) {
-               
                 if (data.data.permission === 'admin' || data.data.permission === 'moderator'|| data.data.permission === 'user') {
                     app.companies = data.data.companies;
                     app.loading = false;
@@ -941,10 +896,7 @@ angular.module('businessController', ['businessServices'])
         app.deleteBusiness = function(_id) {
             Business.deleteBusiness(_id).then(function(data) {
                 if (data.data.success) {
-                    
                         getAuthBusinesses();
-                        
-                    
                 } else {
                     app.showMoreError = data.data.message;
                 }
@@ -953,7 +905,6 @@ angular.module('businessController', ['businessServices'])
         //Author Post control
         function getAuthPosts() {
         BusinessPost.getAuthorPost().then(function(data) {
-            
             if (data.data.success) {
                 if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
                     app.posts = data.data.posts;
@@ -988,10 +939,7 @@ angular.module('businessController', ['businessServices'])
         app.deletePost = function(_id) {
             BusinessPost.deletePost(_id).then(function(data) {
                 if (data.data.success) {
-                    
                         getAuthPosts();
-                        
-                    
                 } else {
                     app.showMoreError = data.data.message;
                 }
@@ -1001,11 +949,9 @@ angular.module('businessController', ['businessServices'])
           //Author review control
           function getAuthRev() {
             Business.getAuthorReview().then(function(data) {
-                
                 if (data.data.success) {
                     if (data.data.permission === 'admin' || data.data.permission === 'moderator' || data.data.permission === 'user') {
                         app.review = data.data.reviews;
-                        console.log(data.data.reviews);
                         app.loading = false;
                         app.accessDenied = false;
                         if (data.data.permission === 'admin') {

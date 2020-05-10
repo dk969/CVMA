@@ -16,7 +16,6 @@ var nameValidator = [
   })
 ];
 
-
 var addressValidator = [
   validate({
       validator: 'matches',
