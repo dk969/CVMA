@@ -16,7 +16,7 @@ var emailValidator = [
 ];
 // The array for email subscriptions
 let Subscribe = new Schema({
-emails: [ { validate: emailValidator
+emails: [ {
 }],
 
 },{
