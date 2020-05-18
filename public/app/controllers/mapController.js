@@ -53,6 +53,7 @@ angular.module('mapController', ['businessServices'])
                   zoomControl: true,
                   scaleControl: true,
                   styles: [
+                    //CSS for the maps
                     {elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
                     {elementType: 'labels.text.fill', stylers: [{color: '#523735'}]},
                     {elementType: 'labels.text.stroke', stylers: [{color: '#f5f1e6'}]},
@@ -165,14 +166,13 @@ angular.module('mapController', ['businessServices'])
                 });
                 directionsRenderer.setMap(map);
                  var infoWindow = new google.maps.InfoWindow;
-                    
+                    //Gets users position using geolocation
                     if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(function (position) {
                             var pos = {
                                 lat: position.coords.latitude,
                                 lng: position.coords.longitude
                             };
-                            
                             infoWindow.setPosition(pos);
                             infoWindow.setContent('Your current location.');
                             infoWindow.open(map);
@@ -181,13 +181,12 @@ angular.module('mapController', ['businessServices'])
                             handleLocationError(true, infoWindow, map.getCenter());
                         });
                     } else {
-                        // Browser doesn't support Geolocation
                         handleLocationError(false, infoWindow, map.getCenter());
                     }
                 var onChangeHandler = function() {
                   calculateAndDisplayRoute(directionsService, directionsRenderer);
                 };
-               
+               //Gets Endpoint 
                 document.getElementById('end').addEventListener('change', onChangeHandler);
                 var geocoder = new google.maps.Geocoder();
 

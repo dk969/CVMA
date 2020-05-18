@@ -1,25 +1,36 @@
 
-
-
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+      <div class= "headers">Upgrade to a business account</div>
+      <hr>
+      <br>
+  </div>
+  <br>
 
 <div class="panel panel-default cardbus" >
     <div class="panel-body"  >
       <ul class="list-group">
         <li class="list-group-item" ng-model="user">
-          <p><strong> Hi, {{user.name}}</strong></p>
+          <p><strong> Hi, {{user.name}}.</strong></p>
+          <p><strong> Please check the below details and click 'Upgrade'. </strong></p>
           <p>Username: {{user.username}}</p>
-          <p>Permission: {{user.permission}}</p>
+          <p>Email: {{user.email}}</p>
         </li>
      </ul>
    </div>
-  <div>
-      <br>
-      <p> Please click on the link below to become a business</p>
-  </div>
+   <br>
+     
+  
   <label><strong>Permission: &nbsp &nbsp</strong> </label> {{ newPermission }} &nbsp;
-  <button  ng-disabled="upgrade.disableModerator" ng-click="upgrade.upgradePermission('moderator');"type="button" class="btn btn-info">Moderator</button>
+  <button  ng-disabled="upgrade.disableModerator" ng-click="upgrade.upgradePermission('moderator');"type="button" class="btn btn-info">Upgrade</button>
+  <a href="#!/home"><br><br>
+    <button type="button"  class="btn btn-success">Take me to Classic Solutions</button><br>
+</a>
+<br>
+</div>
   <br>
 </div>
+  </div>
 
 <br>
 <div class='row show-hide-message'ng-show="upgrade.successMsg">

@@ -1,5 +1,6 @@
 angular.module('authServices', [])
- 
+ //These factories help control the Authenication of the application
+
 .factory('Auth', function($http, AuthToken) {
    var authFactory = {};
         
@@ -41,7 +42,7 @@ angular.module('authServices', [])
 
     return authFactory;
 })
-
+//Sets and gets token
 .factory('AuthToken', function($window) {
     var authTokenFactory = {};
 
@@ -61,7 +62,7 @@ angular.module('authServices', [])
 
     return authTokenFactory; 
 })
-
+//Checks the users token
 .factory('AuthInterceptors', function(AuthToken) {
     var authInterceptorsFactory = {};
 

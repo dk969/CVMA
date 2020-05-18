@@ -1,13 +1,19 @@
-<div class= "page-header"> 
-    <h1>Account Activation</h1>
-</div>
-<a href="#!/login">
-    <button type="button"  class="btn btn-success">I am a Customer</button>
-</a> &nbsp;
-<a href="#!/buslogin">
-    <button type="button"  class="btn btn-primary">I am a business</button>
-</a>
 
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <div class= "headers">Account Activated</div>
+        <hr>
+        <br>
+        <div>
+            <div> <a href="#!/login">
+                <button type="button"  class="btn button2 btn-success">I am a Customer</button>
+            </a>
+            <a href="#!/buslogin">
+                <button type="button"  class="btn button3 btn-danger">I am a Business</button>
+            </a></div>
+        </div>
+        <br>
+</div>
 <br>
 <div class='row show-hide-message'ng-show="email.successMsg">
     <div class="alert alert-success">{{email.successMsg}}</div>

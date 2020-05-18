@@ -5,25 +5,27 @@ angular.module('businessController', ['businessServices'])
         app.loading = true;
         app.accessDenied = true;
         app.errorMsg = false;
-        app.limit = 50
+        app.limit = 50;
         app.searchLimit = 0; 
-        app.authorized = false;   
+        app.authorized = false; 
+        //collects data from business form and posts it on the database
         app.conAdd = function(busData) {
             app.loading = true;
             app.errorMsg = false;
             Business.create(app.busData).then(function(data) {   
                 if (data.data.success) {
                     app.loading = false;
-                    app.successMsg = data.data.message + '...Redirecting';
+                    app.successMsg = data.data.message + '...Redirecting';//Sends a redirecting message
                     $timeout(function() {
-                        $location.path('/businesslist');
-                    }, 2000)
+                        $location.path('/businesslist');//redirects to the businesslist html
+                    }, 2000)//Waits for 2 seconds
                 } else {
                     app.loading = false;
                     app.errorMsg = data.data.message;
                 }
             });
         };
+        //Get the businesses and sets what permissions have edit and delete access
         function getBusinesses() {
             Business.getBusinesses().then(function(data) {
                 app.editAccess = false;
@@ -31,6 +33,7 @@ angular.module('businessController', ['businessServices'])
                 if (data.data.success) {
                     if (data.data.permission === 'admin' || data.data.permission === 'moderator'|| data.data.permission === 'user') {
                         app.companies = data.data.companies;
+                        app.vehicles = data.data.vehicles;
                         app.loading = false;
                         app.accessDenied = false;
                         if (data.data.permission === 'admin') {
@@ -58,7 +61,7 @@ angular.module('businessController', ['businessServices'])
          }
     
     getBusinesses();
-
+         //shows more businesses depending on the number the user inputted
     app.showMore = function(number) {
         app.showMoreError = false;
         if (number > 0) {
@@ -67,26 +70,23 @@ angular.module('businessController', ['businessServices'])
             app.showMoreError = "Please enter a valid number";
         }
     };
-
+    //shows all of the businesses
     app.showAll = function() {
         app.limit = undefined;
         showMoreError = false;
     };
     
-
+    //removes business by the business id
     app.deleteBusiness = function(_id) {
         Business.deleteBusiness(_id).then(function(data) {
             if (data.data.success) {
-                
                     getBusinesses();
-                    
-                
             } else {
                 app.showMoreError = data.data.message;
             }
         });
     };
-    
+    //Searches through the businesses using the keywork the user inputted
     app.search = function(searchKeyword, number) {
 
         if (searchKeyword) {
@@ -105,14 +105,15 @@ angular.module('businessController', ['businessServices'])
         }
 
     };
-
+    //clears the search
     app.clear = function() {
         $scope.number = 'Clear';
-        app.limit = 0;
+        app.limit = 50;
         $scope.searchFilter = undefined;
         $scope.searchKeyword = undefined;
         app.showMoreError = false;
     };
+    //Advance search, using mutliple inputs to narrow down the businesses
     app.advancedSearch = function(searchByName, searchByType, searchByPostcode, searchBySpecialization ) {
         if (searchByName || searchByType || searchByPostcode || searchBySpecialization) {
             $scope.advancedSearchFilter = {};
@@ -131,15 +132,10 @@ angular.module('businessController', ['businessServices'])
             app.searchLimit = undefined;
         }
     };  
-
+    //sorts the businesses 
     app.sortOrder = function(order) {
         app.sort = order;
     };
-
-
-  
-    
-
 })
 
 .controller('getController', function($scope, $routeParams, Business, $timeout, $location) {
@@ -150,7 +146,7 @@ angular.module('businessController', ['businessServices'])
     app.accessDenied = true;
     app.errorMsg = false;
     app.authorized = false;
-
+    //Gets a business and its reviews by its ID
     function getBus() {
     Business.getBusinessID($routeParams.id).then(function(data) {
         if (data.data.success) {
@@ -199,7 +195,6 @@ angular.module('businessController', ['businessServices'])
             if (data.data.success) {
                 app.loading = false;
                 app.successMsg = data.data.message + '...Redirecting';
-
                 $timeout(function() {
                     $location.path('/businesslist');
                 }, 2000)
@@ -214,29 +209,21 @@ angular.module('businessController', ['businessServices'])
     app.deleteReview = function(_id) {
         Business.deleteReview(_id).then(function(data) {
             if (data.data.success) {
-                
-                   getBus();
-                    
-                
+                   getBus();    
             } else {
                 app.showMoreError = data.data.message;
             }
         });
     };
-
-
-
-
 })
 //Update business controller
 .controller('editBusController', function($scope, $routeParams, Business, $timeout) {
     var app = this;
     $scope.business_nameTab = 'active';
     app.phase1 = true;
-
+    //Sets the businesses details as new varibles 
     Business.getBusiness($routeParams.id).then(function(data) {
         if (data.data.success) {
-            console.log(data.data.business.business_name);
             $scope.newName = data.data.business.business_name;
             $scope.newType =data.data.business.business_type;
             $scope.newAddress = data.data.business.business_address;
@@ -253,9 +240,9 @@ angular.module('businessController', ['businessServices'])
         }
     });
     
-
+    //Controls the different tabs depending on what the user selects
     app.business_namePhase = function() {
-        $scope.business_nameTab = 'active';
+        $scope.business_nameTab = 'active';//The active table is the one which shows
         $scope.business_typeTab = 'default';
         $scope.business_addressTab = 'default';
         $scope.business_postcodeTab = 'default';
@@ -263,7 +250,7 @@ angular.module('businessController', ['businessServices'])
         $scope.business_emailTab = 'default';
         $scope.business_contactTab = 'default';
         $scope.specializationTab = 'default';
-        app.phase1 = true;
+        app.phase1 = true;//This links the html displaying the form when true
         app.phase2 = false;
         app.phase3 = false;
         app.phase4 = false;
@@ -406,19 +393,20 @@ angular.module('businessController', ['businessServices'])
         app.phase8 = true;
         app.errorMsg = false;
     };
+    //Updates the individual elements 
     app.updateName = function(newName, valid) {
         app.errorMsg = false;
         app.disabled = true;
-        var businessObject = {};
+        var businessObject = {};//creates a blank object
         if (valid) {
-            businessObject._id = app.currentBusiness;
-            businessObject.business_name = $scope.newName;
+            businessObject._id = app.currentBusiness;//sets the object ID to the business ID
+            businessObject.business_name = $scope.newName;//sets the object name to the NEW business name
             Business.editedBusiness(businessObject).then(function(data) {
                 if (data.data.success) {
                     app.successMsg = data.data.message;
-                    $timeout(function() {
-                        app.nameForm.business_name.$setPristine();
-                        app.nameForm.business_name.$setUntouched();
+                    $timeout(function() {//Creates a timeout of 2 seconds
+                        app.nameForm.business_name.$setPristine();//Resets form
+                        app.nameForm.business_name.$setUntouched();//Sets the form to its untouched state
                         app.successMsg = false;
                         app.disabled = false;
                     }, 2000);
@@ -432,6 +420,7 @@ angular.module('businessController', ['businessServices'])
             app.disabled = false;
         }
     };
+    //Repeated as above but updated the type instead
     app.updateType = function(newType, valid) {
         app.errorMsg = false;
         app.disabled = true;
@@ -621,7 +610,6 @@ angular.module('businessController', ['businessServices'])
     app.loading = true;
     app.accessDenied = true;
     app.errorMsg = false;
-    app.editAccess = false;
     app.deleteAccess = false;
     app.limit = 5;
     app.searchLimit = 0; 
@@ -632,9 +620,8 @@ angular.module('businessController', ['businessServices'])
         app.loading = true;
         app.errorMsg = false;
         
-
+        //Creates a new post and uploads it to the
         BusinessPost.create(app.postData).then(function(data) {
-            
             if (data.data.success) {
                 app.loading = false;
                 app.successMsg = data.data.message + '...Redirecting';

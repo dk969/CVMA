@@ -15,7 +15,7 @@ module.exports = function(router) {
     auth: {
         api_user: 'dking215',
         api_key: 'King1995!'
-    }
+        }
     }
 
     var client = nodemailer.createTransport(sgTransport(options));
@@ -59,11 +59,11 @@ module.exports = function(router) {
                 } 
              } else {
                 var email = {
-                    from: 'CVMA Staff, staff@CVMA.com',
+                    from: 'Classic Solutions Staff, staff@classicsolutions.com',
                     to: user.email,
-                    subject: 'CVMA Activation Link',
-                    text: 'Hello ' + user.name + ', Thank you for registering for CVMA. Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' + user.temporarytoken,
-                    html: 'Hello ' + user.name + ', <br>Thank you for registering for CVMA. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' + user.temporarytoken + '">http://localhost:4200/activate</a>'
+                    subject: 'Classic Solutions Activation Link',
+                    text: 'Hello ' + user.name + ', Thank you for registering for Classic Solutions. Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' + user.temporarytoken,
+                    html: 'Hello ' + user.name + ', <br>Thank you for registering for Classic Solutions. Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' + user.temporarytoken + '">http://localhost:4200/activate</a>'
                     };
                     client.sendMail(email, function(err, info){
                         if (err ){
@@ -148,11 +148,11 @@ module.exports = function(router) {
                             console.log(err);
                         } else {
                             var email = {
-                                from: 'CVMA Staff, staff@CVMA.com',
+                                from: 'Classic Solutions Staff, staff@classicsolutions.com',
                                 to: user.email,
-                                subject: 'CVMA Activation Successful',
+                                subject: 'Classic Solutions Activation Successful',
                                 text: 'Hello ' + user.name + ', Your Activation has been successful',
-                                html: 'Hello ' + user.name + ', <br>Your Activation has been successful'
+                                html: 'Hello ' + user.name + ',<br> <br>Your Activation has been successful'
                                 
                                 };
                             
@@ -205,9 +205,9 @@ module.exports = function(router) {
                     console.log(err);
                 } else {
                     var email = {
-                        from: 'CVMA Staff, staff@CVMA.com',
+                        from: 'Classic Solutions Staff, staff@classicsolutions.com',
                         to: user.email,
-                        subject: 'CVMA Activation Link Request',
+                        subject: 'Classic Solutions Activation Link Request',
                         text: 'Hello ' + user.name + ', You recently requested a new account activation link. Please Click on the link below to complete your registration: <a href="http://localhost:4200/#!/activate/' + user.temporarytoken,
                         html: 'Hello ' + user.name + ', <br><br>You recently requested a new account activation link.  Please Click on the link below to complete your registration: <br><br> <a href="http://localhost:4200/#!/activate/' + user.temporarytoken + '">http://localhost:4200/activate. This link will expire 24 hours after it is requested </a>'
                         };
@@ -237,9 +237,9 @@ module.exports = function(router) {
                         res.json({ success: false, message: 'Email not found' });
                     } else {
                         var email = { 
-                            from: 'CVMA Staff, staff@CVMA.com',
+                            from: 'Classic Solutions Staff, staff@classicsolutions.com',
                             to: user.email,
-                            subject: 'CVMA Username Request',
+                            subject: 'Classic Solutions Username Request',
                             text: 'Hello ' + user.name + ', You recently requested your username.  Please save it in your files :' + user.username,
                             html: 'Hello ' + user.name + ', <br><br>You recently requested your username.  Please save it in your files :' + user.username
                             };
@@ -267,11 +267,11 @@ module.exports = function(router) {
                         res.json({ success: false, message: err});
                     } else {
                         var email = { 
-                            from: 'CVMA Staff, staff@CVMA.com',
+                            from: 'Classic Solutions Staff, staff@classicsolutions.com',
                             to: user.email,
-                            subject: 'CVMA Password Reset Request',
+                            subject: 'Classic Solutions Password Reset Request',
                             text: 'Hello ' + user.name + ', You recently requested a password reset link. Please click on the link below to reset you password: http://localhost:4200/reset/' + user.resettoken,
-                            html: 'Hello ' + user.name + ', <br><br>You recently requested a password reset link. Please click on the link below to reset you password:br><br> <a href="http://localhost:4200/#!/reset/' + user.resettoken + '">http://localhost:4200/reset</a>'
+                            html: 'Hello ' + user.name + ', <br><br>You recently requested a password reset link. Please click on the link below to reset you password:<br><br> <a href="http://localhost:4200/#!/reset/' + user.resettoken + '">http://localhost:4200/reset</a>'
                             };
                             client.sendMail(email, function(err, info){
                                 if (err )console.log(error); 
@@ -320,11 +320,11 @@ module.exports = function(router) {
                     } else {
                         //Password Reset email
                         var email = { 
-                            from: 'CVMA Staff, staff@CVMA.com',
+                            from: 'Classic Solutions Staff, staff@classicsolutions.com',
                             to: user.email,
-                            subject: 'CVMA Password Reset',
-                            text: 'Hello ' + user.name + ', This email is to notify you that you password for CVMA has now been reset.',
-                            html: 'Hello ' + user.name + ', <br><br>This email is to notify you that you password for CVMA has now been reset.'
+                            subject: 'Classic Solutions Password Reset',
+                            text: 'Hello ' + user.name + ', This email is to notify you that you password for Classic Solutions has now been reset.',
+                            html: 'Hello ' + user.name + ', <br><br>This email is to notify you that you password for Classic Solutions has now been reset.'
                             };
                             client.sendMail(email, function(err, info){
                                 if (err )console.log(error); // if error in sending email
@@ -395,8 +395,6 @@ module.exports = function(router) {
                         } else { 
                             res.json({ success: true, users: users, permission: mainUser.permission });
                         }
-
-
                     } else {
                         res.json({ success: false, message: 'Insufficient Permission'});
                     }
@@ -808,13 +806,11 @@ module.exports = function(router) {
         router.post('/businessPost', function(req,res) {
             var businessPost = BusinessPost();
             User.find({ username: req.decoded.username}, function(err, mainUser) {
-                
                 if (err) throw err;
                 if(!mainUser) {
                     res.json({ success: false, message: " No user found"});
                 } else { 
                     User.findOne({ _id: mainUser}, function(err, user) {
-                       
                         if (err) throw err;
                         if (!user) {
                             res.json({ success: false, message: 'No user found'});
@@ -862,10 +858,10 @@ module.exports = function(router) {
                                     console.log(sub);
                                     if (err) throw err;
                                 var email = {
-                                    from: 'CVMA Staff, staff@CVMA.com',
+                                    from: 'Classic Solutions Staff, staff@classicsolutions.com',
                                     to: sub.emails,
-                                    subject: 'CVMA New Post Link',
-                                    text: 'Hello Classic Solutions customer, There has been a new post on Classic Solutions:' + businessPost.business_title+ '<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' ,
+                                    subject: 'Classic Solutions New Post Link',
+                                    text: 'Hello Classic Solutions customer, There has been a new post on Classic Solutions:<br>' + businessPost.business_title+ '<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'<br>Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' ,
                                     html: 'Hello Classic Solutions customer, <br>There has been a new post on Classic Solutions:<br><strong>'+ businessPost.business_title +'<br>'+businessPost.business_name +'<br> Post: '+businessPost.post +'</strong><br>Please Login to see more details: <br><br> <a href="http://localhost:4200/#!/login' +  '">http://localhost:4200/login</a>'
                                     
                                     };
@@ -898,7 +894,6 @@ module.exports = function(router) {
                 res.json({ success: false, message: " No user found"});
             } else { 
                  User.findOne({ _id: mainUser}, function(err, user) {
-                     console.log(user);
                     if (err) throw err;
                     if (!user) {
                         res.json({ success: false, message: 'No user found'});
@@ -944,7 +939,6 @@ module.exports = function(router) {
                     res.json({ success: false, message: " No user found"});
                 } else { 
                      User.findOne({ _id: mainUser}, function(err, user) {
-                         console.log(user);
                         if (err) throw err;
                         if (!user) {
                             res.json({ success: false, message: 'No user found'});
@@ -1048,8 +1042,6 @@ router.get('/business', function(req,res) {
                         } else { 
                             res.json({ success: true, companies: companies, permission: user.permission, id: user._id });
                         }
-
-
                     } else {
                         res.json({ success: false, message: 'Insufficient Permission'});
                     }
@@ -1116,11 +1108,17 @@ router.get('/businessAll', function(req,res) {
                               
                             if (user.permission ==='admin' || user.permission === 'moderator' || user.permission === 'user') {
                                 if (!companies) {
-                                    res.json ({ success: false, message: 'Vehicles not found'});
+                                    res.json ({ success: false, message: 'Businesses not found'});
                                 } else { 
-                                    res.json({ success: true, companies: companies, permission: user.permission, id: user._id,});
-                                   
-                                }
+                                    Vehicle.find({'author.id': user._id}, function(err, vehicles) {
+                                        if (err) throw err;
+                                        if (!vehicles) {
+                                            res.json ({ success: false, message: 'Businesses not found'});
+                                        } else { 
+                                    res.json({ success: true, companies: companies, permission: user.permission, id: user._id, vehicles: vehicles});
+                                        }
+                                })
+                            }
                             } else {
                                 res.json({ success: false, message: 'Insufficient Permission'});
                             }
@@ -1215,11 +1213,8 @@ router.get('/review', function(req,res) {
                         if (!reviews) {
                             res.json ({ success: false, message: 'Vehicles not found'});
                         } else { 
-                            res.json({ success: true, reviews: reviews, permission: user.permission, id: user._id });
-                            
+                            res.json({ success: true, reviews: reviews, permission: user.permission, id: user._id });   
                         }
-
-
                     } else {
                         res.json({ success: false, message: 'Insufficient Permission'});
                     }

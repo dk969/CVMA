@@ -1,5 +1,6 @@
 angular.module('businessServices', [])
 
+//These factories link the Routes with the controllers for businesses
 
 .factory('Business', function($http) {
     businessFactory = {};

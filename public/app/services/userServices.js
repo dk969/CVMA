@@ -1,5 +1,6 @@
 angular.module('userServices', [])
 
+//These factories link the Routes with the controllers for users
 
 .factory('User', function($http) {
     var userFactory = {};

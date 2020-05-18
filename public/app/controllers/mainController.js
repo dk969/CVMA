@@ -5,8 +5,6 @@ angular.module('mainController', ['authServices', 'userServices'])
 .controller('mainController', function(Auth, $timeout, $location, $rootScope, $window, $interval, $route, User, AuthToken) {
    var app = this;
     
-    //remove console logs ONCE complete
-    
     app.loadme = false;// allowing the html to catch up getting all data needed
 
     app.checkSession =function() {
@@ -68,7 +66,7 @@ angular.module('mainController', ['authServices', 'userServices'])
 
      
     };
-
+    //allows user to extend their session
     app.renewSession = function() {
         app.choiceMade = true;
         User.renewSession(app.username).then(function(data) {
@@ -81,7 +79,7 @@ angular.module('mainController', ['authServices', 'userServices'])
         });        
         hideModal();
     };
-
+    //Ends session and logs out
     app.endSession = function() {
         app.choiceMade = true;
         hideModal();
@@ -96,9 +94,7 @@ angular.module('mainController', ['authServices', 'userServices'])
 
     $rootScope.$on('$routeChangeStart', function() {
         if (!app.checkSession) app.checkSession();
-
-
-
+        //Checks is user is logged in and collects user details
         if (Auth.isLoggedIn()) {
             app.isLoggedIn = true;
             Auth.getUser().then(function(data) { 
@@ -118,14 +114,13 @@ angular.module('mainController', ['authServices', 'userServices'])
                 });
             });
         } else {
-            console.log('Failure: User is NOT logged in');
             app.isLoggedIn = false;
             app.username = '';
             app.loadme = true;
         }
         if ($location.hash() == '_=_')$location.hash(null);
     });
-
+    //social media log in NOT working due to not being able to get verfication from Facebook and Google
         this.facebook = function() {
             app.disable = true;
             $window.location = $window.location.protocol +'//' +$window.location.host + '/auth/facebook';
@@ -136,7 +131,7 @@ angular.module('mainController', ['authServices', 'userServices'])
             $window.location = $window.location.protocol +'//' +$window.location.host + '/auth/google';
         };
   
-
+    // Log in controller 
    this.doLogin = function(loginData) {
         app.loading = true;
         app.errorMsg =false;
@@ -172,7 +167,7 @@ angular.module('mainController', ['authServices', 'userServices'])
              }
         });
     };
-    //Redirects you to business upgrade 
+    //Redirects you to business upgrade to business login 
     app.busLogin = function(loginData) {
         app.loading = true;
         app.errorMsg =false;
@@ -212,7 +207,7 @@ angular.module('mainController', ['authServices', 'userServices'])
              }
         });
     };
-    // need to fix  vid 9/22 around 18 mins
+    // logout function
     app.logout = function() {
         showModal(2);
 

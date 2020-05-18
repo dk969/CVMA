@@ -1,5 +1,7 @@
 angular.module('userController', ['userServices'])
 
+//Registeration controller, ensureing the form is filled out correctly 
+
 .controller('regController', function($http, $location, $timeout, User) {
 
     var app = this;
@@ -13,7 +15,6 @@ angular.module('userController', ['userServices'])
             User.create(app.regData).then(function(data) {
                 if (data.data.success) {
                    app.loading = false;
-                    //creates success message
                    app.successMsg = data.data.message + ' ...Redirecting';
                    $timeout(function() {
                        $location.path('/login');
@@ -31,7 +32,7 @@ angular.module('userController', ['userServices'])
             app.errorMsg = "Please ensure the form is filled out correctly";
         }
     };
-
+    //Checks the username by making sure it hasn't already been taken
     this.checkUsername = function(regData) {
         app.checkUsername = true;
         app.usernameMsg = false;
@@ -48,7 +49,7 @@ angular.module('userController', ['userServices'])
             }
         });
     }
-
+    //Checks the email by making sure it hasn't already been taken
     this.checkEmail = function(regData) {
         app.checkEmail = true;
         app.emailMsg = false;
@@ -68,7 +69,7 @@ angular.module('userController', ['userServices'])
 
 
 })
-
+//Checks the users password when they register or update
 .directive('match', function(){
     return {
         restrict: 'A',
@@ -101,6 +102,7 @@ angular.module('userController', ['userServices'])
     };
 })
 
+// Social media controllers
 
 .controller('facebookController', function($routeParams, Auth, $location, $window) {
     

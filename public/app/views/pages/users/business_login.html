@@ -1,18 +1,56 @@
-<div class= "headers"> Business Login</div>
-
-<form ng-submit="main.busLogin(loginData);">
-
-    <label>Username</label>
-    <input ng-disabled="main.disabled || facebook.disabled || google.disabled" class="form-control" type="text" name="username" placeholder="Please Enter a Username" ng-model="main.loginData.username">
-    <br>
-    <label>Password</label>
-    <input ng-disabled="main.disabled || facebook.disabled || google.disabled"class="form-control" type="password" name="password" placeholder="Please Enter a Password" ng-model="main.loginData.password">
-    <br>
-    <button ng-disabled="main.disabled || facebook.disabled || google.disabled" class="btn btn-primary" type="submit">Login </button>
-    
-</form>
 <br>
-
+<br>
+<div class="container">
+    
+    <form ng-submit="main.busLogin(loginData);">
+        <div class= "headers" style="text-align: center;"> Login to Classic Solutions</div>
+        
+        <hr>
+    
+        <div class="vl">
+            
+        </div>
+        <div class="col">
+        <label class="log">Username</label><br>
+        <input ng-disabled="facebook.disabled || google.disabled" class="form-control"  type="text" name="username" placeholder="Please Enter a Username" ng-model="main.loginData.username">
+          
+        <br>
+        <label class="log">Password</label><br>
+        <input ng-disabled="main.disabled || facebook.disabled || google.disabled"class="form-control" type="password" name="password" placeholder="Please Enter a Password" ng-model="main.loginData.password">
+            
+        <br>
+     
+    
+        </div>
+       <br>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button ng-disabled=true type="button" class="fb logbtn" ng-click="main.facebook();">
+            <i class="fa fa-facebook fa-fw"></i> Login with Facebook</button><br><br>
+    
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button ng-disabled=true type="button" class="google logbtn" ng-click="main.google();"class="google btn">
+            <i class="fa fa-google fa-fw"></i> Login with Google+ </button>&nbsp; 
+          
+        <br><br>
+       
+        
+        <div class="col"> <button ng-disabled="main.disabled || facebook.disabled || google.disabled" class="registerbtn" type="submit">Login </button>&nbsp;</div>&nbsp;&nbsp;
+        <br><br>
+    </form>
+        <br>
+        </div>
+        
+        
+      
+    
+    
+     <div class="container signin">   
+         <div class="col"><a  href="#!/resetpassword"><button class="btn" style="color: white; background-color: #bd0404;">Forgot password?</button></a></div>
+          <a href="#!/resetusername"> <button class="btn" style="color: white; background-color: #bd0404;">Forgot username?</button> </a>
+     </div>
+    
+    
+    
+    
+    <br>
 
 
 <div class="jumbotron text-center" ng-show="main.loading">
@@ -24,3 +62,4 @@
 <div class='row show-hide-message'ng-show="main.successMsg">
     <div class="alert alert-success">{{main.successMsg}}</div>
 </div>
+<br><br>
