@@ -79,7 +79,7 @@ app.use('/api', appRoutes);
 app.use('/businessRoute', businessRoutes);
 app.use('/vehicleRoute', vehicleRoutes);
 // DB connection
-mongoose.connect('mongodb+srv://dk215:King1995!@vma-database-z52b4.mongodb.net/test?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://***DatabaseDetails***', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
