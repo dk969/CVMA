@@ -244,7 +244,7 @@ angular.module('mapController', ['businessServices'])
             var script = document.createElement('script');
             script.type = 'text/javascript';
             script.src = 'https://maps.google.com/maps/api/js?sensor=false&callback=initialize';
-            script.src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAee9B7WpqGWmSQD6QT6WexgM8Iv0Vd2ls";
+            script.src="https://maps.googleapis.com/maps/api/js?key=API KEY";
             script.defer = true;
             script.async = true;
 
@@ -409,7 +409,7 @@ angular.module('mapController', ['businessServices'])
             var script = document.createElement('script');
             script.type = 'text/javascript';
             script.src = 'https://maps.google.com/maps/api/js?sensor=false&callback=initialize';
-           script.src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAee9B7WpqGWmSQD6QT6WexgM8Iv0Vd2ls";
+           script.src="https://maps.googleapis.com/maps/api/js?key=API KEY";
             script.defer = true;
             script.async = true;
 
